@@ -26,7 +26,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .hero-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;color:var(--text);margin-bottom:1rem;}
 .hero-title span{color:var(--blue);position:relative;display:inline-block;}
 .hero-title span::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--coral));}
-.hero-sub{white-space:nowrap;font-size:1rem;font-weight:600;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto;}
+.hero-sub{font-size:1rem;font-weight:600;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto;}
 
 .select-section{width:100%;max-width:620px;}
 .select-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:2px solid var(--bdr);}
@@ -135,9 +135,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .ex-btn:hover{filter:brightness(1.08);}
 /* Flashcards */
 .fc-scene{perspective:1200px;margin-bottom:1.5rem;}
-.fc-card{position:relative;width:100%;min-height:280px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+.fc-card{position:relative;width:100%;min-height:220px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);cursor:pointer;}
 .fc-card.flipped{transform:rotateY(180deg);}
-.fc-face{position:absolute;inset:0;min-height:280px;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem;text-align:center;overflow:hidden;box-shadow:0 4px 24px rgba(45,74,154,.08);}
+.fc-face{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 2rem;text-align:center;overflow:auto;box-shadow:0 4px 24px rgba(45,74,154,.08);}
 .fc-face::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0;}
 .fc-front{background:var(--white);border:2px solid var(--bdr);}
 .fc-front::before{background:linear-gradient(90deg,var(--teal),var(--blue));}
@@ -197,7 +197,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   #select-screen{padding:0 1rem 6rem;}
   .hero{padding:2rem .5rem 1.5rem;}
   .hero-title{font-size:1.6rem;}
-  .hero-sub{white-space:nowrap;font-size:.9rem;}
+  .hero-sub{font-size:.9rem;}
   .hero-badge{font-size:.72rem;padding:.3rem .8rem;}
 
   /* SRS dashboard */
@@ -277,7 +277,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .ex-bar{margin-bottom:1.5rem;}
 
   /* Flashcards */
-  .fc-face{padding:1.5rem 1rem;min-height:220px;}
+  .fc-face{padding:1.2rem 1rem;overflow:auto;}
   .fc-q{font-size:.92rem;}
   .fc-answer{font-size:.88rem;}
   .fc-nav-btn{font-size:.75rem;padding:.5rem .9rem;}
