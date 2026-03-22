@@ -81,8 +81,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .ex-breadcrumb strong{color:var(--blue);}
 .ex-back-btn{background:var(--white);border:2px solid var(--bdr);color:var(--text);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;padding:.5rem 1.1rem;border-radius:10px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:.4rem;}
 .ex-back-btn:hover{border-color:var(--blue);color:var(--blue);}
-.ex-body{max-width:760px;margin:0 auto;padding:1.5rem 2rem 3rem;}
-.ex-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;background:var(--white);border:2px solid var(--bdr);border-radius:16px;padding:.4rem;margin-bottom:3rem;}
+.ex-body{max-width:760px;margin:0 auto;padding:.8rem 2rem 2rem;}
+.ex-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;background:var(--white);border:2px solid var(--bdr);border-radius:16px;padding:.4rem;margin-bottom:1.2rem;}
 .ex-tab{background:transparent;border:none;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;color:var(--muted);padding:.65rem .2rem;border-radius:12px;cursor:pointer;transition:all .2s;text-align:center;line-height:1.4;}
 .ex-tab .ti{display:block;font-size:1.1rem;margin-bottom:.2rem;}
 .ex-tab .step{display:inline-block;font-size:.65rem;font-weight:800;background:var(--surf);color:var(--muted);border-radius:100px;padding:.05rem .4rem;margin-top:.15rem;}
@@ -92,29 +92,29 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .ex-panel{display:none;}
 .ex-panel.on{display:block;animation:exFade .3s ease;}
 @keyframes exFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ex-sh{font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:.4rem;}
+.ex-sh{font-size:1.4rem;font-weight:900;color:var(--text);margin-bottom:.2rem;}
 .ex-sh .badge{display:inline-block;font-size:.78rem;font-weight:800;padding:.15rem .7rem;border-radius:100px;margin-left:.5rem;vertical-align:middle;background:var(--blue-lt);color:var(--blue);border:1.5px solid rgba(45,74,154,.2);}
-.ex-ssub{font-size:.95rem;font-weight:600;color:var(--muted);line-height:1.7;margin-bottom:2.5rem;}
+.ex-ssub{font-size:.95rem;font-weight:600;color:var(--muted);line-height:1.5;margin-bottom:.8rem;}
 .ex-level{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:800;padding:.3rem .9rem;border-radius:100px;margin-bottom:1.5rem;}
 .lvl-1{background:var(--teal-lt);color:var(--teal);border:1.5px solid rgba(8,145,178,.25);}
 .lvl-2{background:var(--blue-lt);color:var(--blue);border:1.5px solid rgba(45,74,154,.25);}
 .lvl-3{background:var(--purple-lt);color:var(--purple);border:1.5px solid rgba(124,58,237,.25);}
 .lvl-4{background:var(--yellow-lt);color:var(--yellow);border:1.5px solid rgba(217,119,6,.25);}
-.ex-pills{display:flex;gap:.7rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.ex-pills{display:flex;gap:.7rem;margin-bottom:.3rem;flex-wrap:wrap;}
 .ex-pill{font-size:.85rem;font-weight:800;padding:.4rem 1rem;border-radius:100px;border:2px solid;}
 .ex-pill.ok{color:var(--green);border-color:rgba(22,163,74,.3);background:var(--green-lt);}
 .ex-pill.err{color:var(--coral);border-color:rgba(232,87,58,.3);background:var(--coral-lt);}
 .ex-retry-btn{display:none;background:var(--coral-lt);border:2px solid rgba(232,87,58,.35);color:var(--coral);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;padding:.4rem 1rem;border-radius:100px;cursor:pointer;margin-bottom:1.5rem;transition:all .18s;}
 .ex-retry-btn.show{display:inline-block;}
-.ex-progrow{display:flex;justify-content:space-between;font-size:.9rem;font-weight:700;color:var(--muted);margin-bottom:.8rem;}
+.ex-progrow{display:flex;justify-content:space-between;font-size:.9rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
 .ex-progrow strong{color:var(--blue);}
-.ex-bar{height:7px;background:var(--bdr);border-radius:4px;overflow:hidden;margin-bottom:2.5rem;}
+.ex-bar{height:7px;background:var(--bdr);border-radius:4px;overflow:hidden;margin-bottom:.6rem;}
 .ex-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:4px;transition:width .5s ease;}
-.ex-card{background:var(--white);border:2px solid var(--bdr);border-radius:22px;padding:2.8rem 2.4rem;position:relative;overflow:hidden;margin-bottom:2.5rem;display:flex;flex-direction:column;min-height:170px;transition:border-color .3s;box-shadow:0 4px 20px rgba(45,74,154,.06);animation:exFade .3s ease;}
+.ex-card{background:var(--white);border:2px solid var(--bdr);border-radius:22px;padding:1.2rem 1.4rem;position:relative;overflow:hidden;margin-bottom:1rem;display:flex;flex-direction:column;min-height:170px;transition:border-color .3s;box-shadow:0 4px 20px rgba(45,74,154,.06);animation:exFade .3s ease;}
 .ex-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--blue));}
 .ex-card.ok-st{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.02);}
 .ex-card.err-st{border-color:rgba(232,87,58,.3);background:rgba(232,87,58,.02);}
-.ex-qnum{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem;display:flex;align-items:center;gap:.5rem;}
+.ex-qnum{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem;}
 .ex-qnum::after{content:'';flex:1;height:2px;background:var(--bdr);border-radius:1px;}
 .ex-sent{font-size:1rem;font-weight:700;line-height:2.1;color:var(--text);margin-bottom:1rem;flex:1;}
 .ex-inp{display:inline-block;width:130px;background:var(--teal-lt);border:none;border-bottom:2.5px solid var(--teal);color:var(--text);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;text-align:center;padding:2px 6px;outline:none;vertical-align:baseline;transition:border-color .2s;border-radius:4px 4px 0 0;}
@@ -269,7 +269,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .ex-inp{width:100px;font-size:.9rem;}
 
   /* Pills */
-  .ex-pills{gap:.5rem;margin-bottom:1.2rem;}
+  .ex-pills{gap:.5rem;margin-bottom:.5rem;}
   .ex-pill{font-size:.78rem;padding:.3rem .8rem;}
 
   /* Barre progression */
