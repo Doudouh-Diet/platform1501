@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plateforme BTS Diététique</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#fafbff;--white:#ffffff;--surf:#f0f4ff;--bdr:#e2e8f8;
+  --blue:#2d4a9a;--blue2:#3b5ec4;--blue-lt:#eef2ff;
+  --teal:#0891b2;--teal-lt:#e0f7fa;
+  --coral:#e8573a;--coral-lt:#fff0ed;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --yellow:#d97706;--yellow-lt:#fffbeb;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --text:#1e2d5a;--muted:#6b7db3;--dim:#c4cde8;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ═══ ÉCRAN SÉLECTION ═══ */
+#select-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 1.5rem 2rem;}
+.hero{text-align:center;padding:.8rem 1rem .5rem;max-width:680px;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue-lt);border:2px solid rgba(45,74,154,.2);color:var(--blue);font-size:.82rem;font-weight:800;letter-spacing:.06em;padding:.4rem 1.2rem;border-radius:100px;margin-bottom:1.8rem;}
+.hero-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;color:var(--text);margin-bottom:1rem;}
+.hero-title span{color:var(--blue);position:relative;display:inline-block;}
+.hero-title span::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--coral));}
+.hero-sub{font-size:1rem;font-weight:600;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto;}
+
+.select-section{width:100%;max-width:620px;}
+.select-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:2px solid var(--bdr);}
+.select-header-title{font-size:1.2rem;font-weight:900;color:var(--text);}
+.select-all-wrap{display:flex;align-items:center;gap:.6rem;cursor:pointer;padding:.4rem .8rem;border-radius:10px;border:2px solid var(--bdr);background:var(--white);transition:all .18s;}
+.select-all-wrap:hover{border-color:var(--blue);background:var(--blue-lt);}
+.select-all-wrap input[type=checkbox]{width:18px;height:18px;accent-color:var(--blue);cursor:pointer;}
+.select-all-wrap span{font-size:.88rem;font-weight:800;color:var(--muted);}
+
+.chapitres-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem;}
+.chap-card{background:var(--white);border:2.5px solid var(--bdr);border-radius:18px;padding:.9rem 1rem;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(45,74,154,.05);}
+.chap-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;}
+.chap-card.c-blue::before{background:linear-gradient(90deg,#2d4a9a,#0891b2);}
+.chap-card.c-teal::before{background:linear-gradient(90deg,#0891b2,#16a34a);}
+.chap-card.c-coral::before{background:linear-gradient(90deg,#e8573a,#d97706);}
+.chap-card.c-purple::before{background:linear-gradient(90deg,#7c3aed,#0891b2);}
+.chap-card.c-green::before{background:linear-gradient(90deg,#16a34a,#d97706);}
+.chap-card.c-pink::before{background:linear-gradient(90deg,#db2777,#7c3aed);}
+.chap-card.c-orange::before{background:linear-gradient(90deg,#ea580c,#d97706);}
+.chap-card.c-indigo::before{background:linear-gradient(90deg,#4338ca,#7c3aed);}
+
+.chap-card.selected{border-color:var(--blue);background:var(--blue-lt);box-shadow:0 4px 20px rgba(45,74,154,.15);}
+.chap-card:hover:not(.selected){transform:translateY(-3px);border-color:var(--teal);box-shadow:0 6px 24px rgba(8,145,178,.12);}
+.chap-checkbox{position:absolute;top:.9rem;right:.9rem;width:20px;height:20px;border-radius:6px;border:2.5px solid var(--bdr);background:var(--white);display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.chap-card.selected .chap-checkbox{background:var(--blue);border-color:var(--blue);}
+.chap-checkbox::after{content:'✓';color:#fff;font-size:.75rem;font-weight:900;opacity:0;transition:opacity .15s;}
+.chap-card.selected .chap-checkbox::after{opacity:1;}
+.chap-emoji{font-size:2rem;margin-bottom:.6rem;display:block;}
+.chap-name{font-size:1rem;font-weight:900;color:var(--text);margin-bottom:.3rem;}
+.chap-desc{font-size:.82rem;font-weight:600;color:var(--muted);line-height:1.4;}
+.chap-pill{display:inline-block;font-size:.72rem;font-weight:700;background:var(--surf);color:var(--blue);border:1.5px solid var(--bdr);padding:.15rem .6rem;border-radius:100px;margin-top:.5rem;}
+
+.start-bar{width:100%;max-width:860px;background:var(--white);border:2px solid var(--bdr);border-radius:18px;padding:1.2rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 4px 20px rgba(45,74,154,.08);position:sticky;bottom:2rem;}
+.start-bar-info{font-size:.9rem;font-weight:700;color:var(--muted);}
+.start-bar-info strong{color:var(--blue);}
+.start-btn{background:var(--blue);color:#fff;border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:.85rem 2rem;border-radius:12px;cursor:pointer;transition:all .18s;opacity:.4;pointer-events:none;}
+.start-btn.active{opacity:1;pointer-events:all;}
+.start-btn.active:hover{background:var(--blue2);}
+
+/* BOUTONS FLASHCARDS */
+.fc-eval{display:none;gap:.8rem;margin-top:1rem;flex-wrap:wrap;}
+.fc-eval.show{display:flex;}
+.fc-eval-btn{flex:1;min-width:80px;border:none;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;padding:.85rem .5rem;border-radius:12px;cursor:pointer;transition:all .18s;text-align:center;}
+.fc-eval-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.fc-eval-btn.nok{background:var(--coral-lt);color:#c2410c;border:2px solid rgba(232,87,58,.4);}
+.fc-eval-btn.ok{background:var(--green-lt);color:#15803d;border:2px solid rgba(22,163,74,.4);}
+
+/* ÉCRAN EXERCICE ═══ */
+#exercice-screen{display:none;min-height:100vh;}
+.ex-topbar{position:sticky;top:0;z-index:50;background:rgba(250,251,255,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--bdr);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.ex-breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.88rem;font-weight:700;color:var(--muted);flex-wrap:wrap;}
+.ex-breadcrumb strong{color:var(--blue);}
+.ex-back-btn{background:var(--white);border:2px solid var(--bdr);color:var(--text);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;padding:.5rem 1.1rem;border-radius:10px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:.4rem;}
+.ex-back-btn:hover{border-color:var(--blue);color:var(--blue);}
+.ex-body{max-width:760px;margin:0 auto;padding:.8rem 2rem 2rem;}
+.ex-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;background:var(--white);border:2px solid var(--bdr);border-radius:16px;padding:.4rem;margin-bottom:1.2rem;}
+.ex-tab{background:transparent;border:none;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;color:var(--muted);padding:.65rem .2rem;border-radius:12px;cursor:pointer;transition:all .2s;text-align:center;line-height:1.4;}
+.ex-tab .ti{display:block;font-size:1.1rem;margin-bottom:.2rem;}
+.ex-tab .step{display:inline-block;font-size:.65rem;font-weight:800;background:var(--surf);color:var(--muted);border-radius:100px;padding:.05rem .4rem;margin-top:.15rem;}
+.ex-tab.on{background:var(--blue);color:#fff;}
+.ex-tab.on .step{background:rgba(255,255,255,.25);color:#fff;}
+.ex-tab:hover:not(.on){color:var(--blue);background:var(--blue-lt);}
+.ex-panel{display:none;}
+.ex-panel.on{display:block;animation:exFade .3s ease;}
+@keyframes exFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ex-sh{font-size:1.4rem;font-weight:900;color:var(--text);margin-bottom:.2rem;}
+.ex-sh .badge{display:inline-block;font-size:.78rem;font-weight:800;padding:.15rem .7rem;border-radius:100px;margin-left:.5rem;vertical-align:middle;background:var(--blue-lt);color:var(--blue);border:1.5px solid rgba(45,74,154,.2);}
+.ex-ssub{font-size:.95rem;font-weight:600;color:var(--muted);line-height:1.5;margin-bottom:.8rem;}
+.ex-level{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:800;padding:.3rem .9rem;border-radius:100px;margin-bottom:1.5rem;}
+.lvl-1{background:var(--teal-lt);color:var(--teal);border:1.5px solid rgba(8,145,178,.25);}
+.lvl-2{background:var(--blue-lt);color:var(--blue);border:1.5px solid rgba(45,74,154,.25);}
+.lvl-3{background:var(--purple-lt);color:var(--purple);border:1.5px solid rgba(124,58,237,.25);}
+.lvl-4{background:var(--yellow-lt);color:var(--yellow);border:1.5px solid rgba(217,119,6,.25);}
+.ex-pills{display:flex;gap:.7rem;margin-bottom:.3rem;flex-wrap:wrap;}
+.ex-pill{font-size:.85rem;font-weight:800;padding:.4rem 1rem;border-radius:100px;border:2px solid;}
+.ex-pill.ok{color:var(--green);border-color:rgba(22,163,74,.3);background:var(--green-lt);}
+.ex-pill.err{color:var(--coral);border-color:rgba(232,87,58,.3);background:var(--coral-lt);}
+.ex-retry-btn{display:none;background:var(--coral-lt);border:2px solid rgba(232,87,58,.35);color:var(--coral);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;padding:.4rem 1rem;border-radius:100px;cursor:pointer;margin-bottom:1.5rem;transition:all .18s;}
+.ex-retry-btn.show{display:inline-block;}
+.ex-progrow{display:flex;justify-content:space-between;font-size:.9rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
+.ex-progrow strong{color:var(--blue);}
+.ex-bar{height:7px;background:var(--bdr);border-radius:4px;overflow:hidden;margin-bottom:.6rem;}
+.ex-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:4px;transition:width .5s ease;}
+.ex-card{background:var(--white);border:2px solid var(--bdr);border-radius:22px;padding:1.2rem 1.4rem;position:relative;overflow:hidden;margin-bottom:1rem;display:flex;flex-direction:column;min-height:170px;transition:border-color .3s;box-shadow:0 4px 20px rgba(45,74,154,.06);animation:exFade .3s ease;}
+.ex-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--blue));}
+.ex-card.ok-st{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.02);}
+.ex-card.err-st{border-color:rgba(232,87,58,.3);background:rgba(232,87,58,.02);}
+.ex-qnum{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem;}
+.ex-qnum::after{content:'';flex:1;height:2px;background:var(--bdr);border-radius:1px;}
+.ex-sent{font-size:1rem;font-weight:700;line-height:2.1;color:var(--text);margin-bottom:1rem;flex:1;}
+.ex-inp{display:inline-block;width:130px;background:var(--teal-lt);border:none;border-bottom:2.5px solid var(--teal);color:var(--text);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;text-align:center;padding:2px 6px;outline:none;vertical-align:baseline;transition:border-color .2s;border-radius:4px 4px 0 0;}
+.ex-inp:focus{border-color:var(--coral);background:var(--coral-lt);}
+.ex-inp:disabled{opacity:.6;}
+.ex-fb{margin-top:1.4rem;padding:1rem 1.2rem;border-radius:14px;font-size:.95rem;font-weight:600;line-height:1.7;display:none;}
+.ex-fb.show{display:block;animation:exFade .25s ease;}
+.ex-fb.good{background:var(--green-lt);border:2px solid rgba(22,163,74,.3);color:#15803d;}
+.ex-fb.bad{background:var(--coral-lt);border:2px solid rgba(232,87,58,.3);color:#c2410c;}
+.ex-fb .ex-ans{color:var(--blue);font-weight:800;display:block;margin-top:.4rem;}
+.ex-opts{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1.2rem;}
+.ex-opt{background:var(--surf);border:2px solid var(--bdr);color:var(--text);font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;padding:1rem 1.1rem;border-radius:14px;cursor:pointer;transition:all .18s;text-align:left;line-height:1.4;}
+.ex-opt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-lt);color:var(--teal);}
+.ex-opt.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:#15803d!important;}
+.ex-opt.wrong{border-color:var(--coral)!important;background:var(--coral-lt)!important;color:#c2410c!important;}
+.ex-opt:disabled{cursor:default;}
+.ex-btn{background:var(--blue);color:#fff;border:none;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;padding:.9rem 1.4rem;border-radius:12px;cursor:pointer;transition:all .18s;}
+.ex-btn:hover{filter:brightness(1.08);}
+/* Flashcards */
+.fc-scene{perspective:1200px;margin-bottom:1.5rem;}
+.fc-card{position:relative;width:100%;min-height:220px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-face{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 2rem;text-align:center;overflow:auto;box-shadow:0 4px 24px rgba(45,74,154,.08);}
+.fc-face::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0;}
+.fc-front{background:var(--white);border:2px solid var(--bdr);}
+.fc-front::before{background:linear-gradient(90deg,var(--teal),var(--blue));}
+.fc-back{background:linear-gradient(135deg,var(--blue),var(--blue2));border:2px solid var(--blue);transform:rotateY(180deg);color:#fff;}
+.fc-back::before{background:linear-gradient(90deg,var(--coral),var(--teal));}
+.fc-lbl{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;}
+.fc-front .fc-lbl{color:var(--muted);}
+.fc-back .fc-lbl{color:rgba(255,255,255,.6);}
+.fc-q{font-size:1.05rem;font-weight:700;line-height:1.7;color:var(--text);}
+.fc-hint{font-size:.8rem;font-weight:600;color:var(--dim);margin-top:1.2rem;animation:fcBreath 2.5s ease-in-out infinite;}
+@keyframes fcBreath{0%,100%{opacity:.3}50%{opacity:.9}}
+.fc-answer{font-size:1.05rem;font-weight:700;line-height:1.8;color:#fff;max-width:500px;}
+.fc-answer strong{color:#fde68a;}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.8rem;}
+.fc-nav-btn{background:var(--blue);color:#fff;border:none;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;padding:.6rem 1.2rem;border-radius:10px;cursor:pointer;transition:all .18s;}
+.fc-nav-btn:hover{background:var(--teal);}
+.fc-eval{display:none;gap:.8rem;margin-top:.5rem;}
+.fc-eval.show{display:flex;}
+/* Rappel libre */
+.rl-item{background:var(--surf);border:2px solid var(--bdr);border-radius:16px;padding:1.4rem 1.6rem;margin-bottom:1.2rem;transition:all .3s;}
+.rl-item.revealed{background:rgba(8,145,178,.04);border-color:rgba(8,145,178,.3);}
+.rl-qtext{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem;line-height:1.6;}
+.rl-slots{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.8rem;}
+.rl-slot{display:flex;align-items:center;gap:.6rem;}
+.rl-slot-icon{font-size:.9rem;}
+.rl-slot-inp{flex:1;background:var(--white);border:0;border-bottom:2px solid var(--bdr);font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);outline:none;transition:border-color .18s;padding:0 .4rem;}
+.rl-slot-inp:focus{border-color:var(--teal);}
+.rl-reveal-btn{background:var(--surf);border:2px solid var(--bdr);color:var(--muted);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;padding:.45rem 1rem;border-radius:10px;cursor:pointer;transition:all .18s;}
+.rl-reveal-btn:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-lt);}
+.rl-answer{display:none;background:rgba(8,145,178,.07);border:1.5px solid rgba(8,145,178,.2);border-radius:10px;padding:.9rem 1rem;font-size:.9rem;font-weight:700;color:var(--text);line-height:1.8;margin-top:.8rem;}
+.rl-answer.show{display:block;animation:exFade .25s ease;}
+.rl-answer strong{color:var(--teal);}
+.rl-submit-row{display:flex;gap:.6rem;margin-top:.8rem;}
+/* Résultats */
+.ex-result{display:none;background:var(--white);border:2px solid var(--bdr);border-radius:24px;padding:3rem 2rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(45,74,154,.1);}
+.ex-result::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--coral));}
+.ex-result.show{display:block;animation:exFade .4s ease;}
+.ex-res-lbl{font-size:.8rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.ex-big{font-size:clamp(3.5rem,12vw,5.5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:.6rem 0 .3rem;}
+.ex-res-msg{font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:.3rem;}
+.ex-mention{display:inline-block;font-size:.85rem;font-weight:800;padding:.3rem .9rem;border-radius:100px;margin-bottom:.6rem;}
+.ex-res-sub{font-size:.95rem;font-weight:600;color:var(--muted);margin-bottom:1.4rem;}
+.ex-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1.2rem 0 1.6rem;}
+.ex-sbox{background:var(--surf);border:2px solid var(--bdr);border-radius:14px;padding:.9rem;}
+.ex-snum{font-size:1.8rem;font-weight:900;color:var(--blue);}
+.ex-slbl{font-size:.75rem;font-weight:700;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em;}
+.ex-res-actions{display:flex;flex-direction:column;gap:.8rem;margin-top:1rem;}
+.ex-restart{background:var(--blue);color:#fff;border:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;padding:.9rem 2rem;border-radius:12px;cursor:pointer;transition:all .18s;}
+.ex-restart:hover{background:var(--blue2);}
+.ex-retry-only{background:transparent;color:var(--coral);border:2px solid rgba(232,87,58,.4);font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;padding:.9rem 2rem;border-radius:12px;cursor:pointer;transition:all .18s;}
+.ex-retry-only:hover{background:var(--coral-lt);}
+
+/* ═══ RESPONSIVE MOBILE ═══ */
+@media(max-width:600px){
+
+  /* Écran sélection */
+  #select-screen{padding:0 1rem 6rem;}
+  .hero{padding:2rem .5rem 1.5rem;}
+  .hero-title{font-size:1.6rem;}
+  .hero-sub{font-size:.9rem;}
+  .hero-badge{font-size:.72rem;padding:.3rem .8rem;}
+
+  /* SRS dashboard */
+  .srs-grid{grid-template-columns:1fr;}
+  .srs-dashboard{width:100%;}
+
+  /* Grille chapitres */
+  .chapitres-grid{grid-template-columns:1fr 1fr;gap:.7rem;}
+  .chap-card{padding:1rem .8rem;}
+  .chap-emoji{font-size:1.5rem;margin-bottom:.4rem;}
+  .chap-name{font-size:.88rem;}
+  .chap-desc{font-size:.72rem;}
+  .chap-pill{font-size:.65rem;}
+  .chap-checkbox{width:16px;height:16px;top:.6rem;right:.6rem;}
+
+  /* Barre démarrage */
+  .start-bar{flex-direction:column;text-align:center;gap:.7rem;padding:1rem;border-radius:14px;bottom:1rem;}
+  .start-bar-info{font-size:.85rem;}
+  .start-btn{width:100%;padding:.8rem;}
+
+  /* Select all */
+  .select-header{flex-direction:column;align-items:flex-start;gap:.8rem;}
+
+  /* Topbar exercice */
+  .ex-topbar{padding:.7rem 1rem;gap:.5rem;}
+  .ex-breadcrumb{font-size:.75rem;}
+  .ex-back-btn{font-size:.75rem;padding:.4rem .8rem;}
+
+  /* Corps exercice */
+  .ex-body{padding:1.5rem 1rem 4rem;}
+
+  /* Onglets — scroll horizontal */
+  .ex-tabs{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:.3rem;
+    padding:.3rem;
+    border-radius:12px;
+    margin-bottom:2rem;
+  }
+  .ex-tab{
+    flex:0 0 auto;
+    padding:.5rem .3rem;
+    font-size:.68rem;
+    border-radius:10px;
+    text-align:center;
+  }
+  .ex-tab .ti{font-size:1rem;margin-bottom:.1rem;}
+  .ex-tab .step{font-size:.58rem;padding:.03rem .3rem;}
+
+  /* Titres sections */
+  .ex-sh{font-size:1.2rem;}
+  .ex-ssub{font-size:.85rem;margin-bottom:1.5rem;}
+  .ex-level{font-size:.72rem;padding:.25rem .7rem;margin-bottom:1rem;}
+
+  /* Carte question */
+  .ex-card{padding:1.4rem 1.2rem;border-radius:16px;margin-bottom:1.5rem;}
+  .ex-qnum{margin-bottom:1.2rem;font-size:.7rem;}
+  .ex-sent{font-size:.92rem;line-height:1.9;}
+
+  /* QCM — 1 colonne sur mobile */
+  .ex-opts{grid-template-columns:1fr;}
+  .ex-opt{padding:.85rem 1rem;font-size:.88rem;}
+
+  /* Feedback */
+  .ex-fb{font-size:.85rem;padding:.8rem 1rem;}
+
+  /* Inputs texte à trou */
+  .ex-inp{width:100px;font-size:.9rem;}
+
+  /* Pills */
+  .ex-pills{gap:.5rem;margin-bottom:.5rem;}
+  .ex-pill{font-size:.78rem;padding:.3rem .8rem;}
+
+  /* Barre progression */
+  .ex-progrow{font-size:.8rem;margin-bottom:.6rem;}
+  .ex-bar{margin-bottom:1.5rem;}
+
+  /* Flashcards */
+  .fc-face{padding:1.2rem 1rem;overflow:auto;}
+  .fc-q{font-size:.92rem;}
+  .fc-answer{font-size:.88rem;}
+  .fc-nav-btn{font-size:.75rem;padding:.5rem .9rem;}
+  .fc-srs-info{font-size:.68rem;}
+
+  /* Boutons SRS — plus grands sur mobile */
+  .srs-eval{gap:.5rem;}
+  .srs-btn{padding:.85rem .4rem;font-size:.82rem;min-width:0;}
+  .srs-btn .srs-interval{font-size:.62rem;}
+
+  /* Rappel libre */
+  .rl-item{padding:1rem 1rem;}
+  .rl-qtext{font-size:.88rem;}
+  .rl-slot-inp{font-size:.85rem;}
+  .rl-reveal-btn{font-size:.78rem;}
+  .rl-answer{font-size:.82rem;}
+  .rl-submit-row{flex-direction:column;}
+
+  /* Résultats */
+  .ex-result{padding:2rem 1.2rem;}
+  .ex-big{font-size:3rem;}
+  .ex-res-msg{font-size:1rem;}
+  .ex-stats{gap:.4rem;}
+  .ex-snum{font-size:1.4rem;}
+  .ex-slbl{font-size:.65rem;}
+  .ex-restart,.ex-retry-only{padding:.8rem 1.2rem;font-size:.88rem;}
+
+  /* Retry btn */
+  .ex-retry-btn{font-size:.78rem;padding:.35rem .8rem;}
+}
+
+@media(max-width:380px){
+  .chapitres-grid{grid-template-columns:1fr;}
+  .ex-tab{min-width:60px;font-size:.62rem;}
+}
+
+/* === TABLEAU === */
+.vt-table-wrap{overflow-x:auto;margin-top:1.5rem;}
+.vt-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+.vt-table th{background:var(--blue);color:#fff;padding:.6rem .8rem;text-align:left;font-weight:800;font-size:.82rem;}
+.vt-table td{padding:.5rem .8rem;border-bottom:1px solid var(--bdr);vertical-align:middle;}
+.vt-table tr:nth-child(even) td{background:var(--surf);}
+.vt-inp-cell{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.vt-num-inp{width:90px;padding:.35rem .5rem;border:2px solid var(--bdr);border-radius:8px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;color:var(--text);text-align:center;transition:border .18s;}
+.vt-num-inp:focus{border-color:var(--blue);outline:none;background:var(--blue-lt);}
+.vt-num-inp.correct{border-color:var(--green)!important;background:var(--green-lt);color:#15803d;}
+.vt-num-inp.wrong{border-color:var(--coral)!important;background:var(--coral-lt);color:#c2410c;}
+.vt-unit{font-size:.78rem;font-weight:700;color:var(--muted);}
+.vt-correction{font-size:.8rem;font-weight:800;color:var(--coral);margin-left:.3rem;}
+/* RL textarea */
+.rl-slot-inp{width:100%;resize:vertical;padding:.5rem;border:2px solid var(--bdr);border-radius:8px;font-family:inherit;font-size:.9rem;min-height:60px;}
+.rl-slot-inp:focus{border-color:var(--blue);outline:none;}
+
+.chap-header-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem;}
+.chap-header-row .chap-emoji{font-size:1.3rem;margin-bottom:0;}
+.chap-header-row .chap-name{font-size:.9rem;margin-bottom:0;}
+
+/* Chapitres verrouillés */
+.chap-card.locked {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+  cursor: not-allowed;
+  position: relative;
+}
+.chap-card.locked::after {
+  content: '🔒';
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 1rem;
+}
+.chap-card.locked:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--bdr) !important;
+}
+</style>
+</head>
+<script type="application/json" id="chapitres-data">
+[{"id": "prot_ines", "name": "Protéines", "emoji": "🥩", "color": "c-blue", "desc": "AAI, qualité protéique, RNP", "type": "cours", "qz": [{"q": "Une protéine est définie comme un enchaînement d'au moins :", "opts": ["50 acides aminés", "20 acides aminés", "200 acides aminés", "100 acides aminés"], "correct": 3, "expl": "Au-delà de 100 AA = protéine. En dessous = peptide."}, {"q": "Combien d'acides aminés indispensables (AAI) ne peuvent pas être synthétisés par l'organisme adulte ?", "opts": ["20", "8", "9", "10"], "correct": 2, "expl": "9 AAI chez l'adulte - 10 AAI chez le Nourrisson"}, {"q": "Quel est l'apport de sécurité (APS) en protéines pour un adulte ?", "opts": ["0,5 g/kg/j", "0,83 g/kg/j", "1,2 g/kg/j", "2 g/kg/j"], "correct": 1, "expl": "APS = 0,83 g/kg/j selon l'ANSES."}, {"q": "Que mesure le CUD ?", "opts": ["La capacité des protéines à être utilisées métaboliquement", "La capacité du tube digestif à absorber l'azote ingéré", "La valeur biologique des protéines alimentaires", "Le score PDCAAS"], "correct": 1, "expl": "CUD = (N ingéré − N fécal) × 100 / N ingéré."}, {"q": "La valeur biologique (VB) mesure :", "opts": ["La composition en acides aminés indispensables", "L'efficacité protéique mesurée sur des rats", "La capacité du tube digestif à absorber l'azote ingéré", "La capacité à être utilisée métaboliquement une fois absorbée"], "correct": 3, "expl": "Une VB=100 → remplace 100% des pertes azotées."}, {"q": "Quelle méthode est la référence pour évaluer la qualité protéique ?", "opts": ["PDCAAS / DIAAS", "CEP / UPN", "VB / IC", "CUD / UPN"], "correct": 0, "expl": "Combine composition en AAI et digestibilité. Méthode de référence OMS."}, {"q": "Limite basse des apports protéiques ANSES pour les > 70 ans :", "opts": ["15 % de l'AET", "10 % de l'AET", "20 % de l'AET", "12 % de l'AET"], "correct": 0, "expl": "Permet la prévention de la sarcopénie"}, {"q": "Le rôle fonctionnel des protéines inclut :", "opts": ["Le rôle énergétique (4 kcal/g)", "Les enzymes, hormones et protéines de transport", "Le rôle structural", "Le rôle de précurseurs"], "correct": 1, "expl": ""}, {"q": "Le tryptophane est précurseur de :", "opts": ["La dopamine", "La mélatonine", "L'adrénaline", "La sérotonine"], "correct": 3, "expl": "Tryptophane → sérotonine (neurotransmetteur)."}, {"q": "La formule de l'UPN est :", "opts": ["UPN = CUD + VB / 100", "UPN = CUD × IC / 100", "UPN = VB / CUD × 100", "UPN = CUD × VB / 100"], "correct": 3, "expl": ""}, {"q": "Le facteur limitant d'une protéine est :", "opts": ["L'acide aminé ayant la meilleure digestibilité", "L'acide aminé non essentiel en excès", "L'acide aminé le plus abondant", "L'AAI le moins représenté par rapport à la protéine de référence"], "correct": 3, "expl": "Limite la synthèse. Complémentation sur la journée suffit."}, {"q": "Valeur énergétique des protéines :", "opts": ["9 kcal/g", "4 kcal/g", "7 kcal/g", "2 kcal/g"], "correct": 1, "expl": "Protéines et glucides = 4 kcal/g. Lipides = 9 kcal/g."}], "bl": [{"q": "Les protéines ont un rôle __________, car elles participent à la formation et au renouvellement des tissus", "acc": [["structural"]], "show": "structural", "expl": ""}, {"q": "Elles ont également un rôle fonctionnelle, car elles interviennent dans la composition des __________, des __________et des ______________________________.", "acc": [["enzyme"], ["hormones"], ["protéines de transport"]], "show": "enzyme - hormones - protéines de transport", "expl": ""}, {"q": "Une protéine est une molécule constituée d’un enchaînement de plus de __________.", "acc": [["100 acides aminés"]], "show": "100 acides aminés", "expl": ""}, {"q": "Lorsque la chaîne contient moins de 100 acides aminés, on parle de __________.", "acc": [["peptide"]], "show": "peptide", "expl": ""}, {"q": "Le besoin en protéine des enfants de 6 à 9 ans est de ______  à ______ % de l’AET", "acc": [["7"], ["17"]], "show": "7 - 17", "expl": ""}, {"q": "L’apport de sécurité en protéines chez l’adulte est de __________ par kg de poids corporel et par jour.", "acc": [["0,83g"]], "show": "0,83g", "expl": ""}, {"q": "La qualité d’une protéine correspond à sa capacité à couvrir les besoins de l’organisme pour assurer sa ______ et son______", "acc": [["croissance"], ["entretien"]], "show": "croissance - entretien", "expl": "Une protéine de bonne qualité permet à la fois de construire les tissus (croissance) et de les maintenir (entretien)"}, {"q": "Le besoin en protéine des enfants de 14 à 17 ans est de ______  à ______ % de l’AET", "acc": [["10"], ["20"]], "show": "10 - 20", "expl": ""}, {"q": "Pour les sportifs, il faut un apport en protéine compris dans un IR de______% à______% de l'AET", "acc": [["15"], ["20"]], "show": "15 - 20", "expl": "Synthèse et entretien musculaire majorée"}, {"q": "Certains acides aminés doivent être apportés par l’alimentation, ce sont les ______.", "acc": [["acides aminés indispensables", "AAI"]], "show": "acides aminés indispensables / AAI", "expl": "L’organisme ne peut pas les fabriquer, ils doivent donc obligatoirement être apportés par l’alimentation."}, {"q": "Si un acide aminé est présent en quantité insuffisante, on parle de ______.", "acc": [["facteur limitant"]], "show": "facteur limitant", "expl": "Le facteur limitant bloque la synthèse protéique même si les autres acides aminés sont présents."}, {"q": "Les légumineuses sont pauvres en ______ mais riches en ______ .", "acc": [["méthionine (et cystéine)"], ["lysine"]], "show": "méthionine (et cystéine) - lysine", "expl": "Elles complètent parfaitement les céréales dans un repas."}, {"q": "Le besoin en protéine des enfants de 10 à 13 ans est de ______  à ______ % de l’AET", "acc": [["9"], ["19"]], "show": "9 - 19", "expl": ""}, {"q": "Les oléagineux sont pauvre en ______et ______", "acc": [["méthionine"], ["lysine"]], "show": "méthionine - lysine", "expl": ""}, {"q": "La valeur biologique représente la capacité des protéines à être ______ par l’organisme après ______ .", "acc": [["utilisées"], ["absorption"]], "show": "utilisées - absorption", "expl": "Elle indique si les acides aminés absorbés peuvent être efficacement utilisés par le corps."}, {"q": "La digestibilité des protéines dépend de leur ______, de la cuisson, mais aussi des interactions avec d’autres nutriments.", "acc": [["structure"]], "show": "structure", "expl": "La forme de la protéine influence sa facilité de digestion par les enzymes."}, {"q": "Les céréales sont pauvres en ______ mais riches en ______ et ______", "acc": [["lysine"], ["méthionine"], ["cystéine"]], "show": "lysine - méthionine - cystéine", "expl": "Cela explique pourquoi elles doivent être associées à d’autres sources protéiques."}, {"q": "L’indice chimique permet d’évaluer la capacité d’une protéine à couvrir les besoins en ______", "acc": [["acides aminés indispensables"]], "show": "acides aminés indispensables", "expl": "Il compare la composition en acides aminés indispensables d’une protéine à une protéine de référence"}, {"q": "Le besoin en protéine des enfants de 4 à 5 ans est de ______  à ______ % de l’AET", "acc": [["6"], ["16"]], "show": "6 - 16", "expl": ""}, {"q": "La complémentarité protéique peut se faire sur un ______ ou sur une ______.", "acc": [["repas"], ["journée"]], "show": "repas - journée", "expl": "L’important est l’équilibre global des apports sur la journée."}, {"q": "Pour obtenir une bonne qualité protéique végétale, il faut associer des______ avec des ______.", "acc": [["céréales"], ["légumineuse"]], "show": "céréales - légumineuse", "expl": "2/3 de céréales avec 1/3 de légumineuse,\nCette association permet de compenser les acides aminés limitants."}], "fc": [{"q": "Teneur en protéine moyenne du légumineuses cuites pour 100 g", "a": "8g"}, {"q": "Les 9 acides aminés indispensables", "a": "Leucine · Lysine · Isoleucine · Valine · Méthionine(+Cystéine) · Histidine · Phénylalanine(+Tyrosine) · Tryptophane · Thréonine + Arginine chez nourrisson"}, {"q": "Rôles des protéines", "a": "1. Fonctionnel : enzymes, hormones, transport, précurseurs\n2. Structural : muscles, phanères, membranes\n3. Énergétique : 1g = 4 kcal"}, {"q": "CUD", "a": "Coefficient d'utilisation Digestive\nCapacité du tube digestif à absorber les protéines (azote ingéré)."}, {"q": "VB", "a": "Valeur Biologique\nCapacité des protéines absorbées à être utilisées par l’organisme pour ses besoins."}, {"q": "IC", "a": "Indice Chimique\nIndicateur qui compare la teneur en AAI d’une protéine à une protéine de référence."}, {"q": "PDCASS", "a": "Indice combinant la composition en acides aminés et la digestibilité d’une protéine."}, {"q": "Formule du CUD", "a": "CUD = (N ingéré − N fécal) × 100 / N ingéré"}, {"q": "Teneur en protéine moyenne des Fromages pour 100 g", "a": "20g"}, {"q": "Teneur en protéine moyenne des Féculents Cuits pour 100 g", "a": "3g"}, {"q": "Biodisponibilité", "a": "Capacité des nutriments à être libérés, absorbés et utilisés par l’organisme."}, {"q": "Teneur en protéine moyenne des VPO pour 100 g", "a": "20g"}, {"q": "Facteur limitant", "a": "Acide aminé indispensable présent en quantité insuffisante, limitant la synthèse protéique.Son indice chimique est inférieur à 100"}, {"q": "Teneur en protéine moyenne des oléagineux pour 100 g", "a": "20.0"}, {"q": "Qualité protéique", "a": "Capacité d’une protéine à couvrir les besoins de l’organisme en acides aminés pour assurer la croissance et l’entretien."}, {"q": "Teneur en protéine moyenne du Pain pour 100 g", "a": "9g"}], "rl": [{"q": "Cite les rôles des protéines", "answer": "1. Fonctionnel : enzymes (amylase), hormones (glucagon), transport (hémoglobine O₂, albumine), précurseurs (Trp→sérotonine).\n2. Structural : muscles, phanères, membranes.\n3. Énergétique : 1g = 4 kcal — dernier recours."}, {"q": "Donne la formule du CUD", "answer": "CUD = (N ingéré − N fécal) × 100 / N ingéré"}, {"q": "RNP en protéines pour les adultes bien portants", "answer": "IR 10 à 20 % de l'AET"}, {"q": "Expliquer le rôle du facteur limitant dans la synthèse protéique.", "answer": "Le facteur limitant est l’acide aminé indispensable le moins présent, il limite ou bloque la synthèse protéique même si les autres acides aminés sont présents."}, {"q": "Quelle est la différence entre le CUD et la VB ?", "answer": "Le CUD mesure la digestibilité (absorption de l’azote), tandis que la valeur biologique mesure l’utilisation des acides aminés absorbés par l’organisme."}, {"q": "Justifier l’association céréales et légumineuses.", "answer": "Les céréales sont pauvres en lysine et les légumineuses en méthionine, leur association permet d’obtenir un profil complet en AAI."}, {"q": "Expliquer pourquoi les céréales seules ne permettent pas une synthèse protéique optimale.", "answer": "Elles sont pauvres en lysine, acide aminé indispensable limitant."}, {"q": "Quelles sont les RNP en protéine pour les enfants et les adolescents ?", "answer": "4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET\n14 à 17 ans = 10 à 20 % de l’AET\n\nRôle fonctionnel : Hormones\nRôle structural : Formation de nouveaux tissus\nRôle énergétique : 1 g de P = 4 kcal"}, {"q": "Expliquer pourquoi la biodisponibilité est différente de la digestibilité.", "answer": "La digestibilité concerne l’absorption, la biodisponibilité inclut aussi l’utilisation par l’organisme."}, {"q": "Expliquer pourquoi un apport protéique insuffisant peut entraîner une perte de masse musculaire.", "answer": "Parce que l’organisme va utiliser ses propres protéines (muscles) pour couvrir ses besoins."}, {"q": "Vous travaillez dans un EPAD, les patients (hommes et femmes) ont plus de 65 ans.\nD'après vous, quel devrait être leur apport en protéine (en g et %) ? Justifier votre réponse", "answer": "Chez les personnes de plus de 65 ans, l’apport en protéines recommandé est d’environ :\n\n👉 1 g/kg de poids corporel par jour\n👉 soit environ 15 à 20 % de l’AET"}, {"q": "Quels sont les acides aminés indispensables ?", "answer": "Leucine\n\nIsoleucine\n\nValine\n\nLysine\n\nMéthionine\n\nPhénylalanine\n\nThréonine\n\nTryptophane\n\nHistidine\n\nArginine pour les nourrissons"}, {"q": "Donner 3 conseils pour équilibrer sa consommation de protéines.", "answer": "Varier les sources de protéines (animales et végétales)\n\nConsommer des légumineuses au moins 2 fois par semaine\n\nLimiter la viande rouge (< 500 g/semaine)\n\nLimiter la charcuterie (< 150 g/semaine)\n\nConsommer du poisson 2 fois par semaine (dont 1 poisson gras)\n\nLes oeufs peuvent être manger tous les jours (attention autres recommandations)"}, {"q": "Quels sont les aliments végétariens comprenant tous les AAE ?", "answer": "Céréales : le Quinoa (15% de protéines) et l’Amarante\nLégumes secs : le Soja\nOléagineux : le Sésame"}, {"q": "La carence en protéines pour les personnes âgées peut entraîner quoi ?", "answer": "La personne âgée à plus de difficultés à reconstituer les protéines catabolisées pour ses besoins pathologiques et physiologiques. \nLa carence en protéine peut entraîner :  \nRisque de fonte musculaire (dénutrition)\nAsthénie\nPathologie osseuses\nDiminution de la résistance aux infections\nAnémie"}, {"q": "Quels sont les besoins en protéines pour les 0 à 3 ans et pourquoi ?", "answer": "Besoins en Protéines pour les 0- 3 ans\nRN en % de l’AET : \n- Avant 1 an de 7 à 15 % de l’AET\n- Après 1 an de 6 à 15 % de l’AET\n- Un % plus élevé serait un facteur de risque dans le développement d’une obésité future. \n\nAttention, certains Acides Aminés sont indispensables chez l’enfant : \n- Cystéine pour les prématurés\n- Histidine pour le  nourrisson né à terme\n\nLes protéines permettent la croissance en taille et en poids de l’enfant, le développement et entretien des nouveaux tissus. \nAttention à ne pas surprotéiner l’enfant, car ses fonctions hépatiques et rénales sont fragiles."}], "rows": [{"label": "Apport de sécurité en protéines pour un adulte (g/kg/j)", "val": "0,83", "unit": "g/kg/j", "tol": 0}, {"label": "Borne basse de l'intervalle de référence en protéines (% AET)", "val": "10", "unit": "%", "tol": 0}, {"label": "Borne haute de l'intervalle de référence en protéines (% AET)", "val": "20", "unit": "%", "tol": 0}, {"label": "Part minimale de protéines recommandée pour les plus de 70 ans (% AET)", "val": "15", "unit": "%", "tol": 0}, {"label": "Besoin en protéines d'un sportif de loisirs (g/kg/j)", "val": "1", "unit": "g/kg/j", "tol": 0}, {"label": "Besoin en protéines d'un sportif de haut niveau (g/kg/j)", "val": "1,5", "unit": "g/kg/j", "tol": 0}, {"label": "Besoin en protéines d'une personne âgée de plus de 65 ans (g/kg/j)", "val": "1", "unit": "g/kg/j", "tol": 0}, {"label": "Teneur en protéines des VPO pour 100g", "val": "20", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des fromages pour 100g", "val": "20", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des légumineuses cuites pour 100g", "val": "8", "unit": "g", "tol": 5}, {"label": "Teneur en protéines du pain pour 100g", "val": "9", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des féculents cuits pour 100g", "val": "3", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des oléagineux pour 100g", "val": "20", "unit": "g", "tol": 5}], "tabHeader": "Protéines pour 100g / Apport (g/kg/j ou % AET)"}, {"id": "teneurs_aliments", "name": "Teneurs des aliments", "emoji": "🍽️", "color": "c-green", "desc": "Données Ciqual — tolérance ±5%", "type": "locked", "rows": [{"label": "Lait 1/2 écrémé — Protéines", "val": "3.5", "unit": "g", "tol": 5}, {"label": "Lait 1/2 écrémé — Lipides", "val": "1.6", "unit": "g", "tol": 5}, {"label": "Lait 1/2 écrémé — Glucides", "val": "5.0", "unit": "g", "tol": 5}, {"label": "Lait 1/2 écrémé — Calcium", "val": "120.0", "unit": "mg", "tol": 5}, {"label": "Lait 1/2 écrémé — Magnésium", "val": "10.0", "unit": "mg", "tol": 5}, {"label": "Fromage — Protéines", "val": "20.0", "unit": "g", "tol": 5}, {"label": "Fromage — Lipides", "val": "26.0", "unit": "g", "tol": 5}, {"label": "Fromage — Calcium", "val": "500.0", "unit": "mg", "tol": 5}, {"label": "Fromage — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "VPO — Protéines", "val": "20.0", "unit": "g", "tol": 5}, {"label": "VPO — Lipides", "val": "10.0", "unit": "g", "tol": 5}, {"label": "VPO — Calcium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "VPO — Fer", "val": "2.5", "unit": "mg", "tol": 5}, {"label": "VPO — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Pain — Protéines", "val": "9.0", "unit": "g", "tol": 5}, {"label": "Pain — Glucides", "val": "55.0", "unit": "g", "tol": 5}, {"label": "Pain — Fibre", "val": "3.5", "unit": "g", "tol": 5}, {"label": "Pain — Calcium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Pain — Fer", "val": "1.5", "unit": "mg", "tol": 5}, {"label": "Pain — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Pomme de terre — Protéines", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Pomme de terre — Glucides", "val": "17.0", "unit": "g", "tol": 5}, {"label": "Pomme de terre — Fibre", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Pomme de terre — Fer", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Pomme de terre — Magnésium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Féculents cuits — Protéines", "val": "3.0", "unit": "g", "tol": 5}, {"label": "Féculents cuits — Glucides", "val": "20.0", "unit": "g", "tol": 5}, {"label": "Féculents cuits — Fibre", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Féculents cuits — Calcium", "val": "10.0", "unit": "mg", "tol": 5}, {"label": "Féculents cuits — Fer", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Féculents cuits — Magnésium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Légumineuses cuites — Protéines", "val": "8.0", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Lipides", "val": "0.5", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Glucides", "val": "14.0", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Fibre", "val": "9.5", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Calcium", "val": "70.0", "unit": "mg", "tol": 5}, {"label": "Légumineuses cuites — Fer", "val": "2.0", "unit": "mg", "tol": 5}, {"label": "Légumineuses cuites — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Protéines", "val": "1.0", "unit": "g", "tol": 5}, {"label": "Légumes — Glucides", "val": "5.0", "unit": "g", "tol": 5}, {"label": "Légumes — Fibre", "val": "2.5", "unit": "g", "tol": 5}, {"label": "Légumes — Calcium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Fer", "val": "1.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Vitamine C", "val": "20.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Magnésium", "val": "20.0", "unit": "mg", "tol": 5}, {"label": "Fruits — Glucides", "val": "12.0", "unit": "g", "tol": 5}, {"label": "Fruits — Fibre", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Fruits — Calcium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Fruits — Fer", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Fruits — Vitamine C", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Fruits — Magnésium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Beurre — Lipides", "val": "82.0", "unit": "g", "tol": 5}, {"label": "Huile — Lipides", "val": "100.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Protéines", "val": "20.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Lipides", "val": "50.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Glucides", "val": "5.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Fibre", "val": "8.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Calcium", "val": "150.0", "unit": "mg", "tol": 5}, {"label": "Oléagineux — Fer", "val": "2.0", "unit": "mg", "tol": 5}, {"label": "Oléagineux — Magnésium", "val": "150.0", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Protéines", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Fruits secs — Lipides", "val": "0.5", "unit": "g", "tol": 5}, {"label": "Fruits secs — Glucides", "val": "60.0", "unit": "g", "tol": 5}, {"label": "Fruits secs — Fibre", "val": "6.5", "unit": "g", "tol": 5}, {"label": "Fruits secs — Calcium", "val": "60.0", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Fer", "val": "1.0", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Vitamine C", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Sucre — Glucides", "val": "100.0", "unit": "g", "tol": 5}], "tabHeader": "Aliment — Nutriment (pour 100g)", "qz": [], "bl": [], "fc": [], "rl": []}, {"id": "lipides", "name": "Lipides", "emoji": "🫙", "color": "c-coral", "desc": "AGE, oméga, cholestérol", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "glucides", "name": "Glucides", "emoji": "🍞", "color": "c-purple", "desc": "IG, CG, teneurs glucidiques", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "fibres", "name": "Fibres", "emoji": "🥦", "color": "c-green", "desc": "Solubles, insolubles, AS", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "eau", "name": "Eau", "emoji": "💧", "color": "c-indigo", "desc": "Besoins hydriques, régulation", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "calcium", "name": "Calcium", "emoji": "🦴", "color": "c-teal", "desc": "RNP, absorption, sources", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "magn_sium", "name": "Magnésium", "emoji": "⚡", "color": "c-blue", "desc": "RNP, carences, sources", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "sodium", "name": "Sodium", "emoji": "🧂", "color": "c-orange", "desc": "AS, LSS, excès", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "potassium", "name": "Potassium", "emoji": "🍌", "color": "c-coral", "desc": "AS, rôles, sources", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "phosphore", "name": "Phosphore", "emoji": "🔋", "color": "c-purple", "desc": "AS, Ca/P, énergie", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "fer", "name": "Fer", "emoji": "🩸", "color": "c-coral", "desc": "Héminique, non héminique, RNP", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "cuivre___zinc___iode", "name": "Cuivre - Zinc - Iode", "emoji": "🔬", "color": "c-teal", "desc": "Oligo-éléments, rôles, RNP", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_a", "name": "Vitamine A", "emoji": "🥕", "color": "c-orange", "desc": "Rétinol, vision, caroténoïdes", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_d", "name": "Vitamine D", "emoji": "☀️", "color": "c-yellow", "desc": "Calcitriol, os, immunité", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_c", "name": "Vitamine C", "emoji": "🍊", "color": "c-orange", "desc": "Antioxydant, collagène, fer", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_e", "name": "Vitamine E", "emoji": "🌻", "color": "c-yellow", "desc": "Tocophérol, antioxydant", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_k", "name": "Vitamine K", "emoji": "🥬", "color": "c-green", "desc": "K1/K2, coagulation, os", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_b9", "name": "Vitamine B9", "emoji": "🌿", "color": "c-green", "desc": "Folates, ADN, grossesse", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_b12", "name": "Vitamine B12", "emoji": "💉", "color": "c-indigo", "desc": "Cobalamine, ADN, système nerveux", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "rnp_as_lss", "name": "RNP · AS · LSS", "emoji": "🔢", "color": "c-indigo", "desc": "Valeurs de référence — réponse exacte", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}]
+</script>
+<body>
+<div style="background:linear-gradient(90deg,#059669,#10b981);color:#fff;text-align:center;padding:.7rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.04em;">
+  🎁 VERSION DÉMO GRATUITE — Module Protéines + Teneurs des aliments
+</div>
+
+
+<!-- ═══════════ SÉLECTION ═══════════ -->
+<div id="select-screen">
+  <div class="hero">
+    <h1 class="hero-title">Essayez la <span>démo gratuite</span> ✨</h1>
+    <p class="hero-sub">Accès gratuit au module Protéines — découvrez la méthode avant d'acheter.</p>
+  </div>
+
+  <div class="select-section">
+    <div class="select-header">
+      <div class="select-header-title">📚 Choisissez vos chapitres</div>
+      <label class="select-all-wrap">
+        <input type="checkbox" id="select-all" onchange="toggleAll(this)">
+        <span>Tout sélectionner</span>
+      </label>
+    </div>
+    <div class="chapitres-grid" id="chapitres-grid"></div>
+    <div class="start-bar">
+      <div class="start-bar-info"><strong id="sel-count">0</strong> chapitre(s) sélectionné(s)</div>
+      <button class="start-btn" id="start-btn" onclick="startSession()">Commencer la révision →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ EXERCICE ═══════════ -->
+<div id="exercice-screen">
+  <div class="ex-topbar">
+    <div class="ex-breadcrumb" id="ex-breadcrumb"></div>
+    <button class="ex-back-btn" onclick="showSelect()">← Changer de chapitres</button>
+  </div>
+  <div class="ex-body">
+    <div class="ex-tabs">
+      <button class="ex-tab on" onclick="exTab('qcm',this)"><span class="ti">❓</span>QCM<span class="step">Étape 1</span></button>
+      <button class="ex-tab" onclick="exTab('blank',this)"><span class="ti">📝</span>Texte à trou<span class="step">Étape 2</span></button>
+      <button class="ex-tab" onclick="exTab('flash',this)"><span class="ti">🃏</span>Flashcards<span class="step">Étape 3</span></button>
+      <button class="ex-tab" onclick="exTab('rl',this)"><span class="ti">🧠</span>Rappel libre<span class="step">Étape 4</span></button>
+      <button class="ex-tab" id="tab-tableau" onclick="exTab('tableau',this)" style="display:none"><span class="ti">&#128202;</span>Tableau<span class="step">Valeurs</span></button>
+    </div>
+
+    <!-- QCM -->
+    <div id="ex-qcm" class="ex-panel on">
+      <div class="ex-sh">QCM <span class="badge" id="qz-badge"></span></div>
+      <div class="ex-level lvl-1">🎯 Étape 1 — Reconnaissance</div>
+      <p class="ex-ssub">4 choix, une seule bonne réponse. Options mélangées à chaque session.</p>
+      <button class="ex-retry-btn" id="qz-retry" onclick="retryQcm()">↺ Retravailler mes erreurs</button>
+      <div class="ex-progrow"><span>Question <strong id="qz-cur">1</strong> / <span id="qz-tot">—</span></span></div>
+      <div class="ex-bar"><div class="ex-fill" id="qz-fill" style="width:0%"></div></div>
+      <div class="ex-pills"><span class="ex-pill ok" id="qz-pok">✓ 0</span><span class="ex-pill err" id="qz-perr">✗ 0</span></div>
+      <div class="ex-card" id="qz-card">
+        <div class="ex-qnum" id="qz-qnum"></div>
+        <div class="ex-sent" id="qz-sent"></div>
+        <div class="ex-opts" id="qz-opts"></div>
+        <div class="ex-fb" id="qz-fb"></div>
+        <div style="text-align:center;margin-top:1rem;"><button id="qz-next-btn" class="ex-btn" onclick="qzNext()" style="display:none">Suivant &rarr; <span style="font-size:.75rem;opacity:.6">[espace]</span></button></div>
+      </div>
+      <div class="ex-result" id="qz-result">
+        <div class="ex-res-lbl">Résultats — QCM</div>
+        <div class="ex-big" id="qz-rs"></div>
+        <div class="ex-mention" id="qz-mention"></div>
+        <div class="ex-res-msg" id="qz-rm"></div>
+        <div class="ex-res-sub" id="qz-rb"></div>
+        <div class="ex-stats" id="qz-rg"></div>
+        <div class="ex-res-actions">
+          <button class="ex-restart" onclick="initQcm()">↺ Recommencer</button>
+          <button class="ex-retry-only" id="qz-retry-res" style="display:none" onclick="retryQcm()">✗ Retravailler mes erreurs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEXTE À TROU -->
+    <div id="ex-blank" class="ex-panel">
+      <div class="ex-sh">Texte à trou <span class="badge" id="bl-badge"></span></div>
+      <div class="ex-level lvl-2">✏️ Étape 2 — Découverte</div>
+      <p class="ex-ssub">Complétez les mots manquants. Entrée pour valider.</p>
+      <button class="ex-retry-btn" id="bl-retry" onclick="retryBlank()">↺ Retravailler mes erreurs</button>
+      <div class="ex-progrow"><span>Question <strong id="bl-cur">1</strong> / <span id="bl-tot">—</span></span></div>
+      <div class="ex-bar"><div class="ex-fill" id="bl-fill" style="width:0%"></div></div>
+      <div class="ex-pills"><span class="ex-pill ok" id="bl-pok">✓ 0</span><span class="ex-pill err" id="bl-perr">✗ 0</span></div>
+      <div class="ex-card" id="bl-card">
+        <div class="ex-qnum" id="bl-qnum"></div>
+        <div class="ex-sent" id="bl-sent"></div>
+        <div id="bl-double"></div>
+        <div class="ex-fb" id="bl-fb"></div>
+      </div>
+      <div class="ex-result" id="bl-result">
+        <div class="ex-res-lbl">Résultats — Texte à trou</div>
+        <div class="ex-big" id="bl-rs"></div>
+        <div class="ex-mention" id="bl-mention"></div>
+        <div class="ex-res-msg" id="bl-rm"></div>
+        <div class="ex-stats" id="bl-rg"></div>
+        <div class="ex-res-actions">
+          <button class="ex-restart" onclick="initBlank()">↺ Recommencer</button>
+          <button class="ex-retry-only" id="bl-retry-res" style="display:none" onclick="retryBlank()">✗ Retravailler mes erreurs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLASHCARDS -->
+    <div id="ex-flash" class="ex-panel">
+      <div class="ex-sh">Flashcards <span class="badge" id="fc-badge"></span></div>
+      <div class="ex-level lvl-3">🃏 Étape 3 — Mémorisation</div>
+      <p class="ex-ssub">Cliquez pour retourner · [Espace] · ← →</p>
+      <div class="ex-progrow"><span>Carte <strong id="fc-cur">1</strong> / <span id="fc-tot">—</span></span></div>
+      <div class="ex-bar"><div class="ex-fill" id="fc-fill" style="width:0%"></div></div>
+      <div class="fc-scene">
+        <div class="fc-card" id="fc-card" onclick="fcFlip()">
+          <div class="fc-face fc-front">
+            <div class="fc-lbl">Question</div>
+            <div class="fc-q" id="fc-q"></div>
+            <div class="fc-hint">↕ cliquer pour voir la réponse</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="fc-lbl">Réponse</div>
+            <div class="fc-answer" id="fc-a"></div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-nav">
+        <button class="fc-nav-btn" onclick="fcGo(-1)">← Précédente</button>
+        <span id="fc-dots" style="font-size:.8rem;color:var(--muted);font-weight:700;"></span>
+        <button class="fc-nav-btn" onclick="fcGo(1)">Suivante →</button>
+      </div>
+      <div class="fc-eval" id="fc-eval">
+        <button class="fc-eval-btn nok" onclick="fcEval(false)">✗ À revoir</button>
+        <button class="fc-eval-btn ok" onclick="fcEval(true)">✓ Je savais !</button>
+      </div>
+      <div class="ex-result" id="fc-result" style="margin-top:1.5rem;">
+        <div class="ex-res-lbl">Résultats — Flashcards</div>
+        <div class="ex-big" id="fc-rs"></div>
+        <div class="ex-mention" id="fc-mention"></div>
+        <div class="ex-res-msg" id="fc-rm"></div>
+        <div class="ex-stats" id="fc-rg"></div>
+        <button class="ex-restart" onclick="initFlash()">↺ Recommencer</button>
+      </div>
+    </div>
+
+    <!-- RAPPEL LIBRE -->
+    <div id="ex-rl" class="ex-panel">
+      <div class="ex-sh">Rappel libre <span class="badge" id="rl-badge"></span></div>
+      <div class="ex-level lvl-4">🧠 Étape 4 — Maîtrise</div>
+      <p class="ex-ssub">Répondez de mémoire, puis révélez la correction.</p>
+      <div class="ex-pills"><span class="ex-pill ok" id="rl-pok">✓ 0</span><span class="ex-pill err" id="rl-perr">✗ 0</span></div>
+      <div id="rl-list"></div>
+      <div class="ex-result" id="rl-result" style="margin-top:2rem;">
+        <div class="ex-res-lbl">Résultats — Rappel libre</div>
+        <div class="ex-big" id="rl-rs"></div>
+        <div class="ex-mention" id="rl-mention"></div>
+        <div class="ex-res-msg" id="rl-rm"></div>
+        <div class="ex-stats" id="rl-rg"></div>
+        <button class="ex-restart" onclick="initRl()">↺ Recommencer</button>
+      </div>
+    </div>
+
+    <!-- CAS PRATIQUE -->
+    <div id="ex-tableau" class="ex-panel">
+      <div class="ex-sh" id="tab-sh">Tableau</div>
+      <div class="ex-level lvl-1" id="tab-level"></div>
+      <p class="ex-ssub" id="tab-sub"></p>
+      <div id="tab-content"></div>
+      <div id="tab-btn-wrap" style="text-align:center;margin-top:1.5rem;"></div>
+      <div class="ex-result" id="tab-result" style="margin-top:2rem;">
+        <div class="ex-res-lbl">Resultats</div>
+        <div class="ex-big" id="tab-rs"></div>
+        <div class="ex-mention" id="tab-mention"></div>
+        <div class="ex-res-msg" id="tab-rm"></div>
+        <div class="ex-stats" id="tab-rg"></div>
+        <button class="ex-restart" onclick="initTableau()">Recommencer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+/* ═══════════════════════════════════════════
+   DONNÉES — CHAPITRES
+═══════════════════════════════════════════ */
+var CHAPITRES=JSON.parse(document.getElementById('chapitres-data').textContent);
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+var selected = new Set();
+var QZ_DATA=[], BL_DATA=[], FC_DATA=[], RL_DATA=[];var rlErrors=[];
+var qzDeck=[],qzIdx=0,qzOk=0,qzErr=0,qzErrors=[];
+var blDeck=[],blIdx=0,blOk=0,blErr=0,blErrors=[];
+var fcIdx=0,fcFlippedState=false,fcOk=0,fcErr=0;
+var rlOk=0,rlErr=0,rlDone=0;
+
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+function norm(s){return s.toLowerCase().trim().replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/ç/g,'c').replace(/œ/g,'oe').replace(/\s+/g,' ');}
+function lev(a,b){var m=a.length,n=b.length,d=[];for(var i=0;i<=m;i++)d[i]=[i];for(var j=0;j<=n;j++)d[0][j]=j;for(var i=1;i<=m;i++)for(var j=1;j<=n;j++)d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1]);return d[m][n];}
+// matchSouple = tolérance orthographique standard (pour QCM et cas pratiques texte)
+function matchSouple(raw,acc){var r=norm(raw.trim());return acc.some(function(a){var n2=norm(a);if(r===n2)return true;if(r.length>3&&n2.indexOf(r)!==-1)return true;if(n2.length>3&&r.indexOf(n2)!==-1)return true;if(lev(r,n2)<=Math.max(1,Math.floor(n2.length*.2)))return true;return false;});}
+// matchExact = correspondance stricte après normalisation (accents tolérés, casse tolérée, mais orthographe exacte)
+function matchExact(raw,acc){var r=norm(raw.trim());return acc.some(function(a){return r===norm(a);});}
+function shuffle(arr){return arr.slice().sort(function(){return Math.random()-.5;});}
+function getMention(pct){if(pct>=80)return{txt:'🏆 Excellent !',col:'#16a34a'};if(pct>=60)return{txt:'👍 Bien !',col:'#0891b2'};if(pct>=50)return{txt:'✌️ Passable',col:'#d97706'};return{txt:'💪 Continue !',col:'#e8573a'};}
+function showMention(id,pct){var m=getMention(pct);var el=document.getElementById(id);if(!el)return;el.textContent=m.txt;el.style.background=m.col+'18';el.style.color=m.col;el.style.border='2px solid '+m.col+'44';}
+function showResult(ids,ok,err,retryResId){
+  var total=ok+err,pct=total>0?Math.round(ok/total*100):0;
+  document.getElementById(ids.rs).textContent=ok+'/'+total;
+  showMention(ids.mention,pct);
+  var msgs=[[80,'Maîtrisé ! 🎉','Excellent niveau.'],[60,'Bien joué ! 👏','Quelques points à revoir.'],[40,'Pas mal 👌','Recommence pour progresser.'],[0,'Continue ! 💪','Revois le cours.']];
+  var m=msgs.filter(function(x){return pct>=x[0];})[0];
+  document.getElementById(ids.rm).textContent=m[1];
+  if(ids.rb)document.getElementById(ids.rb).textContent=m[2];
+  document.getElementById(ids.rg).innerHTML='<div class="ex-sbox"><div class="ex-snum">'+ok+'</div><div class="ex-slbl">Correctes</div></div><div class="ex-sbox"><div class="ex-snum">'+err+'</div><div class="ex-slbl">Erreurs</div></div><div class="ex-sbox"><div class="ex-snum">'+pct+'%</div><div class="ex-slbl">Réussite</div></div>';
+  if(retryResId)document.getElementById(retryResId).style.display=err>0?'block':'none';
+  document.getElementById(ids.result).classList.add('show');
+}
+
+/* ═══════════════════════════════════════
+   SÉLECTION DES CHAPITRES
+═══════════════════════════════════════ */
+function buildGrid(){
+  var grid=document.getElementById('chapitres-grid');
+  grid.innerHTML='';
+  CHAPITRES.forEach(function(ch){
+    var card=document.createElement('div');
+    card.className='chap-card '+ch.color;
+    card.id='card-'+ch.id;
+    var isLocked=(ch.type==='locked');
+    if(isLocked){
+      card.classList.add('locked');
+      card.innerHTML='<div class="chap-header-row"><span class="chap-emoji">'+ch.emoji+'</span><div class="chap-name">'+ch.name+'</div></div>'+
+        '<div class="chap-desc">'+ch.desc+'</div>';
+      card.onclick=function(){
+        alert('🔒 Accès réservé à la version complète\n\nDécouvrez tous les modules sur la plateforme Pack Nutri-Diet !');
+      };
+    } else {
+      card.innerHTML='<div class="chap-checkbox" id="chk-'+ch.id+'"></div>'+
+        '<div class="chap-header-row"><span class="chap-emoji">'+ch.emoji+'</span><div class="chap-name">'+ch.name+'</div></div>'+
+        '<div class="chap-desc">'+ch.desc+'</div>';
+      card.onclick=function(){toggleChap(ch.id);};
+    }
+    grid.appendChild(card);
+  });
+}
+function toggleChap(id){
+  if(selected.has(id)){selected.delete(id);document.getElementById('card-'+id).classList.remove('selected');}
+  else{selected.add(id);document.getElementById('card-'+id).classList.add('selected');}
+  updateStartBar();
+  // sync "select all"
+  document.getElementById('select-all').checked=(selected.size===CHAPITRES.length);
+}
+function toggleAll(cb){
+  if(cb.checked){CHAPITRES.forEach(function(ch){selected.add(ch.id);document.getElementById('card-'+ch.id).classList.add('selected');});}
+  else{CHAPITRES.forEach(function(ch){selected.delete(ch.id);document.getElementById('card-'+ch.id).classList.remove('selected');});}
+  updateStartBar();
+}
+function updateStartBar(){
+  var n=selected.size;
+  document.getElementById('sel-count').textContent=n;
+  var btn=document.getElementById('start-btn');
+  btn.classList.toggle('active',n>0);
+}
+function startSession(){
+  if(selected.size===0)return;
+  QZ_DATA=[];BL_DATA=[];FC_DATA=[];RL_DATA=[];TABLEAU_CHAPITRES=[];
+  var names=[];
+  CHAPITRES.forEach(function(ch){
+    if(!selected.has(ch.id))return;
+    names.push(ch.emoji+' '+ch.name);
+    if(ch.type==='locked')return;
+    if(ch.type==='tableau'){
+      TABLEAU_CHAPITRES.push(ch);
+    }else{
+      QZ_DATA=QZ_DATA.concat(ch.qz||[]);
+      BL_DATA=BL_DATA.concat(ch.bl||[]);
+      FC_DATA=FC_DATA.concat(ch.fc||[]);
+      RL_DATA=RL_DATA.concat(ch.rl||[]);
+      // Ajouter les rows du chapitre comme un chapitre tableau
+      if(ch.rows&&ch.rows.length){
+        TABLEAU_CHAPITRES.push({id:ch.id+'_tab',name:ch.name,emoji:ch.emoji,rows:ch.rows,type:'tableau'});
+      }
+    }
+  });
+  document.getElementById('ex-breadcrumb').innerHTML='<strong>Session :</strong> '+names.join(' &middot; ');
+  document.getElementById('qz-badge').innerHTML='&times;'+QZ_DATA.length;
+  document.getElementById('bl-badge').innerHTML='&times;'+BL_DATA.length;
+  document.getElementById('fc-badge').innerHTML='&times;'+FC_DATA.length;
+  document.getElementById('rl-badge').innerHTML='&times;'+RL_DATA.length;
+  initQcm();initBlank();initFlash();initRl();
+  var hasT=TABLEAU_CHAPITRES.length>0;
+  var tb=document.getElementById('tab-tableau');if(tb)tb.style.display=hasT?'':'none';
+  if(hasT)initTableau();
+  document.querySelectorAll('.ex-tab').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.ex-panel').forEach(function(p){p.classList.remove('on');});
+  var ft=null;
+  document.querySelectorAll('.ex-tab').forEach(function(t){if(!ft&&t.style.display!=='none')ft=t;});
+  if(ft)ft.classList.add('on');
+  var fp=(QZ_DATA.length>0)?'ex-qcm':(BL_DATA.length>0)?'ex-blank':hasT?'ex-tableau':'ex-rl';
+  document.getElementById(fp).classList.add('on');
+  document.getElementById('select-screen').style.display='none';
+  document.getElementById('exercice-screen').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function showSelect(){
+  document.getElementById('select-screen').style.display='flex';
+  document.getElementById('exercice-screen').style.display='none';
+}
+function exTab(id,btn){
+  document.querySelectorAll('.ex-panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.ex-tab').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('ex-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+/* ═══════════════════════════════════════
+   ① QCM
+═══════════════════════════════════════ */
+function initQcm(retry){
+  qzDeck=retry?qzErrors.slice():shuffle(QZ_DATA);
+  qzIdx=0;qzOk=0;qzErr=0;qzErrors=[];
+  document.getElementById('qz-result').classList.remove('show');
+  document.getElementById('qz-card').style.display='flex';
+  document.getElementById('qz-retry').classList.remove('show');
+  document.getElementById('qz-tot').textContent=qzDeck.length;
+  renderQcm();
+}
+function retryQcm(){initQcm(true);}
+function qzNext(){
+  document.removeEventListener('keydown', function(){});
+  var nextBtn=document.getElementById('qz-next-btn');
+  if(nextBtn)nextBtn.style.display='none';
+  qzIdx++;
+  if(qzIdx>=qzDeck.length){
+    document.getElementById('qz-card').style.display='none';
+    showResult({rs:'qz-rs',mention:'qz-mention',rm:'qz-rm',rg:'qz-rg',result:'qz-result'},qzOk,qzErr,'qz-retry-res');
+  }else renderQcm();
+}
+function renderQcm(){
+  if(!qzDeck.length)return;
+  var q=qzDeck[qzIdx],total=qzDeck.length,done=qzOk+qzErr;
+  document.getElementById('qz-fill').style.width=(done/total*100)+'%';
+  document.getElementById('qz-cur').textContent=qzIdx+1;
+  document.getElementById('qz-pok').innerHTML='&#10003; '+qzOk;
+  document.getElementById('qz-perr').innerHTML='&#10007; '+qzErr;
+  document.getElementById('qz-qnum').textContent='Question '+(qzIdx+1)+' / '+total;
+  document.getElementById('qz-sent').textContent=q.q;
+  document.getElementById('qz-fb').className='ex-fb';
+  document.getElementById('qz-card').className='ex-card';
+  var nb=document.getElementById('qz-next-btn');if(nb)nb.style.display='none';
+  var optsEl=document.getElementById('qz-opts');optsEl.innerHTML='';
+  shuffle([0,1,2,3]).forEach(function(oi){
+    var btn=document.createElement('button');
+    btn.className='ex-opt';
+    btn.textContent=q.opts[oi];
+    btn.onclick=(function(isOk,q2){return function(e){
+      document.querySelectorAll('#qz-opts .ex-opt').forEach(function(b){
+        b.disabled=true;
+        if(b.textContent===q2.opts[q2.correct])b.classList.add('correct');
+      });
+      if(!isOk)e.currentTarget.classList.add('wrong');
+      if(isOk)qzOk++;else{qzErr++;qzErrors.push(q2);}
+      document.getElementById('qz-pok').innerHTML='&#10003; '+qzOk;
+      document.getElementById('qz-perr').innerHTML='&#10007; '+qzErr;
+      if(qzErr>0){
+        document.getElementById('qz-retry').innerHTML='&#8634; Retravailler mes erreurs';
+        document.getElementById('qz-retry').classList.add('show');
+      }
+      var fb=document.getElementById('qz-fb');
+      fb.className='ex-fb '+(isOk?'good':'bad')+' show';
+      fb.innerHTML=(isOk?'&#10003; Correct ! ':'&#10007; ')+'<span class="ex-ans">&#8594; '+q2.opts[q2.correct]+'</span><span style="color:var(--muted);font-size:.88rem;"> '+q2.expl+'</span>';
+      document.getElementById('qz-card').className='ex-card '+(isOk?'ok-st':'err-st');
+      // Afficher bouton Suivant
+      var nextBtn=document.getElementById('qz-next-btn');
+      if(nextBtn){nextBtn.style.display='inline-block';}
+      // Écouter espace (une seule fois)
+      function qzSpaceHandler(e){if(e.code==='Space'){e.preventDefault();qzNext();document.removeEventListener('keydown',qzSpaceHandler);}}
+      document.addEventListener('keydown',qzSpaceHandler);
+    };})(oi===q.correct,q);
+    optsEl.appendChild(btn);
+  });
+}
+
+/* ═══════════════════════════════════════
+   ② TEXTE À TROU — multi-blanks
+═══════════════════════════════════════ */
+function initBlank(retry){
+  blErrors=retry?blErrors:[];
+  blDeck=shuffle(retry?blErrors.slice():BL_DATA);
+  blIdx=0;blOk=0;blErr=0;if(!retry)blErrors=[];
+  document.getElementById('bl-result').classList.remove('show');
+  document.getElementById('bl-pok').innerHTML='&#10003; 0';
+  document.getElementById('bl-perr').innerHTML='&#10007; 0';
+  document.getElementById('bl-retry').classList.remove('show');
+  document.getElementById('bl-card').style.display='';
+  renderBlank();
+}
+function retryBlank(){initBlank(true);}
+function parseAcceptable(raw){
+  // Séparer sur | ou / ou ; pour les synonymes sur un même trou
+  // Séparer sur ' - ' (espace-tiret-espace) pour les trous successifs
+  var slots=raw.split(/\s*-\s*/);
+  return slots.map(function(s){
+    return s.split(/[|;\/]/).map(function(x){return x.trim().toLowerCase();}).filter(Boolean);
+  });
+}
+function renderBlank(){
+  if(!blDeck.length)return;
+  var total=blDeck.length,done=blOk+blErr;
+  document.getElementById('bl-fill').style.width=(done/total*100)+'%';
+  document.getElementById('bl-cur').textContent=blIdx+1;
+  document.getElementById('bl-tot').textContent=total;
+  var q=blDeck[blIdx];
+  document.getElementById('bl-qnum').textContent='Question '+(blIdx+1)+' / '+total;
+  document.getElementById('bl-fb').className='ex-fb';
+  document.getElementById('bl-card').className='ex-card';
+  var phrase=q.q;
+  // Compter les blanks dans la phrase
+  var blanksInPhrase=(phrase.match(/_{3,}/g)||[]).length;
+  // Parser les réponses acceptées
+  var acceptedSlots=parseAcceptable(q.show||q.acc.join('|'));
+  // Si plusieurs blanks dans la phrase → insérer un input par blank
+  if(blanksInPhrase>0){
+    var slotIdx=0;
+    var withInputs=phrase.replace(/_{3,}/g,function(){
+      var i=slotIdx++;
+      return '<input id="bl-inp-'+i+'" class="ex-inp" type="text" placeholder="..." autocomplete="off" style="width:140px;display:inline-block;vertical-align:middle;margin:0 2px;">';
+    });
+    document.getElementById('bl-sent').innerHTML=withInputs;
+    document.getElementById('bl-double').innerHTML='<button class="ex-btn" style="margin-top:1.2rem" onclick="validerBlank()">Valider</button>';
+    setTimeout(function(){
+      var first=document.getElementById('bl-inp-0');
+      if(first){first.focus();}
+      // Espace sur le dernier input pour valider
+      var lastIdx=blanksInPhrase-1;
+      var last=document.getElementById('bl-inp-'+lastIdx);
+      if(last)last.onkeydown=function(e){if(e.key==='Enter')validerBlank();};
+    },80);
+  }else{
+    // Pas de tiret dans la phrase → input libre sous la phrase
+    document.getElementById('bl-sent').innerHTML='<strong>'+phrase+'</strong>';
+    document.getElementById('bl-double').innerHTML='<div style="margin-top:.8rem"><input id="bl-inp-0" class="ex-inp" type="text" placeholder="Votre réponse..." autocomplete="off" style="width:220px;display:block;margin-bottom:.8rem;"><button class="ex-btn" onclick="validerBlank()">Valider</button></div>';
+    setTimeout(function(){
+      var inp=document.getElementById('bl-inp-0');
+      if(inp){inp.focus();inp.onkeydown=function(e){if(e.key==='Enter')validerBlank();};}
+    },80);
+  }
+}
+function validerBlank(){
+  var q=blDeck[blIdx];
+  var phrase=q.q;
+  var blanksInPhrase=(phrase.match(/_{3,}/g)||[]).length;
+  var n=Math.max(blanksInPhrase,1);
+  // q.acc est maintenant [[synonymes_trou0],[synonymes_trou1],...]
+  var acceptedSlots=Array.isArray(q.acc[0])?q.acc:q.acc.map(function(a){return[a];});
+  var allOk=true;
+  var correctedParts=[];
+  for(var i=0;i<n;i++){
+    var inp=document.getElementById('bl-inp-'+i);
+    if(!inp)continue;
+    inp.disabled=true;
+    var accepted=acceptedSlots[i]||acceptedSlots[0]||[];
+    var userVal=inp.value.trim().toLowerCase();
+    var slotOk=accepted.some(function(a){return matchSouple(userVal,[a]);});
+    if(slotOk){
+      inp.style.borderColor='var(--green)';
+      correctedParts.push('<strong style="color:var(--green)">'+(acceptedSlots[i]?acceptedSlots[i][0]:inp.value)+'</strong>');
+    }else{
+      inp.style.borderColor='var(--coral)';
+      allOk=false;
+      correctedParts.push('<strong style="color:var(--coral)">'+(acceptedSlots[i]?acceptedSlots[i][0]:'?')+'</strong>');
+    }
+  }
+  if(allOk){blOk++;}else{blErr++;blErrors.push(q);}
+  document.getElementById('bl-pok').innerHTML='&#10003; '+blOk;
+  document.getElementById('bl-perr').innerHTML='&#10007; '+blErr;
+  if(blErr>0){
+    document.getElementById('bl-retry').innerHTML='&#8634; Retravailler mes erreurs';
+    document.getElementById('bl-retry').classList.add('show');
+  }
+  // Afficher la phrase corrigée
+  var slotIdx2=0;
+  var correctedPhrase=phrase.replace(/_{3,}/g,function(){return correctedParts[slotIdx2++]||'';});
+  var fb=document.getElementById('bl-fb');
+  fb.className='ex-fb '+(allOk?'good':'bad')+' show';
+  fb.innerHTML=(allOk?'&#10003; Correct !':'&#10007; Réponse :')+'<div style="margin-top:.5rem;font-size:.92rem;line-height:1.8;">'+correctedPhrase+'</div>'+(q.expl?'<div style="color:var(--muted);font-size:.85rem;margin-top:.4rem;">'+q.expl+'</div>':'');
+  document.getElementById('bl-card').className='ex-card '+(allOk?'ok-st':'err-st');
+  document.getElementById('bl-double').innerHTML='<button class="ex-btn" style="margin-top:1.2rem" onclick="nextBlank()">Suivant &rarr;</button>';
+}
+function nextBlank(){
+  blIdx++;
+  if(blIdx>=blDeck.length){
+    document.getElementById('bl-card').style.display='none';
+    showResult({rs:'bl-rs',mention:'bl-mention',rm:'bl-rm',rg:'bl-rg',result:'bl-result'},blOk,blErr,'bl-retry-res');
+  }else renderBlank();
+}
+/* ═══════════════════════════════════════
+   ③ FLASHCARDS avec retry
+═══════════════════════════════════════ */
+var fcErrors=[];
+function initFlash(retry){
+  fcErrors=retry?fcErrors:[];
+  var deck=retry?fcErrors.slice():FC_DATA;
+  if(!deck.length)return;
+  fcIdx=0;fcFlippedState=false;fcOk=0;fcErr=0;
+  if(!retry)fcErrors=[];
+  window._fcDeck=deck;
+  document.getElementById('fc-result').classList.remove('show');
+  document.querySelector('.fc-scene').style.display='';
+  document.querySelector('.fc-nav').style.display='';
+  document.getElementById('fc-eval').classList.remove('show');
+  document.getElementById('fc-tot').textContent=deck.length;
+  renderFlash();
+}
+function retryFlash(){initFlash(true);}
+function renderFlash(){
+  var deck=window._fcDeck||FC_DATA;
+  if(!deck.length)return;
+  var total=deck.length;
+  document.getElementById('fc-fill').style.width=(fcIdx/total*100)+'%';
+  document.getElementById('fc-cur').textContent=fcIdx+1;
+  document.getElementById('fc-tot').textContent=total;
+  document.getElementById('fc-card').classList.remove('flipped');fcFlippedState=false;
+  document.getElementById('fc-eval').classList.remove('show');
+  document.getElementById('fc-q').textContent=deck[fcIdx].q;
+  document.getElementById('fc-a').innerHTML=deck[fcIdx].a;
+  var dots='';for(var i=0;i<total;i++)dots+='<span style="opacity:'+(i===fcIdx?1:.25)+';color:var(--blue)">●</span> ';
+  document.getElementById('fc-dots').innerHTML=dots;
+}
+function fcFlip(){
+  fcFlippedState=!fcFlippedState;
+  document.getElementById('fc-card').classList.toggle('flipped',fcFlippedState);
+  if(fcFlippedState)document.getElementById('fc-eval').classList.add('show');
+  else document.getElementById('fc-eval').classList.remove('show');
+}
+function fcEval(ok){
+  var deck=window._fcDeck||FC_DATA;
+  if(!ok){fcErr++;fcErrors.push(deck[fcIdx]);}else{fcOk++;}
+  fcIdx++;
+  if(fcIdx>=deck.length){
+    document.querySelector('.fc-scene').style.display='none';
+    document.querySelector('.fc-nav').style.display='none';
+    document.getElementById('fc-eval').classList.remove('show');
+    var pct=Math.round(fcOk/deck.length*100);
+    document.getElementById('fc-rs').textContent=fcOk+'/'+deck.length;
+    showMention('fc-mention',pct);
+    document.getElementById('fc-rm').textContent=pct>=80?'Parfait ! 🎉':pct>=50?'Bien joué ! 👏':'Continue ! 💪';
+    document.getElementById('fc-rg').innerHTML='<div class="ex-sbox"><div class="ex-snum">'+fcOk+'</div><div class="ex-slbl">Je savais</div></div><div class="ex-sbox"><div class="ex-snum">'+fcErr+'</div><div class="ex-slbl">À revoir</div></div><div class="ex-sbox"><div class="ex-snum">'+pct+'%</div><div class="ex-slbl">Réussite</div></div>';
+    // Bouton retry si erreurs
+    var res=document.getElementById('fc-result');
+    var existing=res.querySelector('.fc-retry-btn');if(existing)existing.remove();
+    if(fcErr>0){
+      var rb=document.createElement('button');
+      rb.className='ex-retry-only fc-retry-btn';
+      rb.innerHTML='↺ Retravailler mes erreurs';
+      rb.onclick=retryFlash;
+      res.querySelector('.ex-res-actions')||res.appendChild(document.createElement('div'));
+      res.appendChild(rb);
+    }
+    document.getElementById('fc-result').classList.add('show');
+    return;
+  }
+  renderFlash();
+}
+function fcGo(dir){
+  var deck=window._fcDeck||FC_DATA;
+  fcIdx=(fcIdx+dir+deck.length)%deck.length;renderFlash();
+}
+
+/* ═══════════════════════════════════════
+   ④ RAPPEL LIBRE
+═══════════════════════════════════════ */
+function initRl(retry){
+  rlOk=0;rlErr=0;rlDone=0;
+  rlErrors=retry?rlErrors:[];
+  var deck=retry?(rlErrors.slice()):(RL_DATA);
+  window._rlDeck=deck;
+  window._rlPage=0;
+  window._rlPageSize=5;
+  document.getElementById('rl-result').classList.remove('show');
+  document.getElementById('rl-pok').innerHTML='&#10003; 0';
+  document.getElementById('rl-perr').innerHTML='&#10007; 0';
+  renderRlPage();
+}
+
+function renderRlPage(){
+  var deck=window._rlDeck||RL_DATA;
+  var page=window._rlPage||0;
+  var size=window._rlPageSize||5;
+  var start=page*size;
+  var pageItems=deck.slice(start,start+size);
+  var totalPages=Math.ceil(deck.length/size);
+  var list=document.getElementById('rl-list');
+  list.innerHTML='';
+
+  // Indicateur de page
+  var pageInfo=document.createElement('div');
+  pageInfo.style.cssText='text-align:center;font-size:.82rem;font-weight:800;color:var(--muted);margin-bottom:1rem;';
+  pageInfo.textContent='Groupe '+(page+1)+' / '+totalPages+' — Questions '+(start+1)+' à '+Math.min(start+size,deck.length);
+  list.appendChild(pageInfo);
+
+  pageItems.forEach(function(q,qi){
+    var realIdx=start+qi;
+    var div=document.createElement('div');
+    div.className='rl-item';div.id='rl-q'+realIdx;
+    div.innerHTML='<div class="rl-qtext">'+q.q+'</div>'+
+      '<div class="rl-slots"><div class="rl-slot"><textarea class="rl-slot-inp" id="rl-s'+realIdx+'" placeholder="Votre réponse..." rows="3" style="width:100%;resize:vertical;padding:.5rem;border:2px solid var(--bdr);border-radius:8px;font-family:inherit;font-size:.9rem;"></textarea></div></div>'+
+      '<div class="rl-submit-row"><button class="rl-reveal-btn" onclick="rlReveal('+realIdx+',this)">&#128065; Voir la correction</button></div>'+
+      '<div class="rl-answer" id="rl-ans'+realIdx+'"><strong>Correction :</strong><br>'+q.answer+'</div>';
+    list.appendChild(div);
+  });
+
+  // Bouton navigation toujours visible
+  window._rlPageDone=0;
+  window._rlPageTotal=pageItems.length;
+
+  // Barre de navigation en bas
+  var navDiv=document.createElement('div');
+  navDiv.id='rl-nav-bar';
+  navDiv.style.cssText='display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;';
+
+  // Boutons de page
+  for(var p=0;p<totalPages;p++){
+    var btn=document.createElement('button');
+    btn.textContent='Groupe '+(p+1);
+    btn.dataset.page=p;
+    btn.style.cssText='padding:.5rem 1.2rem;border-radius:100px;border:2px solid;font-family:inherit;font-weight:800;font-size:.82rem;cursor:pointer;transition:all .2s;';
+    if(p===page){
+      btn.style.background='var(--blue)';btn.style.color='#fff';btn.style.borderColor='var(--blue)';
+    } else {
+      btn.style.background='transparent';btn.style.color='var(--blue)';btn.style.borderColor='var(--blue)';
+    }
+    btn.onclick=(function(pg){return function(){window._rlPage=pg;renderRlPage();};})(p);
+    navDiv.appendChild(btn);
+  }
+  list.appendChild(navDiv);
+}
+
+function rlCheckPageDone(){
+  window._rlPageDone=(window._rlPageDone||0)+1;
+  var deck=window._rlDeck||RL_DATA;
+  var page=window._rlPage||0;
+  var size=window._rlPageSize||5;
+  var start=page*size;
+  var pageItems=deck.slice(start,start+size);
+  var totalPages=Math.ceil(deck.length/size);
+
+  if(window._rlPageDone>=pageItems.length){
+    var list=document.getElementById('rl-list');
+    var nextBtn=document.createElement('div');
+    nextBtn.style.cssText='text-align:center;margin-top:1.5rem;';
+    if(page+1<totalPages){
+      nextBtn.innerHTML='<button class="ex-btn" onclick="rlNextPage()">Groupe suivant &#8594; ('+(page+2)+'/'+totalPages+')</button>';
+    } else {
+      // Fin
+      if(rlErr>0){
+        nextBtn.innerHTML='<button class="ex-btn" style="background:var(--coral)" onclick="retryRl()">&#8634; Retravailler mes erreurs</button>';
+      }
+      showResult({rs:"rl-rs",mention:"rl-mention",rm:"rl-rm",rg:"rl-rg",result:"rl-result"},rlOk,rlErr,null);
+    }
+    list.appendChild(nextBtn);
+  }
+}
+
+function rlNextPage(){
+  window._rlPage=(window._rlPage||0)+1;
+  renderRlPage();
+  document.getElementById('rl-list').scrollIntoView({behavior:'smooth'});
+}
+
+
+function retryRl(){initRl(true);}
+function rlReveal(qi,btn){
+  var q=window._rlDeck[qi];
+  document.getElementById('rl-ans'+qi).classList.add('show');
+  document.getElementById('rl-q'+qi).classList.add('revealed');
+  var inp=document.getElementById('rl-s'+qi);if(inp)inp.disabled=true;
+  var row=btn.parentNode;
+  row.innerHTML='<button class="ex-btn" style="flex:1;background:var(--green);font-size:.85rem;" onclick="rlSelfEval('+qi+',true)">&#10003; Je savais</button>'+
+    '<button class="ex-btn" style="flex:1;background:var(--coral);font-size:.85rem;" onclick="rlSelfEval('+qi+',false)">&#10007; Je ne savais pas</button>';
+}
+function rlSelfEval(qi,ok){
+  rlDone++;
+  var q=window._rlDeck[qi];
+  if(ok)rlOk++;
+  else{rlErr++;if(!rlErrors)rlErrors=[];rlErrors.push(q);}
+  document.getElementById('rl-pok').innerHTML='&#10003; '+rlOk;
+  document.getElementById('rl-perr').innerHTML='&#10007; '+rlErr;
+  var row=document.querySelector('#rl-q'+qi+' .rl-submit-row');
+  row.innerHTML='<span style="font-size:.9rem;font-weight:800;color:'+(ok?'var(--green)':'var(--coral)')+'">'+(ok?'&#10003; Sache':'&#10007; A revoir')+'</span>';
+  rlCheckPageDone();
+}
+
+/* ═══════════════════════════════════════
+   CLAVIER
+═══════════════════════════════════════ */
+document.addEventListener('keydown',function(e){
+  var panel=document.querySelector('.ex-panel.on');
+  if(!panel)return;
+  if(panel.id==='ex-flash'){
+    if(e.code==='Space'){e.preventDefault();fcFlip();}
+    if(e.code==='ArrowRight')fcGo(1);
+    if(e.code==='ArrowLeft')fcGo(-1);
+  }
+});
+
+var TABLEAU_CHAPITRES=[];var tabOk=0,tabErr=0,tabPage=0,tabPageSize=7,tabRows=[];
+function initTableau(){
+  tabOk=0;tabErr=0;tabPage=0;
+  document.getElementById('tab-result').classList.remove('show');
+  document.getElementById('tab-content').innerHTML='';
+  document.getElementById('tab-btn-wrap').style.display='';
+  if(!TABLEAU_CHAPITRES.length)return;
+  // Fusionner les rows de tous les chapitres tableau selectionnés
+  tabRows=[];
+  TABLEAU_CHAPITRES.forEach(function(ch){tabRows=tabRows.concat(ch.rows||[]);});
+  // Mélanger
+  for(var i=tabRows.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=tabRows[i];tabRows[i]=tabRows[j];tabRows[j]=t;}
+  renderTabPage();
+}
+function renderTabPage(){
+  var ch=TABLEAU_CHAPITRES[0]||{};
+  var start=tabPage*tabPageSize;
+  var pageRows=tabRows.slice(start,start+tabPageSize);
+  var total=tabRows.length;
+  var pageNum=tabPage+1;
+  var totalPages=Math.ceil(total/tabPageSize);
+  document.getElementById('tab-sh').innerHTML='&#128202; Tableau de valeurs &mdash; Bloc '+pageNum+'/'+totalPages+' <span class="badge">&times;'+pageRows.length+'</span>';
+  document.getElementById('tab-level').textContent='Completez les cases (reponse exacte ou +/-5%)';
+  document.getElementById('tab-sub').textContent='';
+  var s='<div class="vt-table-wrap"><table class="vt-table"><thead><tr><th>'+(ch.tabHeader||'Nutriment / situation')+'</th><th style="width:130px">Valeur</th></tr></thead><tbody>';
+  pageRows.forEach(function(row,i){
+    s+='<tr><td>'+row.label+'</td><td><div class="vt-inp-cell">'+
+      '<input class="vt-num-inp" id="vti'+i+'" data-v="'+row.val+'" data-t="'+row.tol+'" data-r="'+row.val.replace(',','.')+'" type="text" placeholder="?" autocomplete="off">'+
+      '<span class="vt-unit">'+row.unit+'</span>'+
+      '<span class="vt-correction" id="vtc'+i+'" style="display:none"></span>'+
+      '</div></td></tr>';
+  });
+  s+='</tbody></table></div>';
+  document.getElementById('tab-content').innerHTML=s;
+  // Bouton valider ou continuer
+  document.getElementById('tab-btn-wrap').innerHTML='<button class="ex-btn" onclick="validerTabPage()">Valider ce bloc &#10003;</button>';
+  document.getElementById('tab-result').classList.remove('show');
+}
+function validerTabPage(){
+  var start=tabPage*tabPageSize;
+  var pageRows=tabRows.slice(start,start+tabPageSize);
+  var ok_count=0,err_count=0;
+  document.querySelectorAll('.vt-num-inp').forEach(function(inp,i){
+    var ref=parseFloat(inp.dataset.r);
+    var tol=parseFloat(inp.dataset.t||0);
+    var raw=inp.value.trim().replace(',','.');
+    var user=parseFloat(raw);var ok=false;
+    if(!isNaN(ref)&&!isNaN(user)){
+      if(tol>0)ok=Math.abs(user-ref)/ref*100<=tol;
+      else ok=(raw===String(ref))||(inp.value.trim()===inp.dataset.v);
+    }
+    if(ok){ok_count++;inp.classList.add('correct');inp.disabled=true;}
+    else{err_count++;inp.classList.add('wrong');inp.disabled=true;
+      var c=document.getElementById('vtc'+i);
+      if(c){c.textContent='-> '+inp.dataset.v;c.style.display='inline';}
+    }
+  });
+  tabOk+=ok_count;tabErr+=err_count;
+  var hasNext=(tabPage+1)*tabPageSize<tabRows.length;
+  if(hasNext){
+    document.getElementById('tab-btn-wrap').innerHTML=
+      '<div style="text-align:center;margin-top:1rem;">'+
+      '<strong style="color:var(--green)">&#10003; '+ok_count+'</strong> correctes &nbsp; <strong style="color:var(--coral)">&#10007; '+err_count+'</strong> erreurs'+
+      '</div>'+
+      '<div style="text-align:center;margin-top:.8rem;"><button class="ex-btn" onclick="nextTabPage()">Bloc suivant &#8594;</button></div>';
+  }else{
+    // Fin du tableau
+    var total=tabOk+tabErr;
+    var pct=total>0?Math.round(tabOk/total*100):0;
+    document.getElementById('tab-rs').textContent=tabOk+'/'+total;
+    showMention('tab-mention',pct);
+    document.getElementById('tab-rm').textContent=pct>=80?'Parfait !':pct>=60?'Bien joue !':'Continue !';
+    document.getElementById('tab-rg').innerHTML=
+      '<div class="ex-sbox"><div class="ex-snum">'+tabOk+'</div><div class="ex-slbl">Correct</div></div>'+
+      '<div class="ex-sbox"><div class="ex-snum">'+tabErr+'</div><div class="ex-slbl">Erreur</div></div>'+
+      '<div class="ex-sbox"><div class="ex-snum">'+pct+'%</div><div class="ex-slbl">Reussite</div></div>';
+    document.getElementById('tab-btn-wrap').style.display='none';
+    document.getElementById('tab-result').classList.add('show');
+  }
+}
+function nextTabPage(){
+  tabPage++;
+  renderTabPage();
+}
+
+/* INIT */
+buildGrid();
+
+</script>
+
+</body>
+</html>
