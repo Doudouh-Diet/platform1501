@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plateforme BTS Diététique</title>
+<title>Révisez avec Flemm · BTS Diététique</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -335,41 +335,77 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .chap-header-row .chap-emoji{font-size:1.3rem;margin-bottom:0;}
 .chap-header-row .chap-name{font-size:.9rem;margin-bottom:0;}
 
-/* Chapitres verrouillés */
-.chap-card.locked {
-  opacity: 0.45;
-  filter: grayscale(0.6);
-  cursor: not-allowed;
-  position: relative;
+/* Filtres tableau */
+#tab-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem;
+  margin-bottom: 1rem;
+  padding: .8rem 1rem;
+  background: var(--surf);
+  border-radius: 12px;
+  border: 1.5px solid var(--bdr);
 }
-.chap-card.locked::after {
-  content: '🔒';
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 1rem;
+.tab-filter-btn {
+  background: var(--white);
+  border: 1.5px solid var(--bdr);
+  border-radius: 100px;
+  padding: .3rem .9rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: .8rem;
+  font-weight: 800;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
 }
-.chap-card.locked:hover {
-  transform: none !important;
-  box-shadow: none !important;
-  border-color: var(--bdr) !important;
+.tab-filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+.tab-filter-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* Blocs tableau */
+#tab-blocs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  justify-content: center;
+  margin-top: 1.2rem;
 }
+.tab-bloc-btn {
+  background: var(--white);
+  border: 1.5px solid var(--bdr);
+  border-radius: 100px;
+  padding: .4rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: .82rem;
+  font-weight: 800;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
+}
+.tab-bloc-btn:hover { border-color: var(--blue); color: var(--blue); }
+.tab-bloc-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 900; box-shadow: 0 2px 8px rgba(24,95,165,0.25); transform: scale(1.06); }
+.tab-bloc-btn { transition: all .15s; }
 </style>
 </head>
 <script type="application/json" id="chapitres-data">
-[{"id": "prot_ines", "name": "Protéines", "emoji": "🥩", "color": "c-blue", "desc": "AAI, qualité protéique, RNP", "type": "cours", "qz": [{"q": "Une protéine est définie comme un enchaînement d'au moins :", "opts": ["50 acides aminés", "20 acides aminés", "200 acides aminés", "100 acides aminés"], "correct": 3, "expl": "Au-delà de 100 AA = protéine. En dessous = peptide."}, {"q": "Combien d'acides aminés indispensables (AAI) ne peuvent pas être synthétisés par l'organisme adulte ?", "opts": ["20", "8", "9", "10"], "correct": 2, "expl": "9 AAI chez l'adulte - 10 AAI chez le Nourrisson"}, {"q": "Quel est l'apport de sécurité (APS) en protéines pour un adulte ?", "opts": ["0,5 g/kg/j", "0,83 g/kg/j", "1,2 g/kg/j", "2 g/kg/j"], "correct": 1, "expl": "APS = 0,83 g/kg/j selon l'ANSES."}, {"q": "Que mesure le CUD ?", "opts": ["La capacité des protéines à être utilisées métaboliquement", "La capacité du tube digestif à absorber l'azote ingéré", "La valeur biologique des protéines alimentaires", "Le score PDCAAS"], "correct": 1, "expl": "CUD = (N ingéré − N fécal) × 100 / N ingéré."}, {"q": "La valeur biologique (VB) mesure :", "opts": ["La composition en acides aminés indispensables", "L'efficacité protéique mesurée sur des rats", "La capacité du tube digestif à absorber l'azote ingéré", "La capacité à être utilisée métaboliquement une fois absorbée"], "correct": 3, "expl": "Une VB=100 → remplace 100% des pertes azotées."}, {"q": "Quelle méthode est la référence pour évaluer la qualité protéique ?", "opts": ["PDCAAS / DIAAS", "CEP / UPN", "VB / IC", "CUD / UPN"], "correct": 0, "expl": "Combine composition en AAI et digestibilité. Méthode de référence OMS."}, {"q": "Limite basse des apports protéiques ANSES pour les > 70 ans :", "opts": ["15 % de l'AET", "10 % de l'AET", "20 % de l'AET", "12 % de l'AET"], "correct": 0, "expl": "Permet la prévention de la sarcopénie"}, {"q": "Le rôle fonctionnel des protéines inclut :", "opts": ["Le rôle énergétique (4 kcal/g)", "Les enzymes, hormones et protéines de transport", "Le rôle structural", "Le rôle de précurseurs"], "correct": 1, "expl": ""}, {"q": "Le tryptophane est précurseur de :", "opts": ["La dopamine", "La mélatonine", "L'adrénaline", "La sérotonine"], "correct": 3, "expl": "Tryptophane → sérotonine (neurotransmetteur)."}, {"q": "La formule de l'UPN est :", "opts": ["UPN = CUD + VB / 100", "UPN = CUD × IC / 100", "UPN = VB / CUD × 100", "UPN = CUD × VB / 100"], "correct": 3, "expl": ""}, {"q": "Le facteur limitant d'une protéine est :", "opts": ["L'acide aminé ayant la meilleure digestibilité", "L'acide aminé non essentiel en excès", "L'acide aminé le plus abondant", "L'AAI le moins représenté par rapport à la protéine de référence"], "correct": 3, "expl": "Limite la synthèse. Complémentation sur la journée suffit."}, {"q": "Valeur énergétique des protéines :", "opts": ["9 kcal/g", "4 kcal/g", "7 kcal/g", "2 kcal/g"], "correct": 1, "expl": "Protéines et glucides = 4 kcal/g. Lipides = 9 kcal/g."}], "bl": [{"q": "Les protéines ont un rôle __________, car elles participent à la formation et au renouvellement des tissus", "acc": [["structural"]], "show": "structural", "expl": ""}, {"q": "Elles ont également un rôle fonctionnelle, car elles interviennent dans la composition des __________, des __________et des ______________________________.", "acc": [["enzyme"], ["hormones"], ["protéines de transport"]], "show": "enzyme - hormones - protéines de transport", "expl": ""}, {"q": "Une protéine est une molécule constituée d’un enchaînement de plus de __________.", "acc": [["100 acides aminés"]], "show": "100 acides aminés", "expl": ""}, {"q": "Lorsque la chaîne contient moins de 100 acides aminés, on parle de __________.", "acc": [["peptide"]], "show": "peptide", "expl": ""}, {"q": "Le besoin en protéine des enfants de 6 à 9 ans est de ______  à ______ % de l’AET", "acc": [["7"], ["17"]], "show": "7 - 17", "expl": ""}, {"q": "L’apport de sécurité en protéines chez l’adulte est de __________ par kg de poids corporel et par jour.", "acc": [["0,83g"]], "show": "0,83g", "expl": ""}, {"q": "La qualité d’une protéine correspond à sa capacité à couvrir les besoins de l’organisme pour assurer sa ______ et son______", "acc": [["croissance"], ["entretien"]], "show": "croissance - entretien", "expl": "Une protéine de bonne qualité permet à la fois de construire les tissus (croissance) et de les maintenir (entretien)"}, {"q": "Le besoin en protéine des enfants de 14 à 17 ans est de ______  à ______ % de l’AET", "acc": [["10"], ["20"]], "show": "10 - 20", "expl": ""}, {"q": "Pour les sportifs, il faut un apport en protéine compris dans un IR de______% à______% de l'AET", "acc": [["15"], ["20"]], "show": "15 - 20", "expl": "Synthèse et entretien musculaire majorée"}, {"q": "Certains acides aminés doivent être apportés par l’alimentation, ce sont les ______.", "acc": [["acides aminés indispensables", "AAI"]], "show": "acides aminés indispensables / AAI", "expl": "L’organisme ne peut pas les fabriquer, ils doivent donc obligatoirement être apportés par l’alimentation."}, {"q": "Si un acide aminé est présent en quantité insuffisante, on parle de ______.", "acc": [["facteur limitant"]], "show": "facteur limitant", "expl": "Le facteur limitant bloque la synthèse protéique même si les autres acides aminés sont présents."}, {"q": "Les légumineuses sont pauvres en ______ mais riches en ______ .", "acc": [["méthionine (et cystéine)"], ["lysine"]], "show": "méthionine (et cystéine) - lysine", "expl": "Elles complètent parfaitement les céréales dans un repas."}, {"q": "Le besoin en protéine des enfants de 10 à 13 ans est de ______  à ______ % de l’AET", "acc": [["9"], ["19"]], "show": "9 - 19", "expl": ""}, {"q": "Les oléagineux sont pauvre en ______et ______", "acc": [["méthionine"], ["lysine"]], "show": "méthionine - lysine", "expl": ""}, {"q": "La valeur biologique représente la capacité des protéines à être ______ par l’organisme après ______ .", "acc": [["utilisées"], ["absorption"]], "show": "utilisées - absorption", "expl": "Elle indique si les acides aminés absorbés peuvent être efficacement utilisés par le corps."}, {"q": "La digestibilité des protéines dépend de leur ______, de la cuisson, mais aussi des interactions avec d’autres nutriments.", "acc": [["structure"]], "show": "structure", "expl": "La forme de la protéine influence sa facilité de digestion par les enzymes."}, {"q": "Les céréales sont pauvres en ______ mais riches en ______ et ______", "acc": [["lysine"], ["méthionine"], ["cystéine"]], "show": "lysine - méthionine - cystéine", "expl": "Cela explique pourquoi elles doivent être associées à d’autres sources protéiques."}, {"q": "L’indice chimique permet d’évaluer la capacité d’une protéine à couvrir les besoins en ______", "acc": [["acides aminés indispensables"]], "show": "acides aminés indispensables", "expl": "Il compare la composition en acides aminés indispensables d’une protéine à une protéine de référence"}, {"q": "Le besoin en protéine des enfants de 4 à 5 ans est de ______  à ______ % de l’AET", "acc": [["6"], ["16"]], "show": "6 - 16", "expl": ""}, {"q": "La complémentarité protéique peut se faire sur un ______ ou sur une ______.", "acc": [["repas"], ["journée"]], "show": "repas - journée", "expl": "L’important est l’équilibre global des apports sur la journée."}, {"q": "Pour obtenir une bonne qualité protéique végétale, il faut associer des______ avec des ______.", "acc": [["céréales"], ["légumineuse"]], "show": "céréales - légumineuse", "expl": "2/3 de céréales avec 1/3 de légumineuse,\nCette association permet de compenser les acides aminés limitants."}], "fc": [{"q": "Teneur en protéine moyenne du légumineuses cuites pour 100 g", "a": "8g"}, {"q": "Les 9 acides aminés indispensables", "a": "Leucine · Lysine · Isoleucine · Valine · Méthionine(+Cystéine) · Histidine · Phénylalanine(+Tyrosine) · Tryptophane · Thréonine + Arginine chez nourrisson"}, {"q": "Rôles des protéines", "a": "1. Fonctionnel : enzymes, hormones, transport, précurseurs\n2. Structural : muscles, phanères, membranes\n3. Énergétique : 1g = 4 kcal"}, {"q": "CUD", "a": "Coefficient d'utilisation Digestive\nCapacité du tube digestif à absorber les protéines (azote ingéré)."}, {"q": "VB", "a": "Valeur Biologique\nCapacité des protéines absorbées à être utilisées par l’organisme pour ses besoins."}, {"q": "IC", "a": "Indice Chimique\nIndicateur qui compare la teneur en AAI d’une protéine à une protéine de référence."}, {"q": "PDCASS", "a": "Indice combinant la composition en acides aminés et la digestibilité d’une protéine."}, {"q": "Formule du CUD", "a": "CUD = (N ingéré − N fécal) × 100 / N ingéré"}, {"q": "Teneur en protéine moyenne des Fromages pour 100 g", "a": "20g"}, {"q": "Teneur en protéine moyenne des Féculents Cuits pour 100 g", "a": "3g"}, {"q": "Biodisponibilité", "a": "Capacité des nutriments à être libérés, absorbés et utilisés par l’organisme."}, {"q": "Teneur en protéine moyenne des VPO pour 100 g", "a": "20g"}, {"q": "Facteur limitant", "a": "Acide aminé indispensable présent en quantité insuffisante, limitant la synthèse protéique.Son indice chimique est inférieur à 100"}, {"q": "Teneur en protéine moyenne des oléagineux pour 100 g", "a": "20.0"}, {"q": "Qualité protéique", "a": "Capacité d’une protéine à couvrir les besoins de l’organisme en acides aminés pour assurer la croissance et l’entretien."}, {"q": "Teneur en protéine moyenne du Pain pour 100 g", "a": "9g"}], "rl": [{"q": "Cite les rôles des protéines", "answer": "1. Fonctionnel : enzymes (amylase), hormones (glucagon), transport (hémoglobine O₂, albumine), précurseurs (Trp→sérotonine).\n2. Structural : muscles, phanères, membranes.\n3. Énergétique : 1g = 4 kcal — dernier recours."}, {"q": "Donne la formule du CUD", "answer": "CUD = (N ingéré − N fécal) × 100 / N ingéré"}, {"q": "RNP en protéines pour les adultes bien portants", "answer": "IR 10 à 20 % de l'AET"}, {"q": "Expliquer le rôle du facteur limitant dans la synthèse protéique.", "answer": "Le facteur limitant est l’acide aminé indispensable le moins présent, il limite ou bloque la synthèse protéique même si les autres acides aminés sont présents."}, {"q": "Quelle est la différence entre le CUD et la VB ?", "answer": "Le CUD mesure la digestibilité (absorption de l’azote), tandis que la valeur biologique mesure l’utilisation des acides aminés absorbés par l’organisme."}, {"q": "Justifier l’association céréales et légumineuses.", "answer": "Les céréales sont pauvres en lysine et les légumineuses en méthionine, leur association permet d’obtenir un profil complet en AAI."}, {"q": "Expliquer pourquoi les céréales seules ne permettent pas une synthèse protéique optimale.", "answer": "Elles sont pauvres en lysine, acide aminé indispensable limitant."}, {"q": "Quelles sont les RNP en protéine pour les enfants et les adolescents ?", "answer": "4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET\n14 à 17 ans = 10 à 20 % de l’AET\n\nRôle fonctionnel : Hormones\nRôle structural : Formation de nouveaux tissus\nRôle énergétique : 1 g de P = 4 kcal"}, {"q": "Expliquer pourquoi la biodisponibilité est différente de la digestibilité.", "answer": "La digestibilité concerne l’absorption, la biodisponibilité inclut aussi l’utilisation par l’organisme."}, {"q": "Expliquer pourquoi un apport protéique insuffisant peut entraîner une perte de masse musculaire.", "answer": "Parce que l’organisme va utiliser ses propres protéines (muscles) pour couvrir ses besoins."}, {"q": "Vous travaillez dans un EPAD, les patients (hommes et femmes) ont plus de 65 ans.\nD'après vous, quel devrait être leur apport en protéine (en g et %) ? Justifier votre réponse", "answer": "Chez les personnes de plus de 65 ans, l’apport en protéines recommandé est d’environ :\n\n👉 1 g/kg de poids corporel par jour\n👉 soit environ 15 à 20 % de l’AET"}, {"q": "Quels sont les acides aminés indispensables ?", "answer": "Leucine\n\nIsoleucine\n\nValine\n\nLysine\n\nMéthionine\n\nPhénylalanine\n\nThréonine\n\nTryptophane\n\nHistidine\n\nArginine pour les nourrissons"}, {"q": "Donner 3 conseils pour équilibrer sa consommation de protéines.", "answer": "Varier les sources de protéines (animales et végétales)\n\nConsommer des légumineuses au moins 2 fois par semaine\n\nLimiter la viande rouge (< 500 g/semaine)\n\nLimiter la charcuterie (< 150 g/semaine)\n\nConsommer du poisson 2 fois par semaine (dont 1 poisson gras)\n\nLes oeufs peuvent être manger tous les jours (attention autres recommandations)"}, {"q": "Quels sont les aliments végétariens comprenant tous les AAE ?", "answer": "Céréales : le Quinoa (15% de protéines) et l’Amarante\nLégumes secs : le Soja\nOléagineux : le Sésame"}, {"q": "La carence en protéines pour les personnes âgées peut entraîner quoi ?", "answer": "La personne âgée à plus de difficultés à reconstituer les protéines catabolisées pour ses besoins pathologiques et physiologiques. \nLa carence en protéine peut entraîner :  \nRisque de fonte musculaire (dénutrition)\nAsthénie\nPathologie osseuses\nDiminution de la résistance aux infections\nAnémie"}, {"q": "Quels sont les besoins en protéines pour les 0 à 3 ans et pourquoi ?", "answer": "Besoins en Protéines pour les 0- 3 ans\nRN en % de l’AET : \n- Avant 1 an de 7 à 15 % de l’AET\n- Après 1 an de 6 à 15 % de l’AET\n- Un % plus élevé serait un facteur de risque dans le développement d’une obésité future. \n\nAttention, certains Acides Aminés sont indispensables chez l’enfant : \n- Cystéine pour les prématurés\n- Histidine pour le  nourrisson né à terme\n\nLes protéines permettent la croissance en taille et en poids de l’enfant, le développement et entretien des nouveaux tissus. \nAttention à ne pas surprotéiner l’enfant, car ses fonctions hépatiques et rénales sont fragiles."}], "rows": [{"label": "Apport de sécurité en protéines pour un adulte (g/kg/j)", "val": "0,83", "unit": "g/kg/j", "tol": 0}, {"label": "Borne basse de l'intervalle de référence en protéines (% AET)", "val": "10", "unit": "%", "tol": 0}, {"label": "Borne haute de l'intervalle de référence en protéines (% AET)", "val": "20", "unit": "%", "tol": 0}, {"label": "Part minimale de protéines recommandée pour les plus de 70 ans (% AET)", "val": "15", "unit": "%", "tol": 0}, {"label": "Besoin en protéines d'un sportif de loisirs (g/kg/j)", "val": "1", "unit": "g/kg/j", "tol": 0}, {"label": "Besoin en protéines d'un sportif de haut niveau (g/kg/j)", "val": "1,5", "unit": "g/kg/j", "tol": 0}, {"label": "Besoin en protéines d'une personne âgée de plus de 65 ans (g/kg/j)", "val": "1", "unit": "g/kg/j", "tol": 0}, {"label": "Teneur en protéines des VPO pour 100g", "val": "20", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des fromages pour 100g", "val": "20", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des légumineuses cuites pour 100g", "val": "8", "unit": "g", "tol": 5}, {"label": "Teneur en protéines du pain pour 100g", "val": "9", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des féculents cuits pour 100g", "val": "3", "unit": "g", "tol": 5}, {"label": "Teneur en protéines des oléagineux pour 100g", "val": "20", "unit": "g", "tol": 5}], "tabHeader": "Protéines pour 100g / Apport (g/kg/j ou % AET)"}, {"id": "teneurs_aliments", "name": "Teneurs des aliments", "emoji": "🍽️", "color": "c-green", "desc": "Données Ciqual — tolérance ±5%", "type": "locked", "rows": [{"label": "Lait 1/2 écrémé — Protéines", "val": "3.5", "unit": "g", "tol": 5}, {"label": "Lait 1/2 écrémé — Lipides", "val": "1.6", "unit": "g", "tol": 5}, {"label": "Lait 1/2 écrémé — Glucides", "val": "5.0", "unit": "g", "tol": 5}, {"label": "Lait 1/2 écrémé — Calcium", "val": "120.0", "unit": "mg", "tol": 5}, {"label": "Lait 1/2 écrémé — Magnésium", "val": "10.0", "unit": "mg", "tol": 5}, {"label": "Fromage — Protéines", "val": "20.0", "unit": "g", "tol": 5}, {"label": "Fromage — Lipides", "val": "26.0", "unit": "g", "tol": 5}, {"label": "Fromage — Calcium", "val": "500.0", "unit": "mg", "tol": 5}, {"label": "Fromage — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "VPO — Protéines", "val": "20.0", "unit": "g", "tol": 5}, {"label": "VPO — Lipides", "val": "10.0", "unit": "g", "tol": 5}, {"label": "VPO — Calcium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "VPO — Fer", "val": "2.5", "unit": "mg", "tol": 5}, {"label": "VPO — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Pain — Protéines", "val": "9.0", "unit": "g", "tol": 5}, {"label": "Pain — Glucides", "val": "55.0", "unit": "g", "tol": 5}, {"label": "Pain — Fibre", "val": "3.5", "unit": "g", "tol": 5}, {"label": "Pain — Calcium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Pain — Fer", "val": "1.5", "unit": "mg", "tol": 5}, {"label": "Pain — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Pomme de terre — Protéines", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Pomme de terre — Glucides", "val": "17.0", "unit": "g", "tol": 5}, {"label": "Pomme de terre — Fibre", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Pomme de terre — Fer", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Pomme de terre — Magnésium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Féculents cuits — Protéines", "val": "3.0", "unit": "g", "tol": 5}, {"label": "Féculents cuits — Glucides", "val": "20.0", "unit": "g", "tol": 5}, {"label": "Féculents cuits — Fibre", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Féculents cuits — Calcium", "val": "10.0", "unit": "mg", "tol": 5}, {"label": "Féculents cuits — Fer", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Féculents cuits — Magnésium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Légumineuses cuites — Protéines", "val": "8.0", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Lipides", "val": "0.5", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Glucides", "val": "14.0", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Fibre", "val": "9.5", "unit": "g", "tol": 5}, {"label": "Légumineuses cuites — Calcium", "val": "70.0", "unit": "mg", "tol": 5}, {"label": "Légumineuses cuites — Fer", "val": "2.0", "unit": "mg", "tol": 5}, {"label": "Légumineuses cuites — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Protéines", "val": "1.0", "unit": "g", "tol": 5}, {"label": "Légumes — Glucides", "val": "5.0", "unit": "g", "tol": 5}, {"label": "Légumes — Fibre", "val": "2.5", "unit": "g", "tol": 5}, {"label": "Légumes — Calcium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Fer", "val": "1.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Vitamine C", "val": "20.0", "unit": "mg", "tol": 5}, {"label": "Légumes — Magnésium", "val": "20.0", "unit": "mg", "tol": 5}, {"label": "Fruits — Glucides", "val": "12.0", "unit": "g", "tol": 5}, {"label": "Fruits — Fibre", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Fruits — Calcium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Fruits — Fer", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Fruits — Vitamine C", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Fruits — Magnésium", "val": "15.0", "unit": "mg", "tol": 5}, {"label": "Beurre — Lipides", "val": "82.0", "unit": "g", "tol": 5}, {"label": "Huile — Lipides", "val": "100.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Protéines", "val": "20.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Lipides", "val": "50.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Glucides", "val": "5.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Fibre", "val": "8.0", "unit": "g", "tol": 5}, {"label": "Oléagineux — Calcium", "val": "150.0", "unit": "mg", "tol": 5}, {"label": "Oléagineux — Fer", "val": "2.0", "unit": "mg", "tol": 5}, {"label": "Oléagineux — Magnésium", "val": "150.0", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Protéines", "val": "2.0", "unit": "g", "tol": 5}, {"label": "Fruits secs — Lipides", "val": "0.5", "unit": "g", "tol": 5}, {"label": "Fruits secs — Glucides", "val": "60.0", "unit": "g", "tol": 5}, {"label": "Fruits secs — Fibre", "val": "6.5", "unit": "g", "tol": 5}, {"label": "Fruits secs — Calcium", "val": "60.0", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Fer", "val": "1.0", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Vitamine C", "val": "0.5", "unit": "mg", "tol": 5}, {"label": "Fruits secs — Magnésium", "val": "30.0", "unit": "mg", "tol": 5}, {"label": "Sucre — Glucides", "val": "100.0", "unit": "g", "tol": 5}], "tabHeader": "Aliment — Nutriment (pour 100g)", "qz": [], "bl": [], "fc": [], "rl": []}, {"id": "lipides", "name": "Lipides", "emoji": "🫙", "color": "c-coral", "desc": "AGE, oméga, cholestérol", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "glucides", "name": "Glucides", "emoji": "🍞", "color": "c-purple", "desc": "IG, CG, teneurs glucidiques", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "fibres", "name": "Fibres", "emoji": "🥦", "color": "c-green", "desc": "Solubles, insolubles, AS", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "eau", "name": "Eau", "emoji": "💧", "color": "c-indigo", "desc": "Besoins hydriques, régulation", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "calcium", "name": "Calcium", "emoji": "🦴", "color": "c-teal", "desc": "RNP, absorption, sources", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "magn_sium", "name": "Magnésium", "emoji": "⚡", "color": "c-blue", "desc": "RNP, carences, sources", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "sodium", "name": "Sodium", "emoji": "🧂", "color": "c-orange", "desc": "AS, LSS, excès", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "potassium", "name": "Potassium", "emoji": "🍌", "color": "c-coral", "desc": "AS, rôles, sources", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "phosphore", "name": "Phosphore", "emoji": "🔋", "color": "c-purple", "desc": "AS, Ca/P, énergie", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "fer", "name": "Fer", "emoji": "🩸", "color": "c-coral", "desc": "Héminique, non héminique, RNP", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "cuivre___zinc___iode", "name": "Cuivre - Zinc - Iode", "emoji": "🔬", "color": "c-teal", "desc": "Oligo-éléments, rôles, RNP", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_a", "name": "Vitamine A", "emoji": "🥕", "color": "c-orange", "desc": "Rétinol, vision, caroténoïdes", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_d", "name": "Vitamine D", "emoji": "☀️", "color": "c-yellow", "desc": "Calcitriol, os, immunité", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_c", "name": "Vitamine C", "emoji": "🍊", "color": "c-orange", "desc": "Antioxydant, collagène, fer", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_e", "name": "Vitamine E", "emoji": "🌻", "color": "c-yellow", "desc": "Tocophérol, antioxydant", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_k", "name": "Vitamine K", "emoji": "🥬", "color": "c-green", "desc": "K1/K2, coagulation, os", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_b9", "name": "Vitamine B9", "emoji": "🌿", "color": "c-green", "desc": "Folates, ADN, grossesse", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_b12", "name": "Vitamine B12", "emoji": "💉", "color": "c-indigo", "desc": "Cobalamine, ADN, système nerveux", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "rnp_as_lss", "name": "RNP · AS · LSS", "emoji": "🔢", "color": "c-indigo", "desc": "Valeurs de référence — réponse exacte", "type": "locked", "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}]
+[{"id": "prot_ines", "name": "Protéines", "emoji": "🥩", "color": "c-red", "desc": "AAI, qualité protéique, RNP", "type": "cours", "qz": [{"q": "Une protéine est définie comme un enchaînement d'au moins :", "opts": ["100 acides aminés", "20 acides aminés", "200 acides aminés", "50 acides aminés"], "correct": 0, "expl": "Au-delà de 100 AA = protéine. En dessous = peptide."}, {"q": "Combien d'acides aminés indispensables (AAI) ne peuvent pas être synthétisés par l'organisme adulte ?", "opts": ["7", "9", "8", "10"], "correct": 1, "expl": "9 AAI chez l'adulte - 10 AAI chez le Nourrisson"}, {"q": "Que mesure le CUD ?", "opts": ["La capacité du tube digestif à synthétiser l'azote", "La valeur biologique des protéines", "Le score en acides aminés indispensables", "La capacité du tube digestif à absorber l'azote ingéré"], "correct": 3, "expl": "CUD = (N ingéré − N fécal) × 100 / N ingéré."}, {"q": "La formule de l'UPN est :", "opts": ["UPN = CUD + VB / 100", "UPN = CUD – VB / 100", "UPN = CUD × VB / 100", "UPN = VB / CUD × 100"], "correct": 2, "expl": ""}, {"q": "Quelle méthode est la référence pour évaluer la qualité protéique ?", "opts": ["PDCAAS", "CUD", "VB", "IC"], "correct": 0, "expl": "Combine composition en AAI et digestibilité. Méthode de référence OMS."}, {"q": "Le facteur limitant d'une protéine est :", "opts": ["L'AAI le moins représenté par rapport à la protéine de référence", "L'AAI le plus abondant", "L'acide aminé non essentiel", "L'AAI de référence"], "correct": 0, "expl": "Limite la synthèse. Complémentation sur la journée suffit."}, {"q": "La valeur biologique (VB) mesure :", "opts": ["Le score en acides aminés indispensables", "La capacité à être utilisée métaboliquement une fois absorbée", "La digestibilité des protéines", "La teneur en azote ingéré"], "correct": 1, "expl": ""}, {"q": "Quelle est la teneur en protéine des VPO pour 100 g ?", "opts": ["20g", "25g", "10g", "15g"], "correct": 0, "expl": "Attention, le mode de cuisson change la valeur."}, {"q": "Quelle pseudo céréale contient tous les AAI ?", "opts": ["Quinoa", "Amarante", "Épeautre", "Soja"], "correct": 0, "expl": ""}, {"q": "Quel est l'apport de sécurité (APS) en protéines pour un adulte ?", "opts": ["0,83 g/kg/j", "1,2 g/kg/j", "0,5 g/kg/j", "1 g/kg/j"], "correct": 0, "expl": "APS = 0,83 g/kg/j selon l'ANSES."}, {"q": "Quelles sont les RNP en protéines des femmes enceintes au 3ème trimestre ?", "opts": ["10 à 15 % de l'AET", "15 à 25 % de l'AET", "12 à 20 % de l’AET", "10 à 20 % de l'AET"], "correct": 2, "expl": ""}, {"q": "Quelle est la teneur en protéine fixée par l'EFSA durant toute la durée de l'allaitement ?", "opts": ["20 g par jour", "19 g par jour", "10 g par jour", "12 g par jour"], "correct": 1, "expl": "L’EFSA recommande un apport protéique supplémentaire de 19 g/j pendant les 6 premiers mois de l’allaitement, puis 13 g/j ensuite, en complément des besoins de base."}, {"q": "Quels sont les besoins en protéines pour les nourrissons après 1 an ?", "opts": ["6 à 15 % de l’AET", "7 à 15 % de l'AET", "10 à 20 % de l'AET", "5 à 10 % de l'AET"], "correct": 0, "expl": "Un % plus élevé serait un facteur de risque dans le développement d’une obésité future."}, {"q": "Quels sont les besoins en protéines des enfants de 6 à 9 ans ?", "opts": ["6 à 16 % de l'AET", "10 à 20 % de l'AET", "5 à 15 % de l'AET", "7 à 17 % de l’AET"], "correct": 3, "expl": "4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET"}, {"q": "Quels sont les besoins en protéines des enfants de 14 à 17 ans ?", "opts": ["7 à 17 % de l'AET", "15 à 25 % de l'AET", "10 à 20 % de l’AET", "12 à 20 % de l'AET"], "correct": 2, "expl": ""}, {"q": "Quel est l'apport en protéine recommandé pour les personnes âgées ?", "opts": ["12 à 18 % de l'AET", "20 à 30 % de l'AET", "10 à 20 % de l'AET", "15 à 20 % de l’AET"], "correct": 3, "expl": "👉 1 g/kg de poids corporel par jour\n👉 soit environ 15 à 20 % de l’AET"}, {"q": "Quel est l'IR recommandé pour l'apport en protéine des sportifs ?", "opts": ["12 à 18 % de l'AET", "10 à 20 % de l'AET", "20 à 30 % de l'AET", "15 à 20 % de l’AET"], "correct": 3, "expl": ""}, {"q": "Une protéine est définie comme un enchaînement d'au moins :", "opts": ["50 acides aminés", "200 acides aminés", "20 acides aminés", "100 acides aminés"], "correct": 3, "expl": "Au-delà de 100 AA = protéine. En dessous = peptide."}, {"q": "Combien d'acides aminés indispensables (AAI) ne peuvent pas être synthétisés par l'organisme adulte ?", "opts": ["8", "7", "9", "10"], "correct": 2, "expl": "9 AAI chez l'adulte - 10 AAI chez le Nourrisson"}, {"q": "Que mesure le CUD ?", "opts": ["La capacité du tube digestif à absorber l'azote ingéré", "La valeur biologique des protéines", "Le score en acides aminés indispensables", "La capacité du tube digestif à synthétiser l'azote"], "correct": 0, "expl": "CUD = (N ingéré − N fécal) × 100 / N ingéré."}, {"q": "La formule de l'UPN est :", "opts": ["UPN = CUD – VB / 100", "UPN = VB / CUD × 100", "UPN = CUD + VB / 100", "UPN = CUD × VB / 100"], "correct": 3, "expl": ""}, {"q": "Quelle méthode est la référence pour évaluer la qualité protéique ?", "opts": ["IC", "PDCAAS", "CUD", "VB"], "correct": 1, "expl": "Combine composition en AAI et digestibilité. Méthode de référence OMS."}, {"q": "Le facteur limitant d'une protéine est :", "opts": ["L'AAI le plus abondant", "L'AAI de référence", "L'AAI le moins représenté par rapport à la protéine de référence", "L'acide aminé non essentiel"], "correct": 2, "expl": "Limite la synthèse. Complémentation sur la journée suffit."}, {"q": "La valeur biologique (VB) mesure :", "opts": ["La capacité à être utilisée métaboliquement une fois absorbée", "Le score en acides aminés indispensables", "La teneur en azote ingéré", "La digestibilité des protéines"], "correct": 0, "expl": ""}, {"q": "Quelle est la teneur en protéine des VPO pour 100 g ?", "opts": ["15g", "25g", "20g", "10g"], "correct": 2, "expl": "Attention, le mode de cuisson change la valeur."}, {"q": "Quelle pseudo céréale contient tous les AAI ?", "opts": ["Quinoa", "Épeautre", "Amarante", "Soja"], "correct": 0, "expl": ""}, {"q": "Quel est l'apport de sécurité (APS) en protéines pour un adulte ?", "opts": ["0,5 g/kg/j", "0,83 g/kg/j", "1,2 g/kg/j", "1 g/kg/j"], "correct": 1, "expl": "APS = 0,83 g/kg/j selon l'ANSES."}, {"q": "Quelles sont les RNP en protéines des femmes enceintes au 3ème trimestre ?", "opts": ["12 à 20 % de l’AET", "15 à 25 % de l'AET", "10 à 15 % de l'AET", "10 à 20 % de l'AET"], "correct": 0, "expl": ""}, {"q": "Quelle est la teneur en protéine fixée par l'EFSA durant toute la durée de l'allaitement ?", "opts": ["20 g par jour", "19 g par jour", "10 g par jour", "12 g par jour"], "correct": 1, "expl": "L’EFSA recommande un apport protéique supplémentaire de 19 g/j pendant les 6 premiers mois de l’allaitement, puis 13 g/j ensuite, en complément des besoins de base."}, {"q": "Quels sont les besoins en protéines pour les nourrissons après 1 an ?", "opts": ["7 à 15 % de l'AET", "6 à 15 % de l’AET", "10 à 20 % de l'AET", "5 à 10 % de l'AET"], "correct": 1, "expl": "Un % plus élevé serait un facteur de risque dans le développement d’une obésité future."}, {"q": "Quels sont les besoins en protéines des enfants de 6 à 9 ans ?", "opts": ["7 à 17 % de l’AET", "10 à 20 % de l'AET", "5 à 15 % de l'AET", "6 à 16 % de l'AET"], "correct": 0, "expl": "4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET"}, {"q": "Quels sont les besoins en protéines des enfants de 14 à 17 ans ?", "opts": ["7 à 17 % de l'AET", "12 à 20 % de l'AET", "15 à 25 % de l'AET", "10 à 20 % de l’AET"], "correct": 3, "expl": ""}, {"q": "Quel est l'apport en protéine recommandé pour les personnes âgées ?", "opts": ["12 à 18 % de l'AET", "10 à 20 % de l'AET", "20 à 30 % de l'AET", "15 à 20 % de l’AET"], "correct": 3, "expl": "👉 1 g/kg de poids corporel par jour\n👉 soit environ 15 à 20 % de l’AET"}, {"q": "Quel est l'IR recommandé pour l'apport en protéine des sportifs ?", "opts": ["12 à 18 % de l'AET", "20 à 30 % de l'AET", "15 à 20 % de l’AET", "10 à 20 % de l'AET"], "correct": 2, "expl": ""}], "bl": [{"q": "Les protéines ont un rôle __________, car elles participent à la formation et au renouvellement des tissus.", "acc": [["structural"]], "show": "structural", "expl": ""}, {"q": "Elles ont également un rôle fonctionnelle, car elles interviennent dans la composition des __________, des __________et des ______________________________.", "acc": [["enzyme"], ["hormones"], ["protéines de transport"]], "show": "enzyme - hormones - protéines de transport", "expl": ""}, {"q": "Une protéine est une molécule constituée d’un enchaînement de plus de __________. Lorsque la chaîne contient moins de 100 acides aminés, on parle de __________.", "acc": [["100 acides aminés"], ["peptide"]], "show": "100 acides aminés - peptide", "expl": ""}, {"q": "La qualité d’une protéine correspond à sa capacité à couvrir les besoins de l’organisme pour assurer sa ______ et son______. Certains acides aminés doivent être apportés par l’alimentation, ce sont les ______.", "acc": [["croissance"], ["entretien"], ["acides aminés indispensables", "AAI"]], "show": "croissance - entretien - acides aminés indispensables / AAI", "expl": ""}, {"q": "Si un acide aminé est présent en quantité insuffisante, on parle de ______.", "acc": [["facteur limitant"]], "show": "facteur limitant", "expl": ""}, {"q": "Les oléagineux sont pauvre en ______et ______. Les légumineuses sont pauvres en ______ mais riches en ______ . Les céréales sont pauvres en ______ mais riches en ______ et ______", "acc": [["méthionine"], ["lysine"], ["méthionine"], ["lysine"], ["lysine"], ["méthionine"], ["cystéine"]], "show": "méthionine - lysine - méthionine - lysine - lysine - méthionine - cystéine", "expl": ""}, {"q": "L’apport de sécurité en protéines chez l’adulte est de __________ par kg de poids corporel et par jour.", "acc": [["0,83g"]], "show": "0,83g", "expl": ""}, {"q": "L'intervalle de référence en protéine pour les adultes biens portants est __________ % et__________ %.", "acc": [["10"], ["20"]], "show": "10 - 20", "expl": ""}, {"q": "La majoration des besoins protéiques est__________ car la balance __________ doit être __________ pour permettre le __________ du foetus et des __________ maternel", "acc": [["majorée"], ["azotée"], ["développement"], ["tissus"], ["tissus"]], "show": "majorée - azotée - développement - tissus", "expl": ""}, {"q": "Le besoin en protéine des femmes allaitantes est compris entre __________ % et __________ % de l'AET.", "acc": [["12"], ["20"]], "show": "12 - 20", "expl": ""}, {"q": "Certains acides aminés sont __________ chez l'enfant, notamment la __________  et l'__________. Les protéines permettent la __________ en __________ et en __________ de l'enfant, ainsi que le __________ et l'entretien des _____ .", "acc": [["indispensables"], ["cystéine"], ["histidine"], ["croissance"], ["taille"], ["poids"], ["développement"], ["nouveaux tissus"]], "show": "indispensables - cystéine - histidine - croissance - taille - poids - développement - nouveaux tissus", "expl": ""}, {"q": "Le besoin en protéine des enfants de 4 à 5 ans est de ______  à ______ % de l’AET", "acc": [["6"], ["16"]], "show": "6 - 16", "expl": ""}, {"q": "Le besoin en protéine des enfants de 14 à 17 ans est de ______  à ______ % de l’AET", "acc": [["10"], ["20"]], "show": "10 - 20", "expl": ""}, {"q": "La carence en protéine chez les personnes âgées peut entraîner un ______  de _____.", "acc": [["risque"], ["fonte musculaire"]], "show": "risque - fonte musculaire", "expl": ""}, {"q": "Pour les sportifs, il faut un apport en protéine compris dans un IR de______% à______% de l'AET", "acc": [["15"], ["20"]], "show": "15 - 20", "expl": ""}, {"q": "Les protéines ont un rôle __________, car elles participent à la formation et au renouvellement des tissus.", "acc": [["structural"]], "show": "structural", "expl": ""}, {"q": "Elles ont également un rôle fonctionnelle, car elles interviennent dans la composition des __________, des __________et des ______________________________.", "acc": [["enzyme"], ["hormones"], ["protéines de transport"]], "show": "enzyme - hormones - protéines de transport", "expl": ""}, {"q": "Une protéine est une molécule constituée d’un enchaînement de plus de __________. Lorsque la chaîne contient moins de 100 acides aminés, on parle de __________.", "acc": [["100 acides aminés"], ["peptide"]], "show": "100 acides aminés - peptide", "expl": ""}, {"q": "La qualité d’une protéine correspond à sa capacité à couvrir les besoins de l’organisme pour assurer sa ______ et son______. Certains acides aminés doivent être apportés par l’alimentation, ce sont les ______.", "acc": [["croissance"], ["entretien"], ["acides aminés indispensables", "AAI"]], "show": "croissance - entretien - acides aminés indispensables / AAI", "expl": ""}, {"q": "Si un acide aminé est présent en quantité insuffisante, on parle de ______.", "acc": [["facteur limitant"]], "show": "facteur limitant", "expl": ""}, {"q": "Les oléagineux sont pauvre en ______et ______. Les légumineuses sont pauvres en ______ mais riches en ______ . Les céréales sont pauvres en ______ mais riches en ______ et ______", "acc": [["méthionine"], ["lysine"], ["méthionine"], ["lysine"], ["lysine"], ["méthionine"], ["cystéine"]], "show": "méthionine - lysine - méthionine - lysine - lysine - méthionine - cystéine", "expl": ""}, {"q": "L’apport de sécurité en protéines chez l’adulte est de __________ par kg de poids corporel et par jour.", "acc": [["0,83g"]], "show": "0,83g", "expl": ""}, {"q": "L'intervalle de référence en protéine pour les adultes biens portants est __________ % et__________ %.", "acc": [["10"], ["20"]], "show": "10 - 20", "expl": ""}, {"q": "La majoration des besoins protéiques est__________ car la balance __________ doit être __________ pour permettre le __________ du foetus et des __________ maternel", "acc": [["majorée"], ["azotée"], ["développement"], ["tissus"], ["tissus"]], "show": "majorée - azotée - développement - tissus", "expl": ""}, {"q": "Le besoin en protéine des femmes allaitantes est compris entre __________ % et __________ % de l'AET.", "acc": [["12"], ["20"]], "show": "12 - 20", "expl": ""}, {"q": "Certains acides aminés sont __________ chez l'enfant, notamment la __________  et l'__________. Les protéines permettent la __________ en __________ et en __________ de l'enfant, ainsi que le __________ et l'entretien des _____ .", "acc": [["indispensables"], ["cystéine"], ["histidine"], ["croissance"], ["taille"], ["poids"], ["développement"], ["nouveaux tissus"]], "show": "indispensables - cystéine - histidine - croissance - taille - poids - développement - nouveaux tissus", "expl": ""}, {"q": "Le besoin en protéine des enfants de 4 à 5 ans est de ______  à ______ % de l’AET", "acc": [["6"], ["16"]], "show": "6 - 16", "expl": ""}, {"q": "Le besoin en protéine des enfants de 14 à 17 ans est de ______  à ______ % de l’AET", "acc": [["10"], ["20"]], "show": "10 - 20", "expl": ""}, {"q": "La carence en protéine chez les personnes âgées peut entraîner un ______  de _____.", "acc": [["risque"], ["fonte musculaire"]], "show": "risque - fonte musculaire", "expl": ""}, {"q": "Pour les sportifs, il faut un apport en protéine compris dans un IR de______% à______% de l'AET", "acc": [["15"], ["20"]], "show": "15 - 20", "expl": ""}], "fc": [{"q": "Quels sont les 9 acides aminés indispensables ?", "a": "Leucine · Lysine · Isoleucine · Valine · Méthionine(+Cystéine) · Histidine · Phénylalanine(+Tyrosine) · Tryptophane · Thréonine + Arginine chez nourrisson"}, {"q": "Définition du CUD", "a": "Coefficient d'utilisation Digestive\nCapacité du tube digestif à absorber les protéines (azote ingéré)."}, {"q": "Définition VB", "a": "Valeur Biologique\nCapacité des protéines absorbées à être utilisées par l’organisme pour ses besoins."}, {"q": "Définition IC", "a": "Indice Chimique\nIndicateur qui compare la teneur en AAI d’une protéine à une protéine de référence."}, {"q": "Définition PDCAAS", "a": "Indice combinant la composition en acides aminés et la digestibilité d’une protéine."}, {"q": "Rôles et RNP des protéines pour les hommes et femmes", "a": "IR 10 à 20 % de l'AET \nAPS = 0,83g/kg/pdc\n\n1. Fonctionnel : enzymes, hormones, transport, précurseurs\n2. Structural : muscles, phanères, membranes\n3. Énergétique : 1g = 4 kcal"}, {"q": "Intérêt supplémentaire des protéines pour les femmes enceintes", "a": "Rôle structural : Fabrication et développement des tissus (foetus)\nRôle fonctionnelle : Transport des nutriments\nRôle énergétique : 1g = 4 kcal\n\nSurveillance des apports en protéine pour les familles précaires et les femmes avec une alimentation restrictive (végétariennes, végétaliennes)."}, {"q": "RNP et rôles des protéines pour les 0-3 ans", "a": "RNP en % de l’AET : \n- Avant 1 an de 7 à 15 % de l’AET\n- Après 1 an de 6 à 15 % de l’AET\n- Un % plus élevé serait un facteur de risque dans le développement d’une obésité future. \n\nLes protéines permettent la croissance en taille et en poids de l’enfant, le développement et entretien des nouveaux tissus. \nAttention à ne pas surprotéiner l’enfant, car ses fonctions hépatiques et rénales sont fragiles."}, {"q": "RNP et rôles des protéines pour les 4 à 17 ans", "a": "Besoin en protéines\n4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET\n14 à 17 ans = 10 à 20 % de l’AET"}, {"q": "Quels sont les 9 acides aminés indispensables ?", "a": "Leucine · Lysine · Isoleucine · Valine · Méthionine(+Cystéine) · Histidine · Phénylalanine(+Tyrosine) · Tryptophane · Thréonine + Arginine chez nourrisson"}, {"q": "Définition du CUD", "a": "Coefficient d'utilisation Digestive\nCapacité du tube digestif à absorber les protéines (azote ingéré)."}, {"q": "Définition VB", "a": "Valeur Biologique\nCapacité des protéines absorbées à être utilisées par l’organisme pour ses besoins."}, {"q": "Définition IC", "a": "Indice Chimique\nIndicateur qui compare la teneur en AAI d’une protéine à une protéine de référence."}, {"q": "Définition PDCAAS", "a": "Indice combinant la composition en acides aminés et la digestibilité d’une protéine."}, {"q": "Rôles et RNP des protéines pour les hommes et femmes", "a": "IR 10 à 20 % de l'AET \nAPS = 0,83g/kg/pdc\n\n1. Fonctionnel : enzymes, hormones, transport, précurseurs\n2. Structural : muscles, phanères, membranes\n3. Énergétique : 1g = 4 kcal"}, {"q": "Intérêt supplémentaire des protéines pour les femmes enceintes", "a": "Rôle structural : Fabrication et développement des tissus (foetus)\nRôle fonctionnelle : Transport des nutriments\nRôle énergétique : 1g = 4 kcal\n\nSurveillance des apports en protéine pour les familles précaires et les femmes avec une alimentation restrictive (végétariennes, végétaliennes)."}, {"q": "RNP et rôles des protéines pour les 0-3 ans", "a": "RNP en % de l’AET : \n- Avant 1 an de 7 à 15 % de l’AET\n- Après 1 an de 6 à 15 % de l’AET\n- Un % plus élevé serait un facteur de risque dans le développement d’une obésité future. \n\nLes protéines permettent la croissance en taille et en poids de l’enfant, le développement et entretien des nouveaux tissus. \nAttention à ne pas surprotéiner l’enfant, car ses fonctions hépatiques et rénales sont fragiles."}, {"q": "RNP et rôles des protéines pour les 4 à 17 ans", "a": "Besoin en protéines\n4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET\n14 à 17 ans = 10 à 20 % de l’AET"}], "rl": [{"q": "Expliquer le rôle du facteur limitant dans la synthèse protéique.", "answer": "Le facteur limitant est l’acide aminé indispensable le moins présent, il limite ou bloque la synthèse protéique même si les autres acides aminés sont présents."}, {"q": "Justifier l’association céréales et légumineuses.", "answer": "Les céréales sont pauvres en lysine et les légumineuses en méthionine, leur association permet d’obtenir un profil complet en AAI."}, {"q": "Donner 3 conseils pour équilibrer sa consommation de protéines.", "answer": "Varier les sources de protéines (animales et végétales)\n\nConsommer des légumineuses au moins 2 fois par semaine\n\nLimiter la viande rouge (< 500 g/semaine)\n\nLimiter la charcuterie (< 150 g/semaine)\n\nConsommer du poisson 2 fois par semaine (dont 1 poisson gras)\n\nLes oeufs peuvent être manger tous les jours (attention autres recommandations)"}, {"q": "Quels sont les acides aminés indispensables ?", "answer": "Leucine\n\nIsoleucine\n\nValine\n\nLysine\n\nMéthionine\n\nPhénylalanine\n\nThréonine\n\nTryptophane\n\nHistidine\n\nArginine pour les nourrissons"}, {"q": "Rôles et RNP des protéines pour les hommes et les femmes", "answer": "IR 10 à 20 % de l'AET\n\nAPS = 0,83g/kg/pdc\n\n1. Fonctionnel : enzymes, hormones, transport, précurseurs\n\n2. Structural : muscles, phanères, membranes\n\n3. Énergétique : 1g = 4 kcal"}, {"q": "Quels sont les aliments végétariens comprenant tous les AAE ?", "answer": "Céréales : le Quinoa (15% de protéines) et l’Amarante\nLégumes secs : le Soja\nOléagineux : le Sésame"}, {"q": "Quels sont les besoins en protéines pour les 0 à 3 ans et pourquoi ?", "answer": "Besoins en Protéines pour les 0- 3 ans\nRN en % de l’AET : \n- Avant 1 an de 7 à 15 % de l’AET\n- Après 1 an de 6 à 15 % de l’AET\n- Un % plus élevé serait un facteur de risque dans le développement d’une obésité future. \n\nAttention, certains Acides Aminés sont indispensables chez l’enfant : \n- Cystéine pour les prématurés\n- Histidine pour le  nourrisson né à terme\n\nLes protéines permettent la croissance en taille et en poids de l’enfant, le développement et entretien des nouveaux tissus. \nAttention à ne pas surprotéiner l’enfant, car ses fonctions hépatiques et rénales sont fragiles."}, {"q": "Quelles sont les RNP en protéine pour les enfants et les adolescents ?", "answer": "4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET\n14 à 17 ans = 10 à 20 % de l’AET\n\nRôle fonctionnel : Hormones\nRôle structural : Formation de nouveaux tissus\nRôle énergétique : 1 g de P = 4 kcal"}, {"q": "Vous travaillez dans un EHPAD, les patients (hommes et femmes) ont plus de 65 ans.\nD'après vous, quel devrait être leur apport en protéine (en g et %) ? Justifier votre réponse", "answer": "Chez les personnes de plus de 65 ans, l’apport en protéines recommandé est d’environ :\n\n👉 1 g/kg de poids corporel par jour\n👉 soit environ 15 à 20 % de l’AET"}, {"q": "Expliquer le rôle du facteur limitant dans la synthèse protéique.", "answer": "Le facteur limitant est l’acide aminé indispensable le moins présent, il limite ou bloque la synthèse protéique même si les autres acides aminés sont présents."}, {"q": "Justifier l’association céréales et légumineuses.", "answer": "Les céréales sont pauvres en lysine et les légumineuses en méthionine, leur association permet d’obtenir un profil complet en AAI."}, {"q": "Donner 3 conseils pour équilibrer sa consommation de protéines.", "answer": "Varier les sources de protéines (animales et végétales)\n\nConsommer des légumineuses au moins 2 fois par semaine\n\nLimiter la viande rouge (< 500 g/semaine)\n\nLimiter la charcuterie (< 150 g/semaine)\n\nConsommer du poisson 2 fois par semaine (dont 1 poisson gras)\n\nLes oeufs peuvent être manger tous les jours (attention autres recommandations)"}, {"q": "Quels sont les acides aminés indispensables ?", "answer": "Leucine\n\nIsoleucine\n\nValine\n\nLysine\n\nMéthionine\n\nPhénylalanine\n\nThréonine\n\nTryptophane\n\nHistidine\n\nArginine pour les nourrissons"}, {"q": "Rôles et RNP des protéines pour les hommes et les femmes", "answer": "IR 10 à 20 % de l'AET\n\nAPS = 0,83g/kg/pdc\n\n1. Fonctionnel : enzymes, hormones, transport, précurseurs\n\n2. Structural : muscles, phanères, membranes\n\n3. Énergétique : 1g = 4 kcal"}, {"q": "Quels sont les aliments végétariens comprenant tous les AAE ?", "answer": "Céréales : le Quinoa (15% de protéines) et l’Amarante\nLégumes secs : le Soja\nOléagineux : le Sésame"}, {"q": "Quels sont les besoins en protéines pour les 0 à 3 ans et pourquoi ?", "answer": "Besoins en Protéines pour les 0- 3 ans\nRN en % de l’AET : \n- Avant 1 an de 7 à 15 % de l’AET\n- Après 1 an de 6 à 15 % de l’AET\n- Un % plus élevé serait un facteur de risque dans le développement d’une obésité future. \n\nAttention, certains Acides Aminés sont indispensables chez l’enfant : \n- Cystéine pour les prématurés\n- Histidine pour le  nourrisson né à terme\n\nLes protéines permettent la croissance en taille et en poids de l’enfant, le développement et entretien des nouveaux tissus. \nAttention à ne pas surprotéiner l’enfant, car ses fonctions hépatiques et rénales sont fragiles."}, {"q": "Quelles sont les RNP en protéine pour les enfants et les adolescents ?", "answer": "4 à 5 ans = 6 à 16 % de l’AET\n6 à 9 ans = 7 à 17 % de l’AET\n10 à 13 ans = 9 à 19 % de l’AET\n14 à 17 ans = 10 à 20 % de l’AET\n\nRôle fonctionnel : Hormones\nRôle structural : Formation de nouveaux tissus\nRôle énergétique : 1 g de P = 4 kcal"}, {"q": "Vous travaillez dans un EHPAD, les patients (hommes et femmes) ont plus de 65 ans.\nD'après vous, quel devrait être leur apport en protéine (en g et %) ? Justifier votre réponse", "answer": "Chez les personnes de plus de 65 ans, l’apport en protéines recommandé est d’environ :\n\n👉 1 g/kg de poids corporel par jour\n👉 soit environ 15 à 20 % de l’AET"}], "rows": [{"label": "Lait 1/2 écrémé", "val": "3,5", "numval": "3.5", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Fromage", "val": "20", "numval": "20.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "VPO", "val": "20", "numval": "20.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Pain", "val": "9", "numval": "9.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Pomme de terre cuite", "val": "2", "numval": "2.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Féculents cuits", "val": "3", "numval": "3.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Légumineuses cuites", "val": "8", "numval": "8.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Légumes", "val": "1", "numval": "1.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Oléagineux", "val": "20", "numval": "20.0", "unit": "g", "tol": 5, "group": "Protéines"}, {"label": "Fruits secs", "val": "2", "numval": "2.0", "unit": "g", "tol": 5, "group": "Protéines"}]}, {"id": "lipides", "name": "Lipides", "emoji": "🧈", "color": "c-yellow", "desc": "AGS, AGMI, AGPI, oméga, RNP", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "glucides", "name": "Glucides", "emoji": "🍞", "color": "c-orange", "desc": "IG, glucides complexes, RNP", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "fibres", "name": "Fibres", "emoji": "🥦", "color": "c-green", "desc": "Fibres solubles, insolubles, AS", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "eau", "name": "Eau", "emoji": "💧", "color": "c-blue", "desc": "Compartiments, pertes, AS", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "calcium", "name": "Calcium", "emoji": "🦴", "color": "c-blue", "desc": "Absorption, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "magn_sium", "name": "Magnésium", "emoji": "⚡", "color": "c-purple", "desc": "Rôles, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "sodium", "name": "Sodium", "emoji": "🧂", "color": "c-gray", "desc": "AS, LSS, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "potassium", "name": "Potassium", "emoji": "🍌", "color": "c-yellow", "desc": "AS, rôles, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "phosphore", "name": "Phosphore", "emoji": "🔬", "color": "c-blue", "desc": "AS, rôles, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "fer", "name": "Fer", "emoji": "🫀", "color": "c-red", "desc": "Héminique, non héminique, RNP", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "cuivre_zinc_iode", "name": "Cuivre - Zinc - Iode", "emoji": "🦪", "color": "c-teal", "desc": "AS, LSS, sources, rôles", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_a", "name": "Vitamine A", "emoji": "🥕", "color": "c-orange", "desc": "Rôles, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_d", "name": "Vitamine D", "emoji": "☀️", "color": "c-yellow", "desc": "Synthèse, RNP, carence", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_c", "name": "Vitamine C", "emoji": "🍊", "color": "c-orange", "desc": "Antioxydant, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_e", "name": "Vitamine E", "emoji": "🌻", "color": "c-yellow", "desc": "Antioxydant, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_k", "name": "Vitamine K", "emoji": "🥬", "color": "c-green", "desc": "Coagulation, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_b9", "name": "Vitamine B9", "emoji": "🫘", "color": "c-green", "desc": "Folates, grossesse, RNP", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "vitamine_b12", "name": "Vitamine B12", "emoji": "🐟", "color": "c-blue", "desc": "Cobalamine, RNP, sources", "type": "cours", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "teneurs_aliments", "name": "Teneurs des aliments", "emoji": "🍽️", "color": "c-green", "desc": "Valeurs Ciqual pour 100g", "type": "tableau", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}, {"id": "valeurs_vitamines_mineraux", "name": "RNP · AS · LSS", "emoji": "📊", "color": "c-purple", "desc": "Vitamines et minéraux par population", "type": "tableau", "locked": true, "qz": [], "bl": [], "fc": [], "rl": [], "rows": []}]
 </script>
 <body>
-<div style="background:linear-gradient(90deg,#059669,#10b981);color:#fff;text-align:center;padding:.7rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.04em;">
-  🎁 VERSION DÉMO GRATUITE — Module Protéines + Teneurs des aliments
-</div>
 
 
 <!-- ═══════════ SÉLECTION ═══════════ -->
-<div id="select-screen">
+<div style="background:#27ae60;color:#fff;text-align:center;padding:.6rem;font-weight:800;font-size:.9rem;letter-spacing:.05em;">
+  VERSION DÉMO GRATUITE — Module Protéines uniquement
+</div><div style="text-align:center;padding:.8rem 1rem;background:#f8fff8;border-bottom:1px solid #e0e0e0;">
+  <a href="https://doudouh-sarah.systeme.io/lepacknutriments-e6519f8e" target="_blank"
+     style="display:inline-block;background:#e74c3c;color:#fff;font-weight:800;font-size:.95rem;
+            padding:.7rem 2rem;border-radius:100px;text-decoration:none;letter-spacing:.03em;">
+    🚀 Accéder à la version complète
+  </a>
+</div><div id="select-screen">
   <div class="hero">
-    <h1 class="hero-title">Essayez la <span>démo gratuite</span> ✨</h1>
-    <p class="hero-sub">Accès gratuit au module Protéines — découvrez la méthode avant d'acheter.</p>
+    <h1 class="hero-title">Révisez avec <span>Flemm</span> ✨</h1>
+    <p class="hero-sub">Sélectionnez un ou plusieurs chapitres et lancez votre session de révision.</p>
   </div>
 
   <div class="select-section">
@@ -383,7 +419,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="chapitres-grid" id="chapitres-grid"></div>
     <div class="start-bar">
       <div class="start-bar-info"><strong id="sel-count">0</strong> chapitre(s) sélectionné(s)</div>
-      <button class="start-btn" id="start-btn" onclick="startSession()">Commencer la révision →</button>
+      <button class="start-btn" id="start-btn" onclick="startSession()">Commencer les révisions →</button>
     </div>
   </div>
 </div>
@@ -409,6 +445,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="ex-level lvl-1">🎯 Étape 1 — Reconnaissance</div>
       <p class="ex-ssub">4 choix, une seule bonne réponse. Options mélangées à chaque session.</p>
       <button class="ex-retry-btn" id="qz-retry" onclick="retryQcm()">↺ Retravailler mes erreurs</button>
+      <div id="qz-blocs" style="display:none;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.8rem;"></div>
       <div class="ex-progrow"><span>Question <strong id="qz-cur">1</strong> / <span id="qz-tot">—</span></span></div>
       <div class="ex-bar"><div class="ex-fill" id="qz-fill" style="width:0%"></div></div>
       <div class="ex-pills"><span class="ex-pill ok" id="qz-pok">✓ 0</span><span class="ex-pill err" id="qz-perr">✗ 0</span></div>
@@ -439,6 +476,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="ex-level lvl-2">✏️ Étape 2 — Découverte</div>
       <p class="ex-ssub">Complétez les mots manquants. Entrée pour valider.</p>
       <button class="ex-retry-btn" id="bl-retry" onclick="retryBlank()">↺ Retravailler mes erreurs</button>
+      <div id="bl-blocs" style="display:none;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.8rem;"></div>
       <div class="ex-progrow"><span>Question <strong id="bl-cur">1</strong> / <span id="bl-tot">—</span></span></div>
       <div class="ex-bar"><div class="ex-fill" id="bl-fill" style="width:0%"></div></div>
       <div class="ex-pills"><span class="ex-pill ok" id="bl-pok">✓ 0</span><span class="ex-pill err" id="bl-perr">✗ 0</span></div>
@@ -466,6 +504,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="ex-sh">Flashcards <span class="badge" id="fc-badge"></span></div>
       <div class="ex-level lvl-3">🃏 Étape 3 — Mémorisation</div>
       <p class="ex-ssub">Cliquez pour retourner · [Espace] · ← →</p>
+      <div id="fc-blocs" style="display:none;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.8rem;"></div>
       <div class="ex-progrow"><span>Carte <strong id="fc-cur">1</strong> / <span id="fc-tot">—</span></span></div>
       <div class="ex-bar"><div class="ex-fill" id="fc-fill" style="width:0%"></div></div>
       <div class="fc-scene">
@@ -490,6 +529,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
         <button class="fc-eval-btn nok" onclick="fcEval(false)">✗ À revoir</button>
         <button class="fc-eval-btn ok" onclick="fcEval(true)">✓ Je savais !</button>
       </div>
+      <div style="text-align:center;margin:.8rem 0;">
+        <button id="fc-retry-live" class="ex-retry-only" onclick="retryFlash()" style="display:none;">↺ Retravailler mes erreurs</button>
+      </div>
       <div class="ex-result" id="fc-result" style="margin-top:1.5rem;">
         <div class="ex-res-lbl">Résultats — Flashcards</div>
         <div class="ex-big" id="fc-rs"></div>
@@ -507,6 +549,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <p class="ex-ssub">Répondez de mémoire, puis révélez la correction.</p>
       <div class="ex-pills"><span class="ex-pill ok" id="rl-pok">✓ 0</span><span class="ex-pill err" id="rl-perr">✗ 0</span></div>
       <div id="rl-list"></div>
+      <div id="rl-blocs" style="display:none;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:1.2rem;"></div>
+      <div style="text-align:center;margin:.8rem 0;">
+        <button id="rl-retry-live" class="ex-retry-only" onclick="retryRl()" style="display:none;">↺ Retravailler mes erreurs</button>
+      </div>
       <div class="ex-result" id="rl-result" style="margin-top:2rem;">
         <div class="ex-res-lbl">Résultats — Rappel libre</div>
         <div class="ex-big" id="rl-rs"></div>
@@ -522,8 +568,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="ex-sh" id="tab-sh">Tableau</div>
       <div class="ex-level lvl-1" id="tab-level"></div>
       <p class="ex-ssub" id="tab-sub"></p>
+      <div id="tab-filters" style="display:none"></div>
       <div id="tab-content"></div>
       <div id="tab-btn-wrap" style="text-align:center;margin-top:1.5rem;"></div>
+      <div id="tab-blocs" style="display:none;"></div>
+      <div style="text-align:center;margin:.8rem 0;">
+        <button id="tab-retry-live" class="ex-retry-only" onclick="initTableau()" style="display:none;">↺ Retravailler mes erreurs</button>
+      </div>
       <div class="ex-result" id="tab-result" style="margin-top:2rem;">
         <div class="ex-res-lbl">Resultats</div>
         <div class="ex-big" id="tab-rs"></div>
@@ -552,6 +603,8 @@ var QZ_DATA=[], BL_DATA=[], FC_DATA=[], RL_DATA=[];var rlErrors=[];
 var qzDeck=[],qzIdx=0,qzOk=0,qzErr=0,qzErrors=[];
 var blDeck=[],blIdx=0,blOk=0,blErr=0,blErrors=[];
 var fcIdx=0,fcFlippedState=false,fcOk=0,fcErr=0;
+var QZ_PAGE=5,BL_PAGE=5,FC_PAGE=5;
+var qzBlock=0,blBlock=0,fcBlock=0;
 var rlOk=0,rlErr=0,rlDone=0;
 
 /* ═══════════════════════════════════════
@@ -560,7 +613,28 @@ var rlOk=0,rlErr=0,rlDone=0;
 function norm(s){return s.toLowerCase().trim().replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/ç/g,'c').replace(/œ/g,'oe').replace(/\s+/g,' ');}
 function lev(a,b){var m=a.length,n=b.length,d=[];for(var i=0;i<=m;i++)d[i]=[i];for(var j=0;j<=n;j++)d[0][j]=j;for(var i=1;i<=m;i++)for(var j=1;j<=n;j++)d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1]);return d[m][n];}
 // matchSouple = tolérance orthographique standard (pour QCM et cas pratiques texte)
-function matchSouple(raw,acc){var r=norm(raw.trim());return acc.some(function(a){var n2=norm(a);if(r===n2)return true;if(r.length>3&&n2.indexOf(r)!==-1)return true;if(n2.length>3&&r.indexOf(n2)!==-1)return true;if(lev(r,n2)<=Math.max(1,Math.floor(n2.length*.2)))return true;return false;});}
+function matchSouple(raw,acc){
+  var r=norm(raw.trim());
+  return acc.some(function(a){
+    var n2=norm(a);
+    if(r===n2)return true;
+    if(!r)return false;
+    // Contenu inclus dans l'autre
+    if(r.length>3&&n2.indexOf(r)!==-1)return true;
+    if(n2.length>3&&r.indexOf(n2)!==-1)return true;
+    // Distance de Levenshtein augmentée à 25%
+    if(lev(r,n2)<=Math.max(1,Math.floor(n2.length*.25)))return true;
+    // Tolérance numérique : 0,83 accepte 0.83 et vice versa
+    var rNum=r.replace(/[,]/g,'.');
+    var n2Num=n2.replace(/[,]/g,'.');
+    if(rNum===n2Num)return true;
+    // Accepter si les chiffres clés correspondent (ex: "0,83g" accepte "0.83 g/kg/j")
+    var rDigits=r.replace(/[^0-9]/g,'');
+    var n2Digits=n2.replace(/[^0-9]/g,'');
+    if(rDigits&&n2Digits&&rDigits===n2Digits&&rDigits.length>=2)return true;
+    return false;
+  });
+}
 // matchExact = correspondance stricte après normalisation (accents tolérés, casse tolérée, mais orthographe exacte)
 function matchExact(raw,acc){var r=norm(raw.trim());return acc.some(function(a){return r===norm(a);});}
 function shuffle(arr){return arr.slice().sort(function(){return Math.random()-.5;});}
@@ -589,20 +663,10 @@ function buildGrid(){
     var card=document.createElement('div');
     card.className='chap-card '+ch.color;
     card.id='card-'+ch.id;
-    var isLocked=(ch.type==='locked');
-    if(isLocked){
-      card.classList.add('locked');
-      card.innerHTML='<div class="chap-header-row"><span class="chap-emoji">'+ch.emoji+'</span><div class="chap-name">'+ch.name+'</div></div>'+
-        '<div class="chap-desc">'+ch.desc+'</div>';
-      card.onclick=function(){
-        alert('🔒 Accès réservé à la version complète\n\nDécouvrez tous les modules sur la plateforme Pack Nutri-Diet !');
-      };
-    } else {
-      card.innerHTML='<div class="chap-checkbox" id="chk-'+ch.id+'"></div>'+
-        '<div class="chap-header-row"><span class="chap-emoji">'+ch.emoji+'</span><div class="chap-name">'+ch.name+'</div></div>'+
-        '<div class="chap-desc">'+ch.desc+'</div>';
-      card.onclick=function(){toggleChap(ch.id);};
-    }
+    card.innerHTML='<div class="chap-checkbox" id="chk-'+ch.id+'"></div>'+
+      '<div class="chap-header-row"><span class="chap-emoji">'+ch.emoji+'</span><div class="chap-name">'+ch.name+'</div></div>'+
+      '<div class="chap-desc">'+ch.desc+'</div>';
+    card.onclick=function(){toggleChap(ch.id);};
     grid.appendChild(card);
   });
 }
@@ -625,13 +689,17 @@ function updateStartBar(){
   btn.classList.toggle('active',n>0);
 }
 function startSession(){
+  for(var id of selected){
+    var ch=CHAPITRES.find(function(c){return c.id===id;});
+    if(ch&&ch.locked){selected.delete(id);}
+  }
+  if(selected.size===0) return;
   if(selected.size===0)return;
   QZ_DATA=[];BL_DATA=[];FC_DATA=[];RL_DATA=[];TABLEAU_CHAPITRES=[];
   var names=[];
   CHAPITRES.forEach(function(ch){
     if(!selected.has(ch.id))return;
     names.push(ch.emoji+' '+ch.name);
-    if(ch.type==='locked')return;
     if(ch.type==='tableau'){
       TABLEAU_CHAPITRES.push(ch);
     }else{
@@ -656,6 +724,18 @@ function startSession(){
   if(hasT)initTableau();
   document.querySelectorAll('.ex-tab').forEach(function(t){t.classList.remove('on');});
   document.querySelectorAll('.ex-panel').forEach(function(p){p.classList.remove('on');});
+  // Masquer les onglets vides
+  var tabQcm=document.getElementById('tab-qcm-tab');
+  var tabBl=document.getElementById('tab-blank-tab');
+  var tabFc=document.getElementById('tab-flash-tab');
+  var tabRl=document.getElementById('tab-rl-tab');
+  document.querySelectorAll('.ex-tab').forEach(function(t){
+    var panel=t.getAttribute('onclick')||'';
+    if(panel.indexOf("'qcm'")>-1||panel.indexOf('"qcm"')>-1) t.style.display=QZ_DATA.length>0?'':'none';
+    if(panel.indexOf("'blank'")>-1||panel.indexOf('"blank"')>-1) t.style.display=BL_DATA.length>0?'':'none';
+    if(panel.indexOf("'flash'")>-1||panel.indexOf('"flash"')>-1) t.style.display=FC_DATA.length>0?'':'none';
+    if(panel.indexOf("'rl'")>-1||panel.indexOf('"rl"')>-1) t.style.display=RL_DATA.length>0?'':'none';
+  });
   var ft=null;
   document.querySelectorAll('.ex-tab').forEach(function(t){if(!ft&&t.style.display!=='none')ft=t;});
   if(ft)ft.classList.add('on');
@@ -682,12 +762,12 @@ function exTab(id,btn){
 ═══════════════════════════════════════ */
 function initQcm(retry){
   qzDeck=retry?qzErrors.slice():shuffle(QZ_DATA);
-  qzIdx=0;qzOk=0;qzErr=0;qzErrors=[];
+  qzBlock=0;qzIdx=0;qzOk=0;qzErr=0;qzErrors=[];
   document.getElementById('qz-result').classList.remove('show');
   document.getElementById('qz-card').style.display='flex';
   document.getElementById('qz-retry').classList.remove('show');
-  document.getElementById('qz-tot').textContent=qzDeck.length;
-  renderQcm();
+  renderQzBlocs();
+  loadQzBlock(0);
 }
 function retryQcm(){initQcm(true);}
 function qzNext(){
@@ -701,13 +781,16 @@ function qzNext(){
   }else renderQcm();
 }
 function renderQcm(){
-  if(!qzDeck.length)return;
-  var q=qzDeck[qzIdx],total=qzDeck.length,done=qzOk+qzErr;
+  var _deck=window._qzBlockDeck||qzDeck;
+  if(!_deck||!_deck.length)return;
+  if(qzIdx>=_deck.length)return;
+  var q=_deck[qzIdx],total=_deck.length,done=qzOk+qzErr;
   document.getElementById('qz-fill').style.width=(done/total*100)+'%';
   document.getElementById('qz-cur').textContent=qzIdx+1;
   document.getElementById('qz-pok').innerHTML='&#10003; '+qzOk;
   document.getElementById('qz-perr').innerHTML='&#10007; '+qzErr;
-  document.getElementById('qz-qnum').textContent='Question '+(qzIdx+1)+' / '+total;
+  var _bstart=parseInt(document.getElementById('qz-qnum').dataset.blockStart||0);
+  document.getElementById('qz-qnum').textContent='Bloc '+(qzBlock+1)+' · Question '+(_bstart+qzIdx+1)+' / '+qzDeck.length;
   document.getElementById('qz-sent').textContent=q.q;
   document.getElementById('qz-fb').className='ex-fb';
   document.getElementById('qz-card').className='ex-card';
@@ -723,7 +806,7 @@ function renderQcm(){
         if(b.textContent===q2.opts[q2.correct])b.classList.add('correct');
       });
       if(!isOk)e.currentTarget.classList.add('wrong');
-      if(isOk)qzOk++;else{qzErr++;qzErrors.push(q2);}
+      if(isOk)qzOk++;else{qzErr++;if(!qzErrors.includes(q2))qzErrors.push(q2);}
       document.getElementById('qz-pok').innerHTML='&#10003; '+qzOk;
       document.getElementById('qz-perr').innerHTML='&#10007; '+qzErr;
       if(qzErr>0){
@@ -751,13 +834,14 @@ function renderQcm(){
 function initBlank(retry){
   blErrors=retry?blErrors:[];
   blDeck=shuffle(retry?blErrors.slice():BL_DATA);
-  blIdx=0;blOk=0;blErr=0;if(!retry)blErrors=[];
+  blBlock=0;blIdx=0;blOk=0;blErr=0;if(!retry)blErrors=[];
   document.getElementById('bl-result').classList.remove('show');
   document.getElementById('bl-pok').innerHTML='&#10003; 0';
   document.getElementById('bl-perr').innerHTML='&#10007; 0';
   document.getElementById('bl-retry').classList.remove('show');
   document.getElementById('bl-card').style.display='';
-  renderBlank();
+  renderBlBlocs();
+  loadBlBlock(0);
 }
 function retryBlank(){initBlank(true);}
 function parseAcceptable(raw){
@@ -775,7 +859,8 @@ function renderBlank(){
   document.getElementById('bl-cur').textContent=blIdx+1;
   document.getElementById('bl-tot').textContent=total;
   var q=blDeck[blIdx];
-  document.getElementById('bl-qnum').textContent='Question '+(blIdx+1)+' / '+total;
+  var _bstart_bl=parseInt(document.getElementById('bl-qnum').dataset.blockStart||0);
+  document.getElementById('bl-qnum').textContent='Bloc '+(blBlock+1)+' · Question '+(_bstart_bl+blIdx+1)+' / '+blDeck.length;
   document.getElementById('bl-fb').className='ex-fb';
   document.getElementById('bl-card').className='ex-card';
   var phrase=q.q;
@@ -863,26 +948,30 @@ function nextBlank(){
 ═══════════════════════════════════════ */
 var fcErrors=[];
 function initFlash(retry){
+  var rl=document.getElementById('fc-retry-live');if(rl)rl.style.display='none';
   fcErrors=retry?fcErrors:[];
   var deck=retry?fcErrors.slice():FC_DATA;
   if(!deck.length)return;
-  fcIdx=0;fcFlippedState=false;fcOk=0;fcErr=0;
+  fcBlock=0;fcIdx=0;fcFlippedState=false;fcOk=0;fcErr=0;
   if(!retry)fcErrors=[];
-  window._fcDeck=deck;
+  window._fcFullDeck=deck;
   document.getElementById('fc-result').classList.remove('show');
   document.querySelector('.fc-scene').style.display='';
   document.querySelector('.fc-nav').style.display='';
   document.getElementById('fc-eval').classList.remove('show');
-  document.getElementById('fc-tot').textContent=deck.length;
-  renderFlash();
+  renderFcBlocs();
+  loadFcBlock(0);
 }
 function retryFlash(){initFlash(true);}
 function renderFlash(){
   var deck=window._fcDeck||FC_DATA;
-  if(!deck.length)return;
+  if(!deck||!deck.length)return;
+  if(fcIdx>=deck.length)return;
   var total=deck.length;
   document.getElementById('fc-fill').style.width=(fcIdx/total*100)+'%';
-  document.getElementById('fc-cur').textContent=fcIdx+1;
+  var fcStart=fcBlock*FC_PAGE;
+  document.getElementById('fc-cur').textContent=fcStart+fcIdx+1;
+  document.getElementById('fc-tot').textContent=(window._fcFullDeck||FC_DATA).length;
   document.getElementById('fc-tot').textContent=total;
   document.getElementById('fc-card').classList.remove('flipped');fcFlippedState=false;
   document.getElementById('fc-eval').classList.remove('show');
@@ -899,7 +988,9 @@ function fcFlip(){
 }
 function fcEval(ok){
   var deck=window._fcDeck||FC_DATA;
-  if(!ok){fcErr++;fcErrors.push(deck[fcIdx]);}else{fcOk++;}
+  if(!ok){fcErr++;fcErrors.push(deck[fcIdx]);
+    var rl=document.getElementById('fc-retry-live');if(rl)rl.style.display='inline-block';
+  }else{fcOk++;}
   fcIdx++;
   if(fcIdx>=deck.length){
     document.querySelector('.fc-scene').style.display='none';
@@ -934,105 +1025,68 @@ function fcGo(dir){
 /* ═══════════════════════════════════════
    ④ RAPPEL LIBRE
 ═══════════════════════════════════════ */
+var RL_PAGE_SIZE=5;
+var rl_current_page=0;
+var rl_current_deck=[];
+
 function initRl(retry){
+  var rlb=document.getElementById('rl-retry-live');if(rlb)rlb.style.display='none';
   rlOk=0;rlErr=0;rlDone=0;
   rlErrors=retry?rlErrors:[];
-  var deck=retry?(rlErrors.slice()):(RL_DATA);
-  window._rlDeck=deck;
-  window._rlPage=0;
-  window._rlPageSize=5;
+  rl_current_deck=retry?(rlErrors.slice()):(RL_DATA.slice());
+  rl_current_page=0;
   document.getElementById('rl-result').classList.remove('show');
   document.getElementById('rl-pok').innerHTML='&#10003; 0';
   document.getElementById('rl-perr').innerHTML='&#10007; 0';
+  window._rlDeck=rl_current_deck;
   renderRlPage();
+  renderRlBlocs();
 }
 
 function renderRlPage(){
-  var deck=window._rlDeck||RL_DATA;
-  var page=window._rlPage||0;
-  var size=window._rlPageSize||5;
-  var start=page*size;
-  var pageItems=deck.slice(start,start+size);
-  var totalPages=Math.ceil(deck.length/size);
-  var list=document.getElementById('rl-list');
-  list.innerHTML='';
-
-  // Indicateur de page
-  var pageInfo=document.createElement('div');
-  pageInfo.style.cssText='text-align:center;font-size:.82rem;font-weight:800;color:var(--muted);margin-bottom:1rem;';
-  pageInfo.textContent='Groupe '+(page+1)+' / '+totalPages+' — Questions '+(start+1)+' à '+Math.min(start+size,deck.length);
-  list.appendChild(pageInfo);
-
-  pageItems.forEach(function(q,qi){
-    var realIdx=start+qi;
-    var div=document.createElement('div');
-    div.className='rl-item';div.id='rl-q'+realIdx;
-    div.innerHTML='<div class="rl-qtext">'+q.q+'</div>'+
-      '<div class="rl-slots"><div class="rl-slot"><textarea class="rl-slot-inp" id="rl-s'+realIdx+'" placeholder="Votre réponse..." rows="3" style="width:100%;resize:vertical;padding:.5rem;border:2px solid var(--bdr);border-radius:8px;font-family:inherit;font-size:.9rem;"></textarea></div></div>'+
-      '<div class="rl-submit-row"><button class="rl-reveal-btn" onclick="rlReveal('+realIdx+',this)">&#128065; Voir la correction</button></div>'+
-      '<div class="rl-answer" id="rl-ans'+realIdx+'"><strong>Correction :</strong><br>'+q.answer+'</div>';
+  var start=rl_current_page*RL_PAGE_SIZE;
+  var pageQ=rl_current_deck.slice(start,start+RL_PAGE_SIZE);
+  var rl_global_start=start;
+  var list=document.getElementById('rl-list');list.innerHTML='';
+  pageQ.forEach(function(q,i){
+    var qi=start+i;
+    var div=document.createElement('div');div.className='rl-item';div.id='rl-q'+qi;
+    div.innerHTML='<div class="rl-qnum" style="font-size:.75rem;color:var(--muted);margin-bottom:.3rem;">Bloc '+(rl_current_page+1)+' · Question '+(qi+1)+' / '+rl_current_deck.length+'</div><div class="rl-qtext">'+q.q+'</div>'+
+      '<div class="rl-slots"><div class="rl-slot"><textarea class="rl-slot-inp" id="rl-s'+qi+'" placeholder="Votre réponse..." rows="3" style="width:100%;resize:vertical;padding:.5rem;border:2px solid var(--bdr);border-radius:8px;font-family:inherit;font-size:.9rem;"></textarea></div></div>'+
+      '<div class="rl-submit-row"><button class="rl-reveal-btn" onclick="rlReveal('+qi+',this)">&#128065; Voir la correction</button></div>'+
+      '<div class="rl-answer" id="rl-ans'+qi+'"><strong>Correction :</strong><br>'+q.answer+'</div>';
     list.appendChild(div);
+    div._q=q;
   });
+  // Mettre à jour les boutons de blocs actifs
+  document.querySelectorAll('.rl-bloc-btn').forEach(function(b){
+    b.classList.toggle('active', parseInt(b.dataset.page)===rl_current_page);
+  });
+  // Remonter en haut
+  var panel=document.getElementById('ex-rl');
+  if(panel) panel.scrollTop=0;
+}
 
-  // Bouton navigation toujours visible
-  window._rlPageDone=0;
-  window._rlPageTotal=pageItems.length;
-
-  // Barre de navigation en bas
-  var navDiv=document.createElement('div');
-  navDiv.id='rl-nav-bar';
-  navDiv.style.cssText='display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;';
-
-  // Boutons de page
+function renderRlBlocs(){
+  var blocsEl=document.getElementById('rl-blocs');
+  if(!blocsEl) return;
+  blocsEl.innerHTML='';
+  var total=rl_current_deck.length;
+  var totalPages=Math.ceil(total/RL_PAGE_SIZE);
+  if(totalPages<=1){blocsEl.style.display='none';return;}
+  blocsEl.style.display='flex';
   for(var p=0;p<totalPages;p++){
     var btn=document.createElement('button');
-    btn.textContent='Groupe '+(p+1);
+    btn.textContent='Bloc '+(p+1);
     btn.dataset.page=p;
-    btn.style.cssText='padding:.5rem 1.2rem;border-radius:100px;border:2px solid;font-family:inherit;font-weight:800;font-size:.82rem;cursor:pointer;transition:all .2s;';
-    if(p===page){
-      btn.style.background='var(--blue)';btn.style.color='#fff';btn.style.borderColor='var(--blue)';
-    } else {
-      btn.style.background='transparent';btn.style.color='var(--blue)';btn.style.borderColor='var(--blue)';
-    }
-    btn.onclick=(function(pg){return function(){window._rlPage=pg;renderRlPage();};})(p);
-    navDiv.appendChild(btn);
-  }
-  list.appendChild(navDiv);
-}
-
-function rlCheckPageDone(){
-  window._rlPageDone=(window._rlPageDone||0)+1;
-  var deck=window._rlDeck||RL_DATA;
-  var page=window._rlPage||0;
-  var size=window._rlPageSize||5;
-  var start=page*size;
-  var pageItems=deck.slice(start,start+size);
-  var totalPages=Math.ceil(deck.length/size);
-
-  if(window._rlPageDone>=pageItems.length){
-    var list=document.getElementById('rl-list');
-    var nextBtn=document.createElement('div');
-    nextBtn.style.cssText='text-align:center;margin-top:1.5rem;';
-    if(page+1<totalPages){
-      nextBtn.innerHTML='<button class="ex-btn" onclick="rlNextPage()">Groupe suivant &#8594; ('+(page+2)+'/'+totalPages+')</button>';
-    } else {
-      // Fin
-      if(rlErr>0){
-        nextBtn.innerHTML='<button class="ex-btn" style="background:var(--coral)" onclick="retryRl()">&#8634; Retravailler mes erreurs</button>';
-      }
-      showResult({rs:"rl-rs",mention:"rl-mention",rm:"rl-rm",rg:"rl-rg",result:"rl-result"},rlOk,rlErr,null);
-    }
-    list.appendChild(nextBtn);
+    btn.className='tab-bloc-btn'+(p===0?' active':'');
+    btn.onclick=(function(pg){return function(){
+      rl_current_page=pg;
+      renderRlPage();
+    };})(p);
+    blocsEl.appendChild(btn);
   }
 }
-
-function rlNextPage(){
-  window._rlPage=(window._rlPage||0)+1;
-  renderRlPage();
-  document.getElementById('rl-list').scrollIntoView({behavior:'smooth'});
-}
-
-
 function retryRl(){initRl(true);}
 function rlReveal(qi,btn){
   var q=window._rlDeck[qi];
@@ -1047,12 +1101,22 @@ function rlSelfEval(qi,ok){
   rlDone++;
   var q=window._rlDeck[qi];
   if(ok)rlOk++;
-  else{rlErr++;if(!rlErrors)rlErrors=[];rlErrors.push(q);}
+  else{rlErr++;
+    var rlb=document.getElementById('rl-retry-live');if(rlb)rlb.style.display='inline-block';if(!rlErrors)rlErrors=[];rlErrors.push(q);}
   document.getElementById('rl-pok').innerHTML='&#10003; '+rlOk;
   document.getElementById('rl-perr').innerHTML='&#10007; '+rlErr;
   var row=document.querySelector('#rl-q'+qi+' .rl-submit-row');
   row.innerHTML='<span style="font-size:.9rem;font-weight:800;color:'+(ok?'var(--green)':'var(--coral)')+'">'+(ok?'&#10003; Sache':'&#10007; A revoir')+'</span>';
-  rlCheckPageDone();
+  if(rlDone>=(window._rlDeck||RL_DATA).length){
+    if(rlErr>0){
+      var rb=document.createElement('button');
+      rb.className='ex-btn';rb.style.marginTop='1rem';
+      rb.innerHTML='&#8634; Retravailler mes erreurs';
+      rb.onclick=retryRl;
+      document.getElementById('rl-list').appendChild(rb);
+    }
+    showResult({rs:'rl-rs',mention:'rl-mention',rm:'rl-rm',rg:'rl-rg',result:'rl-result'},rlOk,rlErr,null);
+  }
 }
 
 /* ═══════════════════════════════════════
@@ -1068,44 +1132,128 @@ document.addEventListener('keydown',function(e){
   }
 });
 
-var TABLEAU_CHAPITRES=[];var tabOk=0,tabErr=0,tabPage=0,tabPageSize=7,tabRows=[];
+var TABLEAU_CHAPITRES=[];
+var tabOk=0,tabErr=0,tabPage=0,tabPageSize=7,tabRows=[];
+var tabFilter='';  // filtre actif (population ou nutriment)
+
 function initTableau(){
+  var tb=document.getElementById('tab-retry-live');if(tb)tb.style.display='none';
   tabOk=0;tabErr=0;tabPage=0;
   document.getElementById('tab-result').classList.remove('show');
   document.getElementById('tab-content').innerHTML='';
   document.getElementById('tab-btn-wrap').style.display='';
   if(!TABLEAU_CHAPITRES.length)return;
-  // Fusionner les rows de tous les chapitres tableau selectionnés
-  tabRows=[];
-  TABLEAU_CHAPITRES.forEach(function(ch){tabRows=tabRows.concat(ch.rows||[]);});
-  // Mélanger
-  for(var i=tabRows.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=tabRows[i];tabRows[i]=tabRows[j];tabRows[j]=t;}
-  renderTabPage();
+
+  var ch=TABLEAU_CHAPITRES[0];
+  var allRows=[];
+  TABLEAU_CHAPITRES.forEach(function(c){allRows=allRows.concat(c.rows||[]);});
+
+  // Construire les boutons filtre
+  renderTabFilters(ch, allRows);
+
+  // Sélectionner le premier filtre par défaut
+  var opts=ch.filterOptions||(ch.filterType?[]:null);
+  tabFilter=opts?opts[0]:'';
+  applyTabFilter(allRows);
 }
+
+function renderTabFilters(ch, allRows){
+  var filterEl=document.getElementById('tab-filters');
+  if(!filterEl)return;
+  filterEl.innerHTML='';
+  if(!ch.filterType){filterEl.style.display='none';return;}
+  filterEl.style.display='';
+
+  var label=document.createElement('span');
+  label.style.cssText='font-size:.8rem;font-weight:800;color:var(--muted);margin-right:.5rem;';
+  label.textContent=ch.filterType==='population'?'Population :':'Nutriment :';
+  filterEl.appendChild(label);
+
+  var opts=ch.filterOptions||[];
+  opts.forEach(function(opt){
+    var btn=document.createElement('button');
+    btn.textContent=opt;
+    btn.dataset.filter=opt;
+    btn.className='tab-filter-btn';
+    btn.onclick=function(){
+      tabFilter=opt;tabPage=0;
+      filterEl.querySelectorAll('.tab-filter-btn').forEach(function(b){
+        b.classList.toggle('active',b.dataset.filter===opt);
+      });
+      applyTabFilter(allRows);
+    };
+    // Activer le premier bouton par défaut
+    if(opt===tabFilter)btn.classList.add('active');
+    filterEl.appendChild(btn);
+  });
+}
+
+function applyTabFilter(allRows){
+  // Filtrer selon le groupe
+  var filtered=tabFilter?allRows.filter(function(r){return r.group===tabFilter;}):allRows;
+  // Mélanger seulement pour les teneurs (pas pour RNP)
+  var ch0=TABLEAU_CHAPITRES[0]||{};
+  if(ch0.filterType!=='population'){
+    for(var i=filtered.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=filtered[i];filtered[i]=filtered[j];filtered[j]=t;}
+  }
+  tabRows=filtered;
+  tabOk=0;tabErr=0;tabPage=0;
+  document.getElementById('tab-result').classList.remove('show');
+  var tb=document.getElementById('tab-retry-live');if(tb)tb.style.display='none';
+  renderTabPage();
+  renderTabBlocs();
+}
+
+function renderTabBlocs(){
+  var blocsEl=document.getElementById('tab-blocs');
+  if(!blocsEl)return;
+  blocsEl.innerHTML='';
+  var total=tabRows.length;
+  var totalPages=Math.ceil(total/tabPageSize);
+  if(totalPages<=1){blocsEl.style.display='none';return;}
+  blocsEl.style.display='flex';
+
+  for(var p=0;p<totalPages;p++){
+    var btn=document.createElement('button');
+    btn.textContent='Bloc '+(p+1);
+    btn.dataset.page=p;
+    btn.className='tab-bloc-btn'+(p===tabPage?' active':'');
+    btn.onclick=(function(pg){return function(){
+      tabPage=pg;
+      document.querySelectorAll('.tab-bloc-btn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.page)===pg);});
+      renderTabPage();
+    };})(p);
+    blocsEl.appendChild(btn);
+  }
+}
+
 function renderTabPage(){
   var ch=TABLEAU_CHAPITRES[0]||{};
   var start=tabPage*tabPageSize;
   var pageRows=tabRows.slice(start,start+tabPageSize);
   var total=tabRows.length;
-  var pageNum=tabPage+1;
   var totalPages=Math.ceil(total/tabPageSize);
-  document.getElementById('tab-sh').innerHTML='&#128202; Tableau de valeurs &mdash; Bloc '+pageNum+'/'+totalPages+' <span class="badge">&times;'+pageRows.length+'</span>';
-  document.getElementById('tab-level').textContent='Completez les cases (reponse exacte ou +/-5%)';
+
+  document.getElementById('tab-sh').innerHTML='📊 '+(ch.filterType==='population'?tabFilter:tabFilter||ch.name)+' <span class="badge">×'+pageRows.length+'</span>';
+  document.getElementById('tab-level').textContent='Complétez les cases (réponse exacte ou ±5%)';
   document.getElementById('tab-sub').textContent='';
-  var s='<div class="vt-table-wrap"><table class="vt-table"><thead><tr><th>'+(ch.tabHeader||'Nutriment / situation')+'</th><th style="width:130px">Valeur</th></tr></thead><tbody>';
+
+  var header=ch.tabHeader||'Nutriment / situation';
+  var s='<div class="vt-table-wrap"><table class="vt-table"><thead><tr><th>'+header+'</th><th style="width:130px">Valeur</th></tr></thead><tbody>';
   pageRows.forEach(function(row,i){
+    var refVal=row.numval?row.numval.replace(',','.'):row.val.toString().replace(',','.');
     s+='<tr><td>'+row.label+'</td><td><div class="vt-inp-cell">'+
-      '<input class="vt-num-inp" id="vti'+i+'" data-v="'+row.val+'" data-t="'+row.tol+'" data-r="'+row.val.replace(',','.')+'" type="text" placeholder="?" autocomplete="off">'+
+      '<input class="vt-num-inp" id="vti'+i+'" data-v="'+row.val+'" data-t="'+row.tol+'" data-r="'+refVal+'" type="text" placeholder="?" autocomplete="off">'+
       '<span class="vt-unit">'+row.unit+'</span>'+
       '<span class="vt-correction" id="vtc'+i+'" style="display:none"></span>'+
       '</div></td></tr>';
   });
   s+='</tbody></table></div>';
   document.getElementById('tab-content').innerHTML=s;
-  // Bouton valider ou continuer
-  document.getElementById('tab-btn-wrap').innerHTML='<button class="ex-btn" onclick="validerTabPage()">Valider ce bloc &#10003;</button>';
+  document.getElementById('tab-btn-wrap').innerHTML='<button class="ex-btn" onclick="validerTabPage()">Valider ce bloc ✓</button>';
   document.getElementById('tab-result').classList.remove('show');
 }
+
 function validerTabPage(){
   var start=tabPage*tabPageSize;
   var pageRows=tabRows.slice(start,start+tabPageSize);
@@ -1114,7 +1262,8 @@ function validerTabPage(){
     var ref=parseFloat(inp.dataset.r);
     var tol=parseFloat(inp.dataset.t||0);
     var raw=inp.value.trim().replace(',','.');
-    var user=parseFloat(raw);var ok=false;
+    var user=parseFloat(raw);
+    var ok=false;
     if(!isNaN(ref)&&!isNaN(user)){
       if(tol>0)ok=Math.abs(user-ref)/ref*100<=tol;
       else ok=(raw===String(ref))||(inp.value.trim()===inp.dataset.v);
@@ -1122,39 +1271,159 @@ function validerTabPage(){
     if(ok){ok_count++;inp.classList.add('correct');inp.disabled=true;}
     else{err_count++;inp.classList.add('wrong');inp.disabled=true;
       var c=document.getElementById('vtc'+i);
-      if(c){c.textContent='-> '+inp.dataset.v;c.style.display='inline';}
+      if(c){c.textContent='→ '+inp.dataset.v;c.style.display='inline';}
     }
   });
   tabOk+=ok_count;tabErr+=err_count;
-  var hasNext=(tabPage+1)*tabPageSize<tabRows.length;
-  if(hasNext){
-    document.getElementById('tab-btn-wrap').innerHTML=
-      '<div style="text-align:center;margin-top:1rem;">'+
-      '<strong style="color:var(--green)">&#10003; '+ok_count+'</strong> correctes &nbsp; <strong style="color:var(--coral)">&#10007; '+err_count+'</strong> erreurs'+
-      '</div>'+
-      '<div style="text-align:center;margin-top:.8rem;"><button class="ex-btn" onclick="nextTabPage()">Bloc suivant &#8594;</button></div>';
-  }else{
-    // Fin du tableau
+  if(tabErr>0){var tb=document.getElementById('tab-retry-live');if(tb)tb.style.display='inline-block';}
+  // Vérifier si c'est la fin
+  var totalPages=Math.ceil(tabRows.length/tabPageSize);
+  var isLast=(tabPage+1>=totalPages);
+  if(isLast){
     var total=tabOk+tabErr;
     var pct=total>0?Math.round(tabOk/total*100):0;
     document.getElementById('tab-rs').textContent=tabOk+'/'+total;
     showMention('tab-mention',pct);
-    document.getElementById('tab-rm').textContent=pct>=80?'Parfait !':pct>=60?'Bien joue !':'Continue !';
+    document.getElementById('tab-rm').textContent=pct>=80?'Parfait !':pct>=60?'Bien joué !':'Continue !';
     document.getElementById('tab-rg').innerHTML=
       '<div class="ex-sbox"><div class="ex-snum">'+tabOk+'</div><div class="ex-slbl">Correct</div></div>'+
       '<div class="ex-sbox"><div class="ex-snum">'+tabErr+'</div><div class="ex-slbl">Erreur</div></div>'+
-      '<div class="ex-sbox"><div class="ex-snum">'+pct+'%</div><div class="ex-slbl">Reussite</div></div>';
+      '<div class="ex-sbox"><div class="ex-snum">'+pct+'%</div><div class="ex-slbl">Réussite</div></div>';
     document.getElementById('tab-btn-wrap').style.display='none';
     document.getElementById('tab-result').classList.add('show');
+  } else {
+    document.getElementById('tab-btn-wrap').innerHTML=
+      '<div style="text-align:center;margin-top:.8rem;">'+
+      '<strong style="color:var(--green)">✓ '+ok_count+'</strong> correctes &nbsp;'+
+      '<strong style="color:var(--coral)">✗ '+err_count+'</strong> erreurs'+
+      '</div>';
   }
 }
+
 function nextTabPage(){
   tabPage++;
   renderTabPage();
+  document.querySelectorAll('.tab-bloc-btn').forEach(function(b){
+    b.classList.toggle('active',parseInt(b.dataset.page)===tabPage);
+  });
 }
 
-/* INIT */
+
+
+function buildGridDemo(){
+  buildGrid();
+  var _origToggle = toggleChap;
+  toggleChap = function(id){
+    var ch = CHAPITRES.find(function(c){return c.id===id;});
+    if(ch && ch.locked) return;
+    _origToggle(id);
+  };
+  CHAPITRES.forEach(function(ch){
+    if(!ch.locked) return;
+    var card = document.getElementById('card-'+ch.id);
+    if(!card) return;
+    card.style.opacity='0.4';
+    card.style.cursor='not-allowed';
+    card.style.pointerEvents='none';
+    var name = card.querySelector('.chap-name');
+    if(name && !name.textContent.startsWith('🔒')) name.textContent = '🔒 ' + name.textContent;
+  });
+}
+
+function renderQzBlocs(){
+  var el=document.getElementById('qz-blocs');if(!el)return;
+  var total=qzDeck.length,pages=Math.ceil(total/QZ_PAGE);
+  if(pages<=1){el.style.display='none';return;}
+  el.style.display='flex';el.innerHTML='';
+  for(var p=0;p<pages;p++){
+    var btn=document.createElement('button');
+    btn.textContent='Bloc '+(p+1);btn.dataset.page=p;
+    btn.className='tab-bloc-btn'+(p===0?' active':'');
+    btn.onclick=(function(pg){return function(){
+      qzBlock=pg;loadQzBlock(pg);
+      el.querySelectorAll('.tab-bloc-btn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.page)===pg);});
+    };})(p);
+    el.appendChild(btn);
+  }
+}
+function loadQzBlock(pg){
+  var start=pg*QZ_PAGE;
+  window._qzBlockDeck=qzDeck.slice(start,start+QZ_PAGE);
+  qzIdx=0;qzBlock=pg;
+  var end=Math.min(start+QZ_PAGE,qzDeck.length);
+  document.getElementById('qz-tot').textContent=window._qzBlockDeck.length;
+  // Suivi numérique : "Bloc X · Questions Y à Z"
+  var qnum=document.getElementById('qz-qnum');
+  if(qnum) qnum.dataset.blockStart=start;
+  document.getElementById('qz-result').classList.remove('show');
+  document.getElementById('qz-card').style.display='flex';
+  // Mettre à jour les boutons blocs
+  document.querySelectorAll('#qz-blocs .tab-bloc-btn').forEach(function(b){
+    b.classList.toggle('active',parseInt(b.dataset.page)===pg);
+  });
+  renderQcm();
+}
+function renderBlBlocs(){
+  var el=document.getElementById('bl-blocs');if(!el)return;
+  var total=blDeck.length,pages=Math.ceil(total/BL_PAGE);
+  if(pages<=1){el.style.display='none';return;}
+  el.style.display='flex';el.innerHTML='';
+  for(var p=0;p<pages;p++){
+    var btn=document.createElement('button');
+    btn.textContent='Bloc '+(p+1);btn.dataset.page=p;
+    btn.className='tab-bloc-btn'+(p===0?' active':'');
+    btn.onclick=(function(pg){return function(){
+      blBlock=pg;loadBlBlock(pg);
+      el.querySelectorAll('.tab-bloc-btn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.page)===pg);});
+    };})(p);
+    el.appendChild(btn);
+  }
+}
+function loadBlBlock(pg){
+  var start=pg*BL_PAGE;
+  window._blBlockDeck=blDeck.slice(start,start+BL_PAGE);
+  blIdx=0;blBlock=pg;
+  var blqnum=document.getElementById('bl-qnum');
+  if(blqnum) blqnum.dataset.blockStart=start;
+  document.getElementById('bl-result').classList.remove('show');
+  document.getElementById('bl-card').style.display='';
+  document.querySelectorAll('#bl-blocs .tab-bloc-btn').forEach(function(b){
+    b.classList.toggle('active',parseInt(b.dataset.page)===pg);
+  });
+  renderBlank();
+}
+function renderFcBlocs(){
+  var el=document.getElementById('fc-blocs');if(!el)return;
+  var deck=window._fcFullDeck||FC_DATA;
+  var total=deck.length,pages=Math.ceil(total/FC_PAGE);
+  if(pages<=1){el.style.display='none';return;}
+  el.style.display='flex';el.innerHTML='';
+  for(var p=0;p<pages;p++){
+    var btn=document.createElement('button');
+    btn.textContent='Bloc '+(p+1);btn.dataset.page=p;
+    btn.className='tab-bloc-btn'+(p===0?' active':'');
+    btn.onclick=(function(pg){return function(){
+      fcBlock=pg;loadFcBlock(pg);
+      el.querySelectorAll('.tab-bloc-btn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.page)===pg);});
+    };})(p);
+    el.appendChild(btn);
+  }
+}
+function loadFcBlock(pg){
+  var deck=window._fcFullDeck||FC_DATA;
+  var start=pg*FC_PAGE;
+  window._fcDeck=deck.slice(start,start+FC_PAGE);
+  fcIdx=0;fcFlippedState=false;fcBlock=pg;
+  document.getElementById('fc-result').classList.remove('show');
+  document.getElementById('fc-tot').textContent=deck.length;
+  document.querySelectorAll('#fc-blocs .tab-bloc-btn').forEach(function(b){
+    b.classList.toggle('active',parseInt(b.dataset.page)===pg);
+  });
+  renderFlash();
+}
+
 buildGrid();
+buildGridDemo();
 
 </script>
 
